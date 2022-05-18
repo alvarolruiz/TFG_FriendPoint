@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardCornerRadius="2dp"
+        app:cardElevation="100dp"
+        app:cardPreventCornerOverlap="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_circle"
+                android:layout_width="@dimen/item_foto_size"
+                android:layout_height="@dimen/item_foto_size"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="24dp"
+                android:layout_marginBottom="4dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/imagen_ejemplo"
+                app:civ_border_color="#323232"
+                app:civ_border_overlay="false"
+                app:civ_border_width="3dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="@dimen/item_icon_size"
+                android:layout_height="@dimen/item_icon_size"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/logo_fp"
+                app:layout_constraintStart_toEndOf="@+id/iv_circle"
+                app:layout_constraintTop_toTopOf="@+id/iv_circle" />
+
+            <TextView
+                android:id="@+id/tv_plan"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:fontFamily="sans-serif-light"
+                android:text="Bebiendo Cerveza"
+                android:textColor="#000000"
+                android:textSize="@dimen/item_text_size"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView"
+                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintTop_toTopOf="@+id/imageView" />
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="@dimen/item_icon_size"
+                android:layout_height="@dimen/item_icon_size"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="16dp"
+                android:src="@drawable/ic_baseline_my_location_24"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_circle"
+                app:layout_constraintStart_toEndOf="@+id/iv_circle" />
+
+            <TextView
+                android:id="@+id/tv_ubi"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:fontFamily="sans-serif-light"
+                android:text="Viapol"
+                android:textColor="#000000"
+                android:textSize="@dimen/item_text_size"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+                app:layout_constraintStart_toEndOf="@+id/imageView2"
+                app:layout_constraintTop_toTopOf="@+id/imageView2" />
+
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="16dp"
+                android:src="@drawable/circle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/iv_circle" />
+
+            <Space
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:background="#000000"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_circle" />
+
+            <TextView
+                android:id="@+id/tv_numero_miembros"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="100"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/item_members_text_size"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+                app:layout_constraintEnd_toEndOf="@+id/imageView3"
+                app:layout_constraintStart_toStartOf="@+id/imageView3"
+                app:layout_constraintTop_toTopOf="@+id/imageView3" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

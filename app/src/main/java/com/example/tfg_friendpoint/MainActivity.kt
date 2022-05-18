@@ -19,12 +19,14 @@ class MainActivity : AppCompatActivity() {
         setupBottomNav()
     }
 
-    private fun setupBottomNav(){
+    private fun setupBottomNav() {
         mFragmentManager = supportFragmentManager
         val homeFragment = HomeFragment()
         val friendPointFragment = FriendPointFragment()
         val chatFragment = ChatFragment()
+
         mActiveFragment = ChatFragment()
+
         mFragmentManager.beginTransaction()
             .add(R.id.mFrameLayout, homeFragment, HomeFragment::class.java.name)
             .hide(homeFragment).commit()
@@ -33,7 +35,26 @@ class MainActivity : AppCompatActivity() {
             .hide(friendPointFragment).commit()
         mFragmentManager.beginTransaction()
             .add(R.id.mFrameLayout, chatFragment, ChatFragment::class.java.name).commit()
+        mBinding.bottomNav.setOnItemSelectedListener {
+            when(it.itemId){
+                R.id.action_home -> {
+                    mFragmentManager.beginTransaction().hide(mActiveFragment).show(homeFragment).show(homeFragment).commit()
+                    mActiveFragment = homeFragment
+                    true
+                }
+                R.id.action_fp_center -> {
+                    mFragmentManager.beginTransaction().hide(mActiveFragment).show(friendPointFragment).commit()
+                    mActiveFragment = friendPointFragment
+                    true
+                }
+                R.id.action_chats -> {
+                    mFragmentManager.beginTransaction().hide(mActiveFragment).show(chatFragment).commit()
+                    mActiveFragment = chatFragment
+                    true
+                }
+                else -> false
+            }
+        }
 
-       
     }
 }
