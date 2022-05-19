@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "190262731222",
+    "project_id": "friendpoint-2be27",
+    "storage_bucket": "friendpoint-2be27.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:190262731222:android:a919616d65cf609503c477",
+        "android_client_info": {
+          "package_name": "com.example.tfg_friendpoint"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "190262731222-6js1o0avvhk7iopqlho6vdsfo6elbk6a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRr1w0OMfyz2Ph6N14dHEFXtMvmzL0e5g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "190262731222-6js1o0avvhk7iopqlho6vdsfo6elbk6a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -17,6 +17,11 @@
         <entry key="..\:/Users/ALVARO/AndroidStudioProjects/TFG_FriendPoint/app/src/main/res/layout/friend_point_layout.xml" value="0.1" />
         <entry key="..\:/Users/ALVARO/AndroidStudioProjects/TFG_FriendPoint/app/src/main/res/layout/list_item_friend_point.xml" value="0.33" />
         <entry key="..\:/Users/ALVARO/AndroidStudioProjects/TFG_FriendPoint/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1" />
+        <entry key="..\:/Users/alaurino/AndroidStudioProjects/TFG_FriendPoint/app/src/main/res/drawable-anydpi/ic_email.xml" value="0.196" />
+        <entry key="..\:/Users/alaurino/AndroidStudioProjects/TFG_FriendPoint/app/src/main/res/drawable-anydpi/ic_lock_password.xml" value="0.196" />
+        <entry key="..\:/Users/alaurino/AndroidStudioProjects/TFG_FriendPoint/app/src/main/res/layout/activity_auth.xml" value="0.33" />
+        <entry key="..\:/Users/alaurino/AndroidStudioProjects/TFG_FriendPoint/app/src/main/res/layout/list_item_friend_point.xml" value="0.22" />
+        <entry key="..\:/Users/alaurino/AndroidStudioProjects/TFG_FriendPoint/app/src/main/res/layout/view_details_friend_point.xml" value="0.1" />
       </map>
     </option>
   </component>
