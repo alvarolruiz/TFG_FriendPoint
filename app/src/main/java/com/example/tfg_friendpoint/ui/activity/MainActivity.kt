@@ -1,4 +1,4 @@
-package com.example.tfg_friendpoint
+package com.example.tfg_friendpoint.ui.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -6,6 +6,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.example.tfg_friendpoint.R
 import com.example.tfg_friendpoint.databinding.ActivityMainBinding
+import com.example.tfg_friendpoint.ui.fragments.ChatFragment
+import com.example.tfg_friendpoint.ui.fragments.FriendPointFragment
+import com.example.tfg_friendpoint.ui.fragments.HomeFragment
 
 class MainActivity : AppCompatActivity() {
 

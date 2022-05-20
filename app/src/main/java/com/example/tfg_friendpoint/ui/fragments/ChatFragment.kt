@@ -1,4 +1,4 @@
-package com.example.tfg_friendpoint
+package com.example.tfg_friendpoint.ui.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
