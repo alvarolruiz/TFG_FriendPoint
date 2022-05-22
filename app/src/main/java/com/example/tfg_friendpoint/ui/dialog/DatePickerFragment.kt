@@ -2,39 +2,27 @@ package com.example.tfg_friendpoint.ui.dialog
 
 import android.app.DatePickerDialog
 import android.app.Dialog
+import android.content.Context
 import android.os.Bundle
 import android.widget.DatePicker
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.FragmentActivity
-import com.example.tfg_friendpoint.ui.activity.RegisterActivity
+import com.example.tfg_friendpoint.R
 import java.util.*
 
-class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener {
+class DatePickerFragment (val listener: (day: Int, month: Int, year: Int) -> Unit):DialogFragment(),
+    DatePickerDialog.OnDateSetListener{
+    override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
+         listener(dayOfMonth, month, year)
+    }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        // Use the current date as the default date in the picker
         val c = Calendar.getInstance()
-        val year = c.get(Calendar.YEAR)
-        val month = c.get(Calendar.MONTH)
         val day = c.get(Calendar.DAY_OF_MONTH)
+        val month = c.get(Calendar.MONTH)
+        val year = c.get(Calendar.YEAR)
 
-        // Create a new instance of DatePickerDialog and return it
-        return DatePickerDialog(activity, this, year, month, day)
+        val picker = DatePickerDialog(activity as Context, R.style.datePickerTheme,this, year, month, day)
+        picker.datePicker.maxDate = c.timeInMillis
+        return picker
     }
-
-    private fun DatePickerDialog(
-        activity: FragmentActivity?,
-        datePickerFragment: DatePickerFragment,
-        year: Int,
-        month: Int,
-        day: Int
-    ): DatePickerDialog {
-        TODO("Not yet implemented")
-    }
-
-
-    override fun onDateSet(view: DatePicker, year: Int, month: Int, day: Int) {
-        // Do something with the date chosen by the user
-    }
-
 }

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.RegisterActivity">
+    tools:context=".ui.activity.RegisterActivity">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
@@ -56,36 +56,14 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_email" />
 
             <TextView
-                android:id="@+id/tv_contraseña"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/actor"
-                android:text="Contraseña"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="@+id/et_email"
-                app:layout_constraintTop_toBottomOf="@+id/et_email" />
-
-            <EditText
-                android:id="@+id/et_contraseña"
-                style="@android:style/Widget.Material.Light.AutoCompleteTextView"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:drawableLeft="@drawable/ic_lock_password"
-                app:layout_constraintStart_toStartOf="@+id/tv_contraseña"
-                app:layout_constraintTop_toBottomOf="@+id/tv_contraseña" />
-
-            <TextView
                 android:id="@+id/tv_nickName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:fontFamily="@font/actor"
                 android:text="Nickname"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="@+id/et_contraseña"
-                app:layout_constraintTop_toBottomOf="@+id/et_contraseña" />
+                app:layout_constraintTop_toBottomOf="@+id/et_email" />
 
             <EditText
                 android:id="@+id/et_nickName"
@@ -115,22 +93,45 @@
                 android:layout_marginTop="8dp"
                 android:clickable="true"
                 android:focusable="false"
+                android:drawableLeft="@drawable/ic_calendar"
                 android:hint="Selecciona una fecha"
                 android:inputType="date"
                 android:maxLines="1"
                 app:layout_constraintStart_toStartOf="@+id/tv_fechaNacimiento"
                 app:layout_constraintTop_toBottomOf="@+id/tv_fechaNacimiento" />
 
+            <EditText
+                android:id="@+id/et_contraseña"
+                style="@android:style/Widget.Material.Light.AutoCompleteTextView"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:drawableLeft="@drawable/ic_lock_password"
+                app:layout_constraintStart_toStartOf="@+id/tv_contraseña"
+                app:layout_constraintTop_toBottomOf="@+id/tv_contraseña" />
+
+            <TextView
+                android:id="@+id/tv_contraseña"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/actor"
+                android:text="Contraseña"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@+id/et_email"
+                app:layout_constraintTop_toBottomOf="@+id/et_fechaNacimiento" />
+
             <Button
                 android:id="@+id/button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="32dp"
-
                 android:text="Continuar"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/et_fechaNacimiento" />
+
+
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
