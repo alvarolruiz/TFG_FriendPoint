@@ -8,9 +8,13 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
-        android:layout_width="350dp"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        app:cardBackgroundColor="#2FFFFFFF"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        app:cardBackgroundColor="#FFFFFF"
         app:cardCornerRadius="4dp"
         app:cardElevation="6dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -26,23 +30,27 @@
                 android:id="@+id/tv_Info"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="32dp"
                 android:fontFamily="@font/actor"
+                android:gravity="center"
                 android:text="Registro usuario"
+                android:textAlignment="center"
                 android:textSize="30dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tv_email"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="64dp"
                 android:fontFamily="@font/actor"
                 android:text="Email"
                 android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="@+id/tv_Info"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.14"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_Info" />
 
             <EditText
@@ -52,6 +60,7 @@
                 android:layout_height="40dp"
                 android:layout_marginTop="8dp"
                 android:drawableLeft="@drawable/ic_email"
+                android:fontFamily="@font/actor"
                 app:layout_constraintStart_toStartOf="@+id/tv_email"
                 app:layout_constraintTop_toBottomOf="@+id/tv_email" />
 
@@ -59,11 +68,12 @@
                 android:id="@+id/tv_nickName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
                 android:fontFamily="@font/actor"
                 android:text="Nickname"
                 android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="@+id/et_contraseña"
-                app:layout_constraintTop_toBottomOf="@+id/et_email" />
+                app:layout_constraintStart_toStartOf="@+id/et_contrasena"
+                app:layout_constraintTop_toBottomOf="@+id/et_contrasena" />
 
             <EditText
                 android:id="@+id/et_nickName"
@@ -72,6 +82,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:drawableLeft="@drawable/ic_nickname"
+                android:fontFamily="@font/actor"
                 app:layout_constraintStart_toStartOf="@+id/tv_nickName"
                 app:layout_constraintTop_toBottomOf="@+id/tv_nickName" />
 
@@ -79,7 +90,7 @@
                 android:id="@+id/tv_fechaNacimiento"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="32dp"
                 android:fontFamily="@font/actor"
                 android:text="Fecha nacimiento"
                 android:textSize="20sp"
@@ -92,8 +103,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:clickable="true"
-                android:focusable="false"
                 android:drawableLeft="@drawable/ic_calendar"
+                android:focusable="false"
+                android:fontFamily="@font/actor"
                 android:hint="Selecciona una fecha"
                 android:inputType="date"
                 android:maxLines="1"
@@ -101,12 +113,13 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_fechaNacimiento" />
 
             <EditText
-                android:id="@+id/et_contraseña"
+                android:id="@+id/et_contrasena"
                 style="@android:style/Widget.Material.Light.AutoCompleteTextView"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:drawableLeft="@drawable/ic_lock_password"
+                android:fontFamily="@font/actor"
                 app:layout_constraintStart_toStartOf="@+id/tv_contraseña"
                 app:layout_constraintTop_toBottomOf="@+id/tv_contraseña" />
 
@@ -114,24 +127,27 @@
                 android:id="@+id/tv_contraseña"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="32dp"
                 android:fontFamily="@font/actor"
                 android:text="Contraseña"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="@+id/et_email"
-                app:layout_constraintTop_toBottomOf="@+id/et_fechaNacimiento" />
+                app:layout_constraintTop_toBottomOf="@+id/et_email" />
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/btn_continuar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="32dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="32dp"
+                android:backgroundTint="@color/blue_fp"
+                android:fontFamily="@font/actor"
                 android:text="Continuar"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/et_fechaNacimiento" />
-
-
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_fechaNacimiento"
+                app:layout_constraintVertical_bias="0.48000002" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

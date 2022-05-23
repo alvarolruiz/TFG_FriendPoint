@@ -1,20 +1,45 @@
 package com.example.tfg_friendpoint.ui.activity
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import com.example.tfg_friendpoint.R
+import com.example.tfg_friendpoint.databinding.ActivityRegisterBinding
 import com.example.tfg_friendpoint.ui.dialog.DatePickerFragment
 
 class RegisterActivity : AppCompatActivity() {
-    lateinit var etFechaNacimiento: EditText;
+
+    private lateinit var mBinding: ActivityRegisterBinding
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_register)
-        etFechaNacimiento = findViewById<EditText>(R.id.et_fechaNacimiento)
-        etFechaNacimiento.setOnClickListener {
+        mBinding = ActivityRegisterBinding.inflate(layoutInflater)
+        val view = mBinding.root
+        setContentView(view)
+        setupDatePickerEditText()
+        setupBtnContinuar()
+
+
+    }
+
+    private fun setupDatePickerEditText(){
+        mBinding.etFechaNacimiento.setOnClickListener {
             showDatePickerDialog()
+        }
+    }
+
+    private fun setupBtnContinuar(){
+        mBinding.btnContinuar.setOnClickListener {
+            val registerActivity2 = Intent(this, RegisterActivity2::class.java).apply {
+                putExtra("email", mBinding.etEmail.text.toString())
+                putExtra("contraseña", mBinding.etContrasena.text.toString())
+                putExtra("fechaNacimiento", mBinding.etFechaNacimiento.text.toString())
+                putExtra("nickName", mBinding.etNickName.text.toString())
+            }
+            startActivity(registerActivity2)
         }
     }
 
@@ -30,6 +55,6 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     fun onDateSelected(day: Int, month: Int, year: Int) {
-        etFechaNacimiento.setText("$day/$month/$year")
+        mBinding.etFechaNacimiento.setText("$day/$month/$year")
     }
 }

@@ -7,29 +7,48 @@
     android:background="#FFFFFF"
     tools:context=".ui.activity.AuthActivity">
 
-    <ImageView
-        android:id="@+id/iv_logo"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:layout_marginTop="32dp"
-        android:src="@drawable/logo_fp"
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/iv_logo"
+            android:layout_width="230dp"
+            android:layout_height="230dp"
+            android:layout_marginTop="24dp"
+            android:src="@drawable/logo_fp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/actor"
+            android:text="Friend Point"
+            android:textSize="34sp"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </LinearLayout>
+
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        app:cardBackgroundColor="#2FFFFFFF"
+        android:layout_width="370dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="24dp"
+        app:cardBackgroundColor="#16FFFFFF"
         app:cardCornerRadius="4dp"
-        app:cardElevation="6dp"
+        app:cardElevation="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_logo">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -40,28 +59,32 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:layout_marginBottom="24dp"
+                android:layout_marginBottom="32dp"
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/et_contraseña">
+                app:layout_constraintTop_toBottomOf="@+id/et_contrasena">
 
                 <Button
                     android:id="@+id/btn_login"
-                    android:layout_width="wrap_content"
+                    style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="#0971D8"
-                    android:text="Iniciar Sesión" />
+                    android:backgroundTint="@color/blue_fp"
+                    android:text="Iniciar Sesión"
+                    app:cornerRadius="@dimen/button_corner_radius" />
 
                 <Button
                     android:id="@+id/btn_registrar"
-                    android:layout_width="wrap_content"
+                    style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="24dp"
-                    android:backgroundTint="#0E6773"
+                    android:backgroundTint="@color/orange_fp"
                     android:backgroundTintMode="add"
-                    android:text="Registrarse" />
+                    android:text="Registrarse"
+                    app:cornerRadius="@dimen/button_corner_radius" />
             </LinearLayout>
 
             <TextView
@@ -69,7 +92,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="32dp"
                 android:fontFamily="@font/actor"
                 android:text="Iniciar Sesión"
                 android:textSize="30dp"
@@ -88,7 +111,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_Info" />
 
             <EditText
-                android:id="@+id/et_contraseña"
+                android:id="@+id/et_contrasena"
                 style="@android:style/Widget.Material.Light.AutoCompleteTextView"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"

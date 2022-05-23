@@ -7,26 +7,19 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import com.example.tfg_friendpoint.R
+import com.example.tfg_friendpoint.databinding.ActivityAuthBinding
+import com.example.tfg_friendpoint.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
 lateinit var mAuth : FirebaseAuth
-lateinit var btn_login: Button
-lateinit var btn_registro: Button
-lateinit var et_email: EditText
-lateinit var et_password: EditText
+lateinit var mBinding: ActivityAuthBinding
 
 class AuthActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_auth)
-        setViewElements()
+        mBinding = ActivityAuthBinding.inflate(layoutInflater)
+        val view =  mBinding.root
+        setContentView(view)
         configAuth()
-    }
-
-    private fun setViewElements() {
-        btn_login = findViewById(R.id.btn_login)
-        btn_registro = findViewById(R.id.btn_registrar)
-        et_email = findViewById(R.id.et_email)
-        et_password = findViewById(R.id.et_contraseña)
     }
 
     private fun configAuth() {
@@ -34,17 +27,14 @@ class AuthActivity : AppCompatActivity() {
         setupBotonLogin()
         setupBotonRegistro()
 
-
-
-
     }
 
     private fun setupBotonLogin(){
-        btn_login.setOnClickListener {
-            if (et_email.text.isNotEmpty() && et_password.text.isNotEmpty()) {
+        mBinding.btnLogin.setOnClickListener {
+            if (mBinding.etEmail.text.isNotEmpty() && mBinding.etContrasena.text.isNotEmpty()) {
                 mAuth.signInWithEmailAndPassword(
-                    et_email.text.toString(),
-                    et_password.text.toString()
+                    mBinding.etEmail.text.toString(),
+                    mBinding.etContrasena.text.toString()
                 ).addOnCompleteListener {
                     if (it.isSuccessful) {
                         showMainActivity(it.result?.user?.email ?: "")
@@ -59,7 +49,7 @@ class AuthActivity : AppCompatActivity() {
     }
 
     private fun setupBotonRegistro(){
-        btn_registro.setOnClickListener {
+            mBinding.btnRegistrar.setOnClickListener {
             showRegisterActivity()
         }
     }
@@ -84,9 +74,6 @@ class AuthActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    /*
-    <
-     */
     private fun showMainActivity(email: String) {
         val mainActivityIntent = Intent(this, MainActivity::class.java).apply {
             putExtra("email", email)
