@@ -20,32 +20,25 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.example.tfg_friendpoint.R
 import com.example.tfg_friendpoint.databinding.ActivityRegister2Binding
+import com.example.tfg_friendpoint.ui.model.Photo
+import com.google.firebase.storage.FirebaseStorage
 import java.io.File
 
 
 class RegisterActivity2 : AppCompatActivity() {
     private lateinit var mBinding: ActivityRegister2Binding
-    private lateinit var nickName: String
-    private lateinit var email: String
-    private lateinit var contrasena: String
-    private lateinit var fechaNacimiento: String
 
-    private lateinit var imageView: ImageView
-    private lateinit var file: File
-    private lateinit var uri : Uri
-    private lateinit var camIntent:Intent
-    private lateinit var galIntent:Intent
-    private lateinit var cropIntent:Intent
-    private lateinit var btnImg: Button
+    private var imageUri: Uri? = null
+    private val pickImage = 100
 
 
-    private val responseLauncher = registerForActivityResult(StartActivityForResult()) {
+    /*private val responseLauncher = registerForActivityResult(StartActivityForResult()) {
         if (it.resultCode == RESULT_OK) {
             val bitmap = it?.data?.extras?.get("data") as Bitmap
             mBinding.ivCircle.setImageBitmap(bitmap)
         }
 
-    }
+    }*/
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,157 +50,56 @@ class RegisterActivity2 : AppCompatActivity() {
         Y que se pueda guardar en firestore toda la información del usuario, a la vez que en firebase auth
         se registra un nuevo usuario. Una vez hecho esto se redigirá al usuario a la pagina principal
         */
-        enableRuntimePermission()
         mBinding.btnSeleccion.setOnClickListener {
             pickImageGalery()
         }
-    }
 
-
-
-private fun openDialog() {
-    val openDialog = AlertDialog.Builder(this@RegisterActivity2)
-    openDialog.setIcon(R.drawable.logo_fp)
-    openDialog.setTitle("Choose your Image in...!!")
-    openDialog.setPositiveButton("Camera") { dialog, _ ->
-        openCamera()
-        dialog.dismiss()
-
-    }
-    openDialog.setNegativeButton("Gallery") { dialog, _ ->
-        openGallery()
-        dialog.dismiss()
-    }
-    openDialog.setNeutralButton("Cancel") { dialog, _ ->
-        dialog.dismiss()
-    }
-    openDialog.create()
-    openDialog.show()
-
-}
-
-private fun openGallery() {
-    galIntent = Intent(
-        Intent.ACTION_PICK,
-        MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-    )
-    startActivityForResult(
-        Intent.createChooser(
-            galIntent,
-            "Select Image From Gallery "
-        ), 2
-    )
-}
-
-private fun openCamera() {
-    camIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-    file = File(
-        Environment.getExternalStorageDirectory(),
-        "file" + System.currentTimeMillis().toString() + ".jpg"
-    )
-    uri = Uri.fromFile(file)
-    camIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
-    camIntent.putExtra("return-data", true)
-    startActivityForResult(camIntent, 0)
-}
-
-private fun enableRuntimePermission() {
-    if (ActivityCompat.shouldShowRequestPermissionRationale(
-            this@RegisterActivity2, Manifest.permission.CAMERA
-        )
-    ) {
-        Toast.makeText(
-            this@RegisterActivity2,
-            "Camera Permission allows us to Camera App",
-            Toast.LENGTH_SHORT
-        ).show()
-    } else {
-        ActivityCompat.requestPermissions(
-            this@RegisterActivity2,
-            arrayOf(Manifest.permission.CAMERA), RequestPermissionCode
-        )
-    }
-}
-
-private fun cropImages() {
-    /**set crop image*/
-    try {
-        cropIntent = Intent("com.android.camera.action.CROP")
-        cropIntent.setDataAndType(uri, "image/*")
-        cropIntent.putExtra("crop", true)
-        cropIntent.putExtra("outputX", 180)
-        cropIntent.putExtra("outputY", 180)
-        cropIntent.putExtra("aspectX", 3)
-        cropIntent.putExtra("aspectY", 4)
-        cropIntent.putExtra("scaleUpIfNeeded", true)
-        cropIntent.putExtra("return-data", true)
-        startActivityForResult(cropIntent, 1)
-
-    } catch (e: ActivityNotFoundException) {
-        e.printStackTrace()
-    }
-}
-
-override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-    super.onActivityResult(requestCode, resultCode, data)
-    if (requestCode == 0 && resultCode == RESULT_OK) {
-        cropImages()
-    } else if (requestCode == 2) {
-        if (data != null) {
-            uri = data.data!!
-            cropImages()
-        }
-    } else if (requestCode == 1) {
-        if (data != null) {
-            val bundle = data.extras
-            val bitmap = bundle!!.getParcelable<Bitmap>("data")
-            mBinding.ivCircle.setImageBitmap(bitmap)
+        mBinding.btnCompletarRegistro.setOnClickListener {
+            uploadImage()
         }
     }
-}
 
-override fun onRequestPermissionsResult(
-    requestCode: Int,
-    permissions: Array<out String>,
-    grantResults: IntArray
-) {
-    super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-    when (requestCode) {
-        RequestPermissionCode -> if (grantResults.size > 0
-            && grantResults[0] == PackageManager.PERMISSION_GRANTED
-        ) {
-            Toast.makeText(
-                this@RegisterActivity2,
-                "Permission Granted , Now your application can access Camera",
-                Toast.LENGTH_SHORT
-            ).show()
-        } else {
-            Toast.makeText(
-                this@RegisterActivity2,
-                "Permission Granted , Now your application can not  access Camera",
-                Toast.LENGTH_SHORT
-            ).show()
+    private fun pickImageGalery() {
+        val gallery = Intent()
+        gallery.action=Intent.ACTION_GET_CONTENT
+        gallery.type="image/*"
+
+        startActivityForResult(Intent.createChooser(gallery, "Select Picture"), pickImage);
+
+    }
+
+    // El nombre de la imagen guardada es el que hay en el parentesis de child, darle un identificador unico
+    private fun uploadImage(){
+        val storageRef = FirebaseStorage.getInstance().reference.child("images")
+        imageUri?.let{ uri ->
+            mBinding?.let {
+                storageRef.putFile(uri)
+                    .addOnSuccessListener {
+                        it.storage.downloadUrl.addOnSuccessListener { downloadUrl ->
+                            Log.i("URL", downloadUrl.toString())
+                        }
+                    }
+            }
+
         }
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK && requestCode == pickImage) {
+            imageUri = data?.data
+            val photo = Photo(localUri = imageUri.toString())
+            mBinding.ivCircle.setImageURI(imageUri)
+        }
+    }
+
+    /**
+     * Vamos a tener una coleccion de usuarios en firestore, y por cada uno tendremos un documento.
+     * Por otro lado tendremos por cada uno de los usuarrios una entrada en firebase storage con el mismo id.
+     * Primero habrá que guardar la foto del  usuario en firestore, y despues crear un documento
+     * con el mismo nombre para el usuario. Una vez alli se guardará el resto de la info del usuario
+     */
 }
 
 
-companion object {
-    const val RequestPermissionCode = 111
-}
 
-private fun pickImageGalery() {
-    val intent = Intent()
-    intent.type = "image/*"
-
-    intent.action = Intent.ACTION_GET_CONTENT
-    intent.addCategory(Intent.CATEGORY_OPENABLE)
-    startActivityForResult(intent, 1)
-    responseLauncher.launch(intent)
-}
-
-
-private fun getIntentData() {
-
-}
-}
