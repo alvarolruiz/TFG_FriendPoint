@@ -31,25 +31,16 @@ class RegisterActivity2 : AppCompatActivity() {
     private var imageUri: Uri? = null
     private val pickImage = 100
 
-
-    /*private val responseLauncher = registerForActivityResult(StartActivityForResult()) {
-        if (it.resultCode == RESULT_OK) {
-            val bitmap = it?.data?.extras?.get("data") as Bitmap
-            mBinding.ivCircle.setImageBitmap(bitmap)
-        }
-
-    }*/
-
+    //TODO: recibir la info del intent. Que se segistre al usuario y se almacene su info en firestore.
+    //Despues que se guarde su foto en storage con el id de usuario de firebase auth.
+    //se registra un nuevo usuario. Una vez hecho esto se redigirá al usuario al login principal.
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = ActivityRegister2Binding.inflate(layoutInflater)
         val view = mBinding.root
         setContentView(view)
-        /*TODO: recibir la info del intent. Implementar la lógica para poder seleccionar una foto
-        Y que se pueda guardar en firestore toda la información del usuario, a la vez que en firebase auth
-        se registra un nuevo usuario. Una vez hecho esto se redigirá al usuario a la pagina principal
-        */
+
         mBinding.btnSeleccion.setOnClickListener {
             pickImageGalery()
         }
@@ -61,17 +52,17 @@ class RegisterActivity2 : AppCompatActivity() {
 
     private fun pickImageGalery() {
         val gallery = Intent()
-        gallery.action=Intent.ACTION_GET_CONTENT
-        gallery.type="image/*"
+        gallery.action = Intent.ACTION_GET_CONTENT
+        gallery.type = "image/*"
 
         startActivityForResult(Intent.createChooser(gallery, "Select Picture"), pickImage);
 
     }
 
     // El nombre de la imagen guardada es el que hay en el parentesis de child, darle un identificador unico
-    private fun uploadImage(){
+    private fun uploadImage() {
         val storageRef = FirebaseStorage.getInstance().reference.child("images")
-        imageUri?.let{ uri ->
+        imageUri?.let { uri ->
             mBinding?.let {
                 storageRef.putFile(uri)
                     .addOnSuccessListener {
@@ -80,7 +71,6 @@ class RegisterActivity2 : AppCompatActivity() {
                         }
                     }
             }
-
         }
     }
 
