@@ -11,6 +11,8 @@
         android:id="@+id/linearLayout2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,8 +20,8 @@
 
         <ImageView
             android:id="@+id/iv_logo"
-            android:layout_width="230dp"
-            android:layout_height="230dp"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
             android:layout_marginTop="24dp"
             android:src="@drawable/logo_fp" />
 
@@ -40,9 +42,8 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="370dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="24dp"
         android:animateLayoutChanges="false"
@@ -62,8 +63,8 @@
                 android:id="@+id/linearLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="32dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="16dp"
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -98,7 +99,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="16dp"
                 android:fontFamily="@font/actor"
                 android:text="Iniciar Sesión"
                 android:textColor="@color/black"

@@ -54,7 +54,7 @@ class RegisterActivity : AppCompatActivity() {
         datePicker.show(supportFragmentManager, "datePicker")
     }
 
-    fun onDateSelected(day: Int, month: Int, year: Int) {
+    private fun onDateSelected(day: Int, month: Int, year: Int) {
         mBinding.etFechaNacimiento.setText("$day/$month/$year")
     }
 }
