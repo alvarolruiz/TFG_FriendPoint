@@ -1,10 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--List view item-->
     <dimen name="item_foto_size" >130dp</dimen>
     <dimen name="item_icon_size" >20dp</dimen>
     <dimen name="item_text_size">12dp</dimen>
     <dimen name="item_members_text_size">10dp</dimen>
-    <dimen name="button_corner_radius">5dp</dimen>
+    <!--RegisterActivity2-->
     <dimen name="rss_icon_size">40dp</dimen>
+    <!--View Details Friend Point-->
+    <dimen name="details_btn_width">140dp</dimen>
+    <dimen name="details_btn_icon_size">30dp</dimen>
+    <dimen name="details_btn_civ_size">20dp</dimen>
+
+    <!--Common-->
+    <dimen name="common_margin">16dp</dimen>
+    <dimen name="button_corner_radius">2dp</dimen>
+
+
+
 
 </resources>

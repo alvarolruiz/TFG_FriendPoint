@@ -67,8 +67,7 @@ class AuthActivity : AppCompatActivity() {
     private fun showUnfilledFieldsAlert() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Error")
-        builder.setMessage("Faltan campos por rellenar. " +
-                "Introduce tu email y contraseña o pulsa el boton Registrarse si no tienes cuenta")
+        builder.setMessage("Introduce tu email y contraseña o pulsa el boton Registrarse si no tienes cuenta")
         builder.setPositiveButton("Aceptar", null)
         val dialog: AlertDialog = builder.create()
         dialog.show()

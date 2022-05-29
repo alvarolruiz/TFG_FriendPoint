@@ -1,5 +1,6 @@
 package com.example.tfg_friendpoint.ui.activity
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -9,9 +10,12 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.tfg_friendpoint.databinding.ActivityRegister2Binding
 import com.example.tfg_friendpoint.ui.model.Photo
+import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.ktx.initialize
 import com.google.firebase.storage.FirebaseStorage
 
 
@@ -20,10 +24,11 @@ class RegisterActivity2 : AppCompatActivity() {
 
     private var imageUri: Uri? = null
     private val pickImage = 100
-    private lateinit var nickname: String
-    private lateinit var email: String
-    private lateinit var contraseña: String
-    private lateinit var fechaNacimiento: String
+    private var nickname: String = ""
+    private var email: String = ""
+    private var contraseña: String = ""
+    private var fechaNacimiento: String = ""
+    private lateinit var auth: FirebaseAuth
 
 
     //TODO: recibir la info del intent. Que se segistre al usuario y se almacene su info en firestore.
@@ -34,62 +39,64 @@ class RegisterActivity2 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         mBinding = ActivityRegister2Binding.inflate(layoutInflater)
         val view = mBinding.root
+        Firebase.initialize(this)
+        auth = Firebase.auth
         setContentView(view)
         getIntentData()
+
         mBinding.btnSeleccion.setOnClickListener {
             pickImageGalery()
         }
 
         mBinding.btnCompletarRegistro.setOnClickListener {
-            val userUid: String? = registerUserCredentials()
+            val userUid: String? = registerUserCredentials(email, contraseña)
+            Log.d("Btn", "uid: ${userUid}")
             if (!userUid.isNullOrEmpty()) {
-                saveUserData(userUid)
-                uploadImage(userUid)
-                showAuthActivity()
+
             }
         }
     }
 
     private fun getIntentData() {
-        email = intent.getStringExtra("email")!!
-        contraseña = intent.getStringExtra("contraseña")!!
-        fechaNacimiento = intent.getStringExtra("fechaNacimiento")!!
-        nickname = intent.getStringExtra("nickname")!!
-
-
+        val bundle = intent.extras
+        if (bundle != null) {
+            email = bundle.get("email").toString()
+            contraseña = bundle.get("contraseña").toString()
+            fechaNacimiento = bundle.get("fechaNacimiento").toString()
+            nickname = bundle.get("nickname").toString()
+        }
     }
 
-
-    private fun registerUserCredentials(): String? {
-        var userUid: String? = null
+    private fun registerUserCredentials(email: String?, contraseña: String?): String? {
+        var userUid = ""
         if (!email.isNullOrBlank() && !contraseña.isNullOrBlank()) {
-            FirebaseAuth.getInstance()
-                .createUserWithEmailAndPassword(
-                    email,
-                    contraseña
-                )
-                .addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        showSuccessfulRegisterToast()
-                        userUid = it?.result?.user?.uid ?: ""
-                    } else {
-                        showRegisterAlert()
-                    }
-                }
+            auth.createUserWithEmailAndPassword(email, contraseña).addOnCompleteListener {
+                userUid = it.result.user?.uid.toString()
+                showSuccessfulRegisterToast()
+                saveUserData(it.result.user?.uid)
+                uploadImage(it.result.user?.uid)
+                showAuthActivity()
+                Log.d("Main", "uid: ${it.result.user?.uid}")
+
+            }
+        } else {
+            showMissingCredentialsAlert()
         }
         return userUid;
     }
 
-    private fun saveUserData(uid: String) {
+    private fun saveUserData(uid: String?) {
         val db = Firebase.firestore
+        // El user deberia ser una clase en lugar d un map
         val user = hashMapOf(
             "email" to email,
             "nickname" to nickname,
             "fechaNacimiento" to fechaNacimiento
         )
-        val userDocument =  db.collection("users").document(uid)
-        userDocument.set(user)
-            .addOnSuccessListener {  }
+        val userDocument = db.collection("users").document(uid!!).set(user)
+        userDocument
+            .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully written!") }
+            .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
     }
 
     private fun showSuccessfulRegisterToast() {
@@ -100,12 +107,23 @@ class RegisterActivity2 : AppCompatActivity() {
         ).show()
     }
 
+    private fun showMissingCredentialsAlert() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Error ")
+        builder.setMessage(
+            "Faltan campos obligatorios por rellenar"
+        )
+        builder.setPositiveButton("Aceptar", null)
+        val dialog: AlertDialog = builder.create()
+        dialog.show()
+    }
+
     private fun showRegisterAlert() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Error ")
         builder.setMessage(
             "No se ha podido realizar el registro correctamente. " +
-                    "Asegurate de que has rellenado todos los campos que son obligatorios"
+                    "Asegurate de que no queden campos obligatorios por rellenar"
         )
         builder.setPositiveButton("Aceptar", null)
         val dialog: AlertDialog = builder.create()
@@ -113,8 +131,7 @@ class RegisterActivity2 : AppCompatActivity() {
     }
 
     private fun showAuthActivity() {
-        val authActivityIntent = Intent(this, AuthActivity::class.java).apply {
-        }
+        val authActivityIntent = Intent(this, AuthActivity::class.java).apply { }
         startActivity(authActivityIntent)
     }
 
@@ -126,8 +143,8 @@ class RegisterActivity2 : AppCompatActivity() {
     }
 
     // El nombre de la imagen guardada es el que hay en el parentesis de child, darle un identificador unico
-    private fun uploadImage(userUid: String) {
-        val storageRef = FirebaseStorage.getInstance().reference.child(userUid)
+    private fun uploadImage(userUid: String?) {
+        val storageRef = FirebaseStorage.getInstance().reference.child(userUid!!)
         imageUri?.let { uri ->
             mBinding?.let {
                 storageRef.putFile(uri)

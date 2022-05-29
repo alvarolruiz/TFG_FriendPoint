@@ -3,5 +3,6 @@
     <string name="home_tittle">Home</string>
     <string name="fp_center_tittle">FP center</string>
     <string name="chats_tittle">chats</string>
+    <string name="txt_details_FP">Detalles</string>
 
 </resources>

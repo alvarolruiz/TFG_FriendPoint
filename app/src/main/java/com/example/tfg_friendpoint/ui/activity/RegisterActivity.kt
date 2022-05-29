@@ -37,7 +37,7 @@ class RegisterActivity : AppCompatActivity() {
                 putExtra("email", mBinding.etEmail?.text?.toString() ?: null)
                 putExtra("contraseña", mBinding.etContrasena?.text?.toString() ?:null)
                 putExtra("fechaNacimiento", mBinding.etFechaNacimiento?.text?.toString() ?:null)
-                putExtra("nickName", mBinding.etNickName?.text?.toString() ?:null)
+                putExtra("nickname", mBinding.etNickName?.text?.toString() ?:null)
             }
             startActivity(registerActivity2)
         }
