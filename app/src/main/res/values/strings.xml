@@ -4,5 +4,6 @@
     <string name="fp_center_tittle">FP center</string>
     <string name="chats_tittle">chats</string>
     <string name="txt_details_FP">Detalles</string>
+    <string name="txt_create_FP">Crear nuevo FP</string>
 
 </resources>

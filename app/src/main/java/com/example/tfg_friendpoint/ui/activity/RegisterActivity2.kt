@@ -10,12 +10,9 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.tfg_friendpoint.databinding.ActivityRegister2Binding
 import com.example.tfg_friendpoint.ui.model.Photo
-import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.ktx.initialize
 import com.google.firebase.storage.FirebaseStorage
 
 
@@ -39,11 +36,8 @@ class RegisterActivity2 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         mBinding = ActivityRegister2Binding.inflate(layoutInflater)
         val view = mBinding.root
-        Firebase.initialize(this)
-        auth = Firebase.auth
         setContentView(view)
         getIntentData()
-
         mBinding.btnSeleccion.setOnClickListener {
             pickImageGalery()
         }
@@ -67,6 +61,7 @@ class RegisterActivity2 : AppCompatActivity() {
         }
     }
 
+
     private fun registerUserCredentials(email: String?, contraseña: String?): String? {
         var userUid = ""
         if (!email.isNullOrBlank() && !contraseña.isNullOrBlank()) {
@@ -87,7 +82,6 @@ class RegisterActivity2 : AppCompatActivity() {
 
     private fun saveUserData(uid: String?) {
         val db = Firebase.firestore
-        // El user deberia ser una clase en lugar d un map
         val user = hashMapOf(
             "email" to email,
             "nickname" to nickname,
