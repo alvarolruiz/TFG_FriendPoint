@@ -10,7 +10,8 @@
     <item
         android:id="@+id/fp_fragment"
         android:title="@string/fp_center_tittle"
-        app:showAsAction="never"/>
+        app:showAsAction="never"
+        android:icon="@drawable/ic_fp_center"/>
 
     <item
         android:id="@+id/chat_fragment"

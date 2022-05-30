@@ -22,7 +22,11 @@
         android:id="@+id/fp_fragment"
         android:name="com.example.tfg_friendpoint.ui.fragments.FriendPointFragment"
         android:label="fragment_friend_point"
-        tools:layout="@layout/fragment_friend_point" />
+        tools:layout="@layout/fragment_friend_point" >
+        <action
+            android:id="@+id/action_fp_fragment_to_fpCreatorFragment"
+            app:destination="@id/fpCreatorFragment" />
+    </fragment>
     <fragment
         android:id="@+id/detailsFragment"
         android:name="com.example.tfg_friendpoint.ui.fragments.DetailsFragment"
@@ -32,4 +36,9 @@
             android:id="@+id/action_detailsFragment_to_home_fragment"
             app:destination="@id/home_fragment" />
     </fragment>
+    <fragment
+        android:id="@+id/fpCreatorFragment"
+        android:name="com.example.tfg_friendpoint.ui.fragments.FpCreatorFragment"
+        android:label="fragment_fp_creator"
+        tools:layout="@layout/fragment_fp_creator" />
 </navigation>
