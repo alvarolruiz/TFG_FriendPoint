@@ -50,15 +50,31 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
 
-            <TextView
-                android:id="@+id/details_tv_plan"
+            <LinearLayout
+                android:id="@+id/linearLayout6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="De Cerveceo"
-                android:textColor="#000000"
-                android:textSize="24sp"
+                android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="8dp"
+                    android:src="@drawable/logo_fp" />
+
+                <TextView
+                    android:id="@+id/details_tv_plan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="De Cerveceo"
+                    android:textColor="#000000"
+                    android:textSize="24sp" />
+            </LinearLayout>
+
 
             <ImageView
                 android:id="@+id/details_iv_photo"
@@ -66,7 +82,7 @@
                 android:layout_height="250dp"
                 android:src="@drawable/imagen_ejemplo"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/details_tv_plan" />
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout6" />
 
             <LinearLayout
                 android:id="@+id/linearLayout4"
@@ -146,7 +162,7 @@
                         android:layout_weight="1"
                         android:text="+20"
                         android:textColor="#000000"
-                        android:textSize="14sp" />
+                        android:textSize="16sp" />
                 </LinearLayout>
                 <!--Boton solicitud-->
                 <LinearLayout
@@ -168,7 +184,7 @@
                         android:layout_gravity="center_vertical"
                         android:text="Enviar Solicitud"
                         android:textColor="#000000"
-                        android:textSize="14sp" />
+                        android:textSize="16sp" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -197,7 +213,7 @@
                 android:id="@+id/ll_aficiones"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:orientation="vertical"
                 app:layout_constraintStart_toStartOf="@+id/ll_genero"
                 app:layout_constraintTop_toBottomOf="@+id/ll_genero">
@@ -220,14 +236,14 @@
                     android:text="Futbol, Festivales, Rap, Cerveza .."
                     android:textAlignment="viewStart"
                     android:textColor="#000000"
-                    android:textSize="16sp" />
+                    android:textSize="20sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/ll_edad_media"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="@+id/ll_descripcion"
                 app:layout_constraintTop_toBottomOf="@+id/ll_descripcion">
@@ -250,14 +266,14 @@
                     android:fontFamily="@font/actor"
                     android:text="25 años"
                     android:textColor="#000000"
-                    android:textSize="16sp" />
+                    android:textSize="20sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/ll_genero"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="@+id/ll_edad_media"
                 app:layout_constraintTop_toBottomOf="@+id/ll_edad_media">
@@ -280,7 +296,7 @@
                     android:fontFamily="@font/actor"
                     android:text="20% H"
                     android:textColor="@color/blue_fp"
-                    android:textSize="16sp" />
+                    android:textSize="20sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -290,7 +306,7 @@
                     android:fontFamily="@font/actor"
                     android:text="/"
                     android:textColor="#000000"
-                    android:textSize="16sp" />
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/details_tv_genero_m"
@@ -301,7 +317,7 @@
                     android:fontFamily="@font/actor"
                     android:text="80% M"
                     android:textColor="@color/orange_fp"
-                    android:textSize="16sp" />
+                    android:textSize="20sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -331,7 +347,7 @@
                     android:text="Somos un grupo de amigos bebebiendo cerveza en un bar, estamos abiertos a conocer gente nueva, únete a nuestro Friend Point."
                     android:textAlignment="viewStart"
                     android:textColor="#000000"
-                    android:textSize="16sp" />
+                    android:textSize="20sp" />
             </LinearLayout>
 
 

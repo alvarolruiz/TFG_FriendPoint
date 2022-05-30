@@ -8,7 +8,7 @@
     <!--RegisterActivity2-->
     <dimen name="rss_icon_size">40dp</dimen>
     <!--View Details Friend Point-->
-    <dimen name="details_btn_width">160dp</dimen>
+    <dimen name="details_btn_width">170dp</dimen>
     <dimen name="details_btn_icon_size">30dp</dimen>
     <dimen name="details_btn_civ_size">25dp</dimen>
 
