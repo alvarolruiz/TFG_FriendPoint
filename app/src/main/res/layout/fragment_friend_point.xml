@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragments.FriendPointFragment">
+    tools:context=".ui.fragments.FriendPointFragment"
+    android:id="@+id/fp_fragment">
 
     <TextView
         android:layout_width="match_parent"

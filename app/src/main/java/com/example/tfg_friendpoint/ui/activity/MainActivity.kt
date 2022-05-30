@@ -3,26 +3,37 @@ package com.example.tfg_friendpoint.ui.activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.FragmentManager
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import com.example.tfg_friendpoint.R
 import com.example.tfg_friendpoint.databinding.ActivityMainBinding
 import com.example.tfg_friendpoint.ui.fragments.ChatFragment
 import com.example.tfg_friendpoint.ui.fragments.FriendPointFragment
 import com.example.tfg_friendpoint.ui.fragments.HomeFragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var mBinding: ActivityMainBinding
     private lateinit var mActiveFragment: Fragment
     private lateinit var mFragmentManager: FragmentManager
+    private lateinit var bottomNavigationView: BottomNavigationView
+    private lateinit var navController: NavController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
-        setupBottomNav()
+        bottomNavigationView = findViewById(R.id.bottomNav)
+        navController = this.findNavController(R.id.fragmentContainerView)
+        bottomNavigationView.setupWithNavController(navController)
     }
 
-    private fun setupBottomNav() {
+    /*private fun setupBottomNav() {
         mFragmentManager = supportFragmentManager
         val homeFragment = HomeFragment()
         val friendPointFragment = FriendPointFragment()
@@ -57,7 +68,10 @@ class MainActivity : AppCompatActivity() {
                 }
                 else -> false
             }
+
+
         }
 
-    }
+
+    }*/
 }

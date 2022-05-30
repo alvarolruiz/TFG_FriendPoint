@@ -2,18 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_home"
+        android:id="@+id/home_fragment"
         android:title="@string/home_tittle"
         app:showAsAction="never"
         android:icon="@drawable/ic_baseline_home_24"/>
 
     <item
-        android:id="@+id/action_fp_center"
+        android:id="@+id/fp_fragment"
         android:title="@string/fp_center_tittle"
         app:showAsAction="never"/>
 
     <item
-        android:id="@+id/action_chats"
+        android:id="@+id/chat_fragment"
         android:title="@string/chats_tittle"
         app:showAsAction="never"
         android:icon="@drawable/ic_baseline_chat_bubble_outline_24"/>

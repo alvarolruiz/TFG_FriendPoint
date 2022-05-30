@@ -5,5 +5,7 @@
     <string name="chats_tittle">chats</string>
     <string name="txt_details_FP">Detalles</string>
     <string name="txt_create_FP">Crear nuevo FP</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

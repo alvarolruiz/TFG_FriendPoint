@@ -37,6 +37,7 @@ class RegisterActivity2 : AppCompatActivity() {
         mBinding = ActivityRegister2Binding.inflate(layoutInflater)
         val view = mBinding.root
         setContentView(view)
+        auth = FirebaseAuth.getInstance()
         getIntentData()
         mBinding.btnSeleccion.setOnClickListener {
             pickImageGalery()
