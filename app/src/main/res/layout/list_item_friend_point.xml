@@ -6,11 +6,12 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         app:cardBackgroundColor="#FFFFFF"
-        app:cardCornerRadius="2dp"
+        app:cardCornerRadius="4dp"
         app:cardElevation="100dp"
         app:cardPreventCornerOverlap="false"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -19,7 +20,7 @@
             android:layout_height="match_parent">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/iv_circle"
+                android:id="@+id/list_iv_photo"
                 android:layout_width="@dimen/item_foto_size"
                 android:layout_height="@dimen/item_foto_size"
                 android:layout_centerHorizontal="true"
@@ -42,11 +43,11 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:src="@drawable/logo_fp"
-                app:layout_constraintStart_toEndOf="@+id/iv_circle"
-                app:layout_constraintTop_toTopOf="@+id/iv_circle" />
+                app:layout_constraintStart_toEndOf="@+id/list_iv_photo"
+                app:layout_constraintTop_toTopOf="@+id/list_iv_photo" />
 
             <TextView
-                android:id="@+id/tv_plan"
+                android:id="@+id/list_tv_plan"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -65,11 +66,11 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginBottom="16dp"
                 android:src="@drawable/ic_baseline_my_location_24"
-                app:layout_constraintBottom_toBottomOf="@+id/iv_circle"
-                app:layout_constraintStart_toEndOf="@+id/iv_circle" />
+                app:layout_constraintBottom_toBottomOf="@+id/list_iv_photo"
+                app:layout_constraintStart_toEndOf="@+id/list_iv_photo" />
 
             <TextView
-                android:id="@+id/tv_ubi"
+                android:id="@+id/list_tv_ubi"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -89,7 +90,7 @@
                 android:layout_marginStart="16dp"
                 android:src="@drawable/circle"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/iv_circle" />
+                app:layout_constraintTop_toTopOf="@+id/list_iv_photo" />
 
             <Space
                 android:layout_width="280dp"
@@ -97,16 +98,18 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginBottom="12dp"
                 android:background="#000000"
+                android:backgroundTint="#000000"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/iv_circle" />
+                app:layout_constraintTop_toBottomOf="@+id/list_iv_photo" />
 
             <TextView
-                android:id="@+id/tv_numero_miembros"
+                android:id="@+id/list_tv_numero_miembros"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="100"
+                android:inputType="number"
+                android:text="20"
                 android:textColor="#FFFFFF"
                 android:textSize="@dimen/item_members_text_size"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView3"
