@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.tfg_friendpoint.R
@@ -22,6 +23,10 @@ private lateinit var mBinding: FragmentDetailsBinding
         val view = mBinding.root
 
         mBinding.detailsTvAficiones.text = "karaoke, etx"
+        mBinding.detailsBtnBack.setOnClickListener{
+            Navigation.findNavController(view)
+                .navigate(R.id.action_detailsFragment_to_home_fragment)
+        }
         return view
     }
 

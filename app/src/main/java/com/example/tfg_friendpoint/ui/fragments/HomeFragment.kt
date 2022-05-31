@@ -52,6 +52,9 @@ class HomeFragment : Fragment() {
         fpAdapter = FriendPointRecyclerAdapter(firestoreRecyclerOptions)
         mBinding.rvFriendPoints.layoutManager = LinearLayoutManager(activity)
         mBinding.rvFriendPoints.adapter = fpAdapter
+        mBinding.rvFriendPoints.setOnClickListener(){
+
+        }
     }
 
     override fun onStart() {

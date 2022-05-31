@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="blue_fp">#5271ff</color>
     <color name="orange_fp">#ff914d</color>
+    <color name="black_menu">#FF111112</color>
 </resources>

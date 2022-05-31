@@ -4,27 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#000000"
     tools:context=".ui.fragments.DetailsFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
+        android:background="#000000">
 
         <LinearLayout
             android:id="@+id/linearLayout3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/black"
+            android:background="@color/black_menu"
+            android:backgroundTint="@color/black_menu"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageButton
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginEnd="8dp"
+                android:id="@+id/details_btn_back"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginEnd="16dp"
                 android:background="@color/blue_fp"
                 android:src="@drawable/ic_back" />
 
@@ -42,9 +45,6 @@
             android:id="@+id/constraintLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="4dp"
             android:background="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -54,13 +54,15 @@
                 android:id="@+id/linearLayout6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginEnd="8dp"
                     android:src="@drawable/logo_fp" />
@@ -70,9 +72,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:fontFamily="sans-serif-medium"
                     android:text="De Cerveceo"
                     android:textColor="#000000"
-                    android:textSize="24sp" />
+                    android:textSize="28sp" />
             </LinearLayout>
 
 
@@ -82,26 +85,31 @@
                 android:layout_height="250dp"
                 android:src="@drawable/imagen_ejemplo"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout6" />
 
             <LinearLayout
                 android:id="@+id/linearLayout4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
                 android:layout_marginBottom="16dp"
                 android:elevation="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/details_iv_photo"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/details_iv_photo"
                 app:layout_constraintTop_toBottomOf="@+id/details_iv_photo">
                 <!--Boton ver miembros-->
                 <LinearLayout
                     android:layout_width="@dimen/details_btn_width"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="25dp"
                     android:background="@drawable/custom_border"
-                    android:clickable="true">
+                    android:clickable="true"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -113,10 +121,11 @@
 
                     <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
                         android:layout_marginEnd="8dp"
                         android:background="#FFFFFF"
-                        android:gravity="center">
+                        android:gravity="center_vertical">
 
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:id="@+id/iv_circle"
@@ -160,16 +169,18 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginEnd="8dp"
                         android:layout_weight="1"
-                        android:text="+20"
+                        android:text="+200"
                         android:textColor="#000000"
-                        android:textSize="16sp" />
+                        android:textSize="14sp" />
                 </LinearLayout>
                 <!--Boton solicitud-->
                 <LinearLayout
                     android:layout_width="@dimen/details_btn_width"
                     android:layout_height="wrap_content"
                     android:background="@drawable/custom_border"
-                    android:clickable="true">
+                    android:clickable="true"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -190,9 +201,14 @@
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView2"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:scrollbarSize="2dp"
+            app:cardBackgroundColor="#FFFFFF"
+            app:cardCornerRadius="0dp"
+            app:cardElevation="100dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/constraintLayout"
             app:layout_constraintStart_toStartOf="@+id/constraintLayout"
@@ -200,158 +216,167 @@
 
             <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#FFFFFF">
+                android:layout_height="wrap_content"
+                android:paddingStart="10dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                android:paddingEnd="15dp"
+                android:paddingBottom="5dp"
+                android:scrollbarSize="2dp">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/constraintLayout"
+                    app:layout_constraintStart_toStartOf="@+id/constraintLayout"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+
+                    <LinearLayout
+                        android:id="@+id/ll_aficiones"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="vertical"
+                        app:layout_constraintStart_toStartOf="@+id/ll_genero"
+                        app:layout_constraintTop_toBottomOf="@+id/ll_genero">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="sans-serif-black"
+                            android:text="Aficiones:"
+                            android:textColor="#322F2F"
+                            android:textSize="24sp" />
+
+                        <TextView
+                            android:id="@+id/details_tv_aficiones"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="16dp"
+                            android:fontFamily="sans-serif-light"
+                            android:text="Futbol, Festivales, Rap, Cerveza .."
+                            android:textAlignment="viewStart"
+                            android:textColor="#000000"
+                            android:textSize="20sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_edad_media"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintStart_toStartOf="@+id/ll_descripcion"
+                        app:layout_constraintTop_toBottomOf="@+id/ll_descripcion">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:fontFamily="sans-serif-black"
+                            android:text="Edad media: "
+                            android:textColor="#322F2F"
+                            android:textSize="24sp" />
+
+                        <TextView
+                            android:id="@+id/details_tv_edad_media"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="sans-serif-light"
+                            android:text="25 años"
+                            android:textColor="#000000"
+                            android:textSize="20sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_genero"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintStart_toStartOf="@+id/ll_edad_media"
+                        app:layout_constraintTop_toBottomOf="@+id/ll_edad_media">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:fontFamily="sans-serif-black"
+                            android:text="Genero: "
+                            android:textColor="#322F2F"
+                            android:textSize="24sp" />
+
+                        <TextView
+                            android:id="@+id/details_tv_genero_h"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="sans-serif-light"
+                            android:text="20% H"
+                            android:textColor="@color/blue_fp"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="sans-serif-light"
+                            android:text="/"
+                            android:textColor="#000000"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:id="@+id/details_tv_genero_m"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="sans-serif-light"
+                            android:text="80% M"
+                            android:textColor="@color/orange_fp"
+                            android:textSize="20sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_descripcion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="sans-serif-black"
+                            android:text="Descripción:"
+                            android:textColor="#322F2F"
+                            android:textSize="24sp" />
+
+                        <TextView
+                            android:id="@+id/details_tv_descripcion"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="16dp"
+                            android:fontFamily="sans-serif-light"
+                            android:text="Somos un grupo de amigos bebebiendo cerveza en un bar, estamos abiertos a conocer gente nueva, únete a nuestro Friend Point."
+                            android:textAlignment="viewStart"
+                            android:textColor="#000000"
+                            android:textSize="20sp" />
+                    </LinearLayout>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
             </ScrollView>
-
-            <LinearLayout
-                android:id="@+id/ll_aficiones"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:orientation="vertical"
-                app:layout_constraintStart_toStartOf="@+id/ll_genero"
-                app:layout_constraintTop_toBottomOf="@+id/ll_genero">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fontFamily="sans-serif-black"
-                    android:text="Aficiones:"
-                    android:textColor="#322F2F"
-                    android:textSize="24sp" />
-
-                <TextView
-                    android:id="@+id/details_tv_aficiones"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="16dp"
-                    android:fontFamily="@font/actor"
-                    android:text="Futbol, Festivales, Rap, Cerveza .."
-                    android:textAlignment="viewStart"
-                    android:textColor="#000000"
-                    android:textSize="20sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ll_edad_media"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:orientation="horizontal"
-                app:layout_constraintStart_toStartOf="@+id/ll_descripcion"
-                app:layout_constraintTop_toBottomOf="@+id/ll_descripcion">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:fontFamily="sans-serif-black"
-                    android:text="Edad Media: "
-                    android:textColor="#322F2F"
-                    android:textSize="24sp" />
-
-                <TextView
-                    android:id="@+id/details_tv_edad_media"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="8dp"
-                    android:fontFamily="@font/actor"
-                    android:text="25 años"
-                    android:textColor="#000000"
-                    android:textSize="20sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ll_genero"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:orientation="horizontal"
-                app:layout_constraintStart_toStartOf="@+id/ll_edad_media"
-                app:layout_constraintTop_toBottomOf="@+id/ll_edad_media">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:fontFamily="sans-serif-black"
-                    android:text="Genero: "
-                    android:textColor="#322F2F"
-                    android:textSize="24sp" />
-
-                <TextView
-                    android:id="@+id/details_tv_genero_h"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="8dp"
-                    android:fontFamily="@font/actor"
-                    android:text="20% H"
-                    android:textColor="@color/blue_fp"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="8dp"
-                    android:fontFamily="@font/actor"
-                    android:text="/"
-                    android:textColor="#000000"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/details_tv_genero_m"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="8dp"
-                    android:fontFamily="@font/actor"
-                    android:text="80% M"
-                    android:textColor="@color/orange_fp"
-                    android:textSize="20sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ll_descripcion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fontFamily="sans-serif-black"
-                    android:text="Descripción:"
-                    android:textColor="#322F2F"
-                    android:textSize="24sp" />
-
-                <TextView
-                    android:id="@+id/details_tv_descripcion"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="16dp"
-                    android:fontFamily="@font/actor"
-                    android:text="Somos un grupo de amigos bebebiendo cerveza en un bar, estamos abiertos a conocer gente nueva, únete a nuestro Friend Point."
-                    android:textAlignment="viewStart"
-                    android:textColor="#000000"
-                    android:textSize="20sp" />
-            </LinearLayout>
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
