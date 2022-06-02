@@ -1,12 +1,22 @@
 package com.example.tfg_friendpoint.ui.model
 
-class FriendPointModel{
+import android.net.Uri
+import androidx.core.net.toUri
+
+class FriendPointModel (){
     var nombre: String =""
     var plan: String = ""
     var descripcion: String = ""
-    var numeroMiembros: Int = 0
-    var miembros: ArrayList<UserModel> = ArrayList()
     var photoUrl: String = ""
     var ubicacion: String = ""
+    var maxNumeroMiembros : Int = 0
+    var aficiones: ArrayList<String> = ArrayList()
+    var miembros: ArrayList<UserModel> = ArrayList()
 
+
+    fun getNumeroMiembros (): Int{
+        return miembros.size
+    }
 }
+
+

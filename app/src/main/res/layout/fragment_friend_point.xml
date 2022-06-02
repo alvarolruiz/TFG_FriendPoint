@@ -6,9 +6,11 @@
     tools:context=".ui.fragments.FriendPointFragment"
     android:id="@+id/fp_fragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Fp center" />
+   <ImageButton
+       android:id="@+id/ib_add_fp"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:src="@drawable/ic_add_fp"/>
+
 
 </FrameLayout>

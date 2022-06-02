@@ -13,9 +13,13 @@
     <dimen name="details_btn_civ_size">25dp</dimen>
 
     <!--Common-->
-    <dimen name="common_margin">16dp</dimen>
+    <dimen name="common_margin">8dp</dimen>
     <dimen name="button_corner_radius">2dp</dimen>
 
+    <!--Fp creator fragment-->
+    <dimen name="create_icon_size">50dp</dimen>
+    <dimen name="create_tv_size">24dp</dimen>
+    <dimen name="create_et_size">20dp</dimen>
 
 
 

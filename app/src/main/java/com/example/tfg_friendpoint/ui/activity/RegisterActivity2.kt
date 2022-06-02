@@ -137,6 +137,15 @@ class RegisterActivity2 : AppCompatActivity() {
         startActivityForResult(Intent.createChooser(gallery, "Select Picture"), pickImage);
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK && requestCode == pickImage) {
+            imageUri = data?.data
+            val photo = Photo(localUri = imageUri.toString())
+            mBinding.ivCircle.setImageURI(imageUri)
+        }
+    }
+
     // El nombre de la imagen guardada es el que hay en el parentesis de child, darle un identificador unico
     private fun uploadImage(userUid: String?) {
         val storageRef = FirebaseStorage.getInstance().reference.child(userUid!!)
@@ -152,14 +161,6 @@ class RegisterActivity2 : AppCompatActivity() {
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == RESULT_OK && requestCode == pickImage) {
-            imageUri = data?.data
-            val photo = Photo(localUri = imageUri.toString())
-            mBinding.ivCircle.setImageURI(imageUri)
-        }
-    }
 
     /**
      * Vamos a tener una coleccion de usuarios en firestore, y por cada uno tendremos un documento.
