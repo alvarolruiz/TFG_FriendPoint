@@ -12,6 +12,8 @@
         <action
             android:id="@+id/action_home_fragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
+        <argument android:name="uid"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/chat_fragment"
@@ -25,7 +27,7 @@
         tools:layout="@layout/fragment_friend_point" >
         <action
             android:id="@+id/action_fp_fragment_to_fpCreatorFragment"
-            app:destination="@id/fpCreatorFragment" />
+            app:destination="@id/fpCreatorFragment"/>
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"

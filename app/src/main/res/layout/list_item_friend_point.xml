@@ -4,20 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="8dp"
-    android:layout_marginTop="4dp"
-    android:layout_marginEnd="8dp"
-    android:layout_marginRight="8dp"
-    android:layout_marginBottom="4dp"
-    android:background="#FFFFFF"
-    android:backgroundTint="#FFFFFF">
+    android:backgroundTint="#00FFFFFF">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardBackgroundColor="#FAFAFA"
+        android:layout_margin="16dp"
+        app:cardBackgroundColor="#FFFFFF"
         app:cardCornerRadius="10dp"
-        app:cardElevation="10dp"
+        app:cardElevation="8dp"
+        app:cardPreventCornerOverlap="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,7 +21,9 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:padding="8dp">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/list_iv_photo"
@@ -48,16 +46,17 @@
                 android:layout_width="@dimen/item_icon_size"
                 android:layout_height="@dimen/item_icon_size"
                 android:layout_marginStart="32dp"
-                android:layout_marginTop="8dp"
                 android:src="@drawable/logo_fp"
+                app:layout_constraintBottom_toTopOf="@+id/imageView2"
                 app:layout_constraintStart_toEndOf="@+id/list_iv_photo"
-                app:layout_constraintTop_toTopOf="@+id/list_iv_photo" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/list_tv_plan"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
                 android:fontFamily="sans-serif-light"
                 android:text="Bebiendo Cerveza"
                 android:textColor="#000000"
@@ -71,16 +70,19 @@
                 android:id="@+id/imageView2"
                 android:layout_width="@dimen/item_icon_size"
                 android:layout_height="@dimen/item_icon_size"
+                android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:src="@drawable/ic_baseline_my_location_24"
-                app:layout_constraintBottom_toBottomOf="@+id/list_iv_photo"
-                app:layout_constraintStart_toStartOf="@+id/imageView" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/imageView"
+                app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
             <TextView
                 android:id="@+id/list_tv_ubi"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
                 android:fontFamily="sans-serif-light"
                 android:text="Viapol"
                 android:textColor="#000000"
@@ -95,23 +97,10 @@
                 android:id="@+id/imageView3"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="16dp"
                 android:src="@drawable/circle"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/list_iv_photo" />
-
-            <Space
-                android:layout_width="280dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:layout_marginBottom="12dp"
-                android:background="#000000"
-                android:backgroundTint="#000000"
-                android:elevation="10dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/list_iv_photo" />
 
             <TextView
                 android:id="@+id/list_tv_numero_miembros"

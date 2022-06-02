@@ -23,10 +23,6 @@ private lateinit var mBinding: FragmentDetailsBinding
         val view = mBinding.root
 
         mBinding.detailsTvAficiones.text = "karaoke, etx"
-        mBinding.detailsBtnBack.setOnClickListener{
-            Navigation.findNavController(view)
-                .navigate(R.id.action_detailsFragment_to_home_fragment)
-        }
         return view
     }
 

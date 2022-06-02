@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tfg_friendpoint.R
 import com.example.tfg_friendpoint.databinding.FragmentHomeBinding
@@ -32,14 +33,7 @@ class HomeFragment : Fragment() {
         // Inflate the layout for this fragment
         mBinding = FragmentHomeBinding.inflate(inflater, container, false)
         val view = mBinding.root
-
         setupRecyclerView()
-
-        mBinding.btnDetails.setOnClickListener {
-            Log.e(TAG, "btnclicked")
-            Navigation.findNavController(view)
-                .navigate(R.id.action_home_fragment_to_detailsFragment)
-        }
         return view
     }
 
