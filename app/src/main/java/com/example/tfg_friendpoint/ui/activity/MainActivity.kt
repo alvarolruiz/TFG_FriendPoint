@@ -19,6 +19,8 @@ import com.example.tfg_friendpoint.ui.fragments.ChatFragment
 import com.example.tfg_friendpoint.ui.fragments.FriendPointFragment
 import com.example.tfg_friendpoint.ui.fragments.HomeFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 
 class MainActivity : AppCompatActivity() {
 
@@ -27,6 +29,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mFragmentManager: FragmentManager
     private lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var navController: NavController
+    private lateinit var loggedUser: FirebaseUser
+    lateinit var mAuth : FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = ActivityMainBinding.inflate(layoutInflater)
@@ -34,8 +38,10 @@ class MainActivity : AppCompatActivity() {
         bottomNavigationView = findViewById(R.id.bottomNav)
         navController = this.findNavController(R.id.fragmentContainerView)
         bottomNavigationView.setupWithNavController(navController)
-        setSupportActionBar(mBinding.topAppBar)
-        setupActionBarWithNavController(navController)
+        mAuth = FirebaseAuth.getInstance()
+        loggedUser = mAuth.currentUser!!
+        /*setSupportActionBar(mBinding.topAppBar)
+        setupActionBarWithNavController(navController)*/
 
     }
 
@@ -44,9 +50,9 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    /*override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
-    }
+    }*/
 
     /*private fun setupBottomNav() {
         mFragmentManager = supportFragmentManager

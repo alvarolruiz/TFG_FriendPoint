@@ -37,7 +37,7 @@ class AuthActivity : AppCompatActivity() {
                     mBinding.etContrasena.text.toString()
                 ).addOnCompleteListener {
                     if (it.isSuccessful) {
-                        showMainActivity(it.result?.user?.email ?: "")
+                        showMainActivity(it.result.user!!.uid)
                     } else {
                         showLoginFailAlert()
                     }
@@ -73,9 +73,9 @@ class AuthActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    private fun showMainActivity(email: String) {
+    private fun showMainActivity(uid: String) {
         val mainActivityIntent = Intent(this, MainActivity::class.java).apply {
-            putExtra("email", email)
+            putExtra("userUid", uid)
         }
         startActivity(mainActivityIntent)
     }

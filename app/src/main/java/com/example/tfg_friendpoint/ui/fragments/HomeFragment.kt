@@ -1,18 +1,13 @@
 package com.example.tfg_friendpoint.ui.fragments
 
-import android.content.ContentValues.TAG
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.tfg_friendpoint.R
 import com.example.tfg_friendpoint.databinding.FragmentHomeBinding
-import com.example.tfg_friendpoint.ui.Adapter.FriendPointRecyclerAdapter
+import com.example.tfg_friendpoint.ui.Adapter.ExploreFriendPointRecyclerAdapter
 import com.example.tfg_friendpoint.ui.model.FriendPointModel
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.firestore.CollectionReference
@@ -25,7 +20,7 @@ class HomeFragment : Fragment() {
     private lateinit var mBinding: FragmentHomeBinding
     val db = Firebase.firestore
     val fpCollectionReference: CollectionReference = db.collection("FriendPoints")
-    var fpAdapter: FriendPointRecyclerAdapter? = null
+    var fpAdapter: ExploreFriendPointRecyclerAdapter? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -43,9 +38,10 @@ class HomeFragment : Fragment() {
             FirestoreRecyclerOptions.Builder<FriendPointModel>()
                 .setQuery(query, FriendPointModel::class.java)
                 .build()
-        fpAdapter = FriendPointRecyclerAdapter(firestoreRecyclerOptions)
+        fpAdapter = ExploreFriendPointRecyclerAdapter(firestoreRecyclerOptions)
         mBinding.rvFriendPoints.layoutManager = LinearLayoutManager(activity)
         mBinding.rvFriendPoints.adapter = fpAdapter
+
     }
 
     override fun onStart() {

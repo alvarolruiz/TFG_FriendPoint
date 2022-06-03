@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
 
 
     <item
@@ -18,6 +19,12 @@
         android:id="@+id/chat_fragment"
         android:icon="@drawable/ic_baseline_chat_bubble_outline_24"
         android:title="@string/chats_tittle" />
+
+    <item
+        android:id="@+id/profile_fragment"
+        android:icon="@drawable/profile_default"
+        android:title="@string/profile_title"/>
+
 
 
 

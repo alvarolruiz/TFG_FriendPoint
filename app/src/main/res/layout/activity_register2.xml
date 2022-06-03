@@ -90,7 +90,7 @@
                 android:id="@+id/layout_insta"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="24dp"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"

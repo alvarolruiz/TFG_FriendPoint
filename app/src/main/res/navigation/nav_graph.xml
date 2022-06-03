@@ -42,5 +42,27 @@
         android:id="@+id/fpCreatorFragment"
         android:name="com.example.tfg_friendpoint.ui.fragments.FpCreatorFragment"
         android:label="fragment_fp_creator"
-        tools:layout="@layout/fragment_fp_creator" />
+        tools:layout="@layout/fragment_fp_creator" >
+        <action
+            android:id="@+id/action_fpCreatorFragment_to_fp_fragment"
+            app:destination="@id/fp_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profile_fragment"
+        android:name="com.example.tfg_friendpoint.ui.fragments.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profile_fragment_to_fragmentEditProfile"
+            app:destination="@id/fragmentEditProfile" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentEditProfile"
+        android:name="com.example.tfg_friendpoint.FragmentEditProfile"
+        android:label="fragment_edit_profile"
+        tools:layout="@layout/fragment_edit_profile" >
+        <action
+            android:id="@+id/action_fragmentEditProfile_to_profile_fragment"
+            app:destination="@id/profile_fragment" />
+    </fragment>
 </navigation>
