@@ -21,6 +21,7 @@
     <dimen name="create_tv_size">24dp</dimen>
     <dimen name="create_et_size">20dp</dimen>
     <dimen name="profile_civ_size">220dp</dimen>
+    <dimen name="top_menu_size">60dp</dimen>
 
 
 </resources>

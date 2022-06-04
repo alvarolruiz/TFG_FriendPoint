@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         mBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
-        bottomNavigationView = findViewById(R.id.bottomNav)
+        bottomNavigationView = mBinding.bottomNav
         navController = this.findNavController(R.id.fragmentContainerView)
         bottomNavigationView.setupWithNavController(navController)
         mAuth = FirebaseAuth.getInstance()

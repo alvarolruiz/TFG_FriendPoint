@@ -2,29 +2,47 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragments.HomeFragment"
-    android:id="@+id/home_fragment"
-    >
+    tools:context=".ui.fragments.HomeFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/textView2"
+        <LinearLayout
+            android:id="@+id/linearLayout3"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/common_margin"
-            android:layout_marginTop="@dimen/common_margin"
-            android:layout_marginEnd="@dimen/common_margin"
-            android:text="@string/explore_title"
-            android:textSize="34sp"
+            android:layout_height="@dimen/top_menu_size"
+            android:background="@color/white"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/common_margin"
+                android:layout_marginTop="@dimen/common_margin"
+                android:layout_marginEnd="@dimen/common_margin"
+                android:text="@string/explore_title"
+                android:textColor="@color/black_menu"
+                android:textSize="34sp" />
+
+            <SearchView
+                style="@android:style/Widget.Material.SearchView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:elevation="8dp"
+                android:goIcon="@drawable/ic_ok"
+                android:queryHint="Que te apetece?" />
+
+        </LinearLayout>
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_friend_points"
@@ -33,7 +51,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

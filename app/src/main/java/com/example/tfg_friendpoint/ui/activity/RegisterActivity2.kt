@@ -28,9 +28,7 @@ class RegisterActivity2 : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
 
 
-    //TODO: recibir la info del intent. Que se segistre al usuario y se almacene su info en firestore.
-    //Despues que se guarde su foto en storage con el id de usuario de firebase auth.
-    //se registra un nuevo usuario. Una vez hecho esto se redigirá al usuario al login principal.
+    //TODO: Limpiar codigo. Contraseña no deberia estar en la cabecera
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +37,7 @@ class RegisterActivity2 : AppCompatActivity() {
         setContentView(view)
         auth = FirebaseAuth.getInstance()
         getIntentData()
+
         mBinding.btnSeleccion.setOnClickListener {
             pickImageGalery()
         }
@@ -64,6 +63,8 @@ class RegisterActivity2 : AppCompatActivity() {
 
 
     private fun registerUserCredentials(email: String?, contraseña: String?): String? {
+        //TODO: Crear repo para auth e implementar corrutinas
+
         var userUid = ""
         if (!email.isNullOrBlank() && !contraseña.isNullOrBlank()) {
             auth.createUserWithEmailAndPassword(email, contraseña).addOnCompleteListener {
@@ -73,7 +74,6 @@ class RegisterActivity2 : AppCompatActivity() {
                 uploadImage(it.result.user?.uid)
                 showAuthActivity()
                 Log.d("Main", "uid: ${it.result.user?.uid}")
-
             }
         } else {
             showMissingCredentialsAlert()
@@ -83,6 +83,7 @@ class RegisterActivity2 : AppCompatActivity() {
 
     private fun saveUserData(uid: String?) {
         val db = Firebase.firestore
+        //TODO sustituir map por User Model
         val user = hashMapOf(
             "email" to email,
             "nickname" to nickname,

@@ -39,6 +39,7 @@ class FpCreatorFragment : Fragment() {
 
     private fun saveFriendPoint(friendPointModel: FriendPointModel) {
         dbReference.add(friendPointModel)
+        //TODO Volver a la pagina anterior
     }
 
     fun getFriendPointData () :  FriendPointModel{

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tfg_friendpoint.databinding.FragmentHomeBinding
+import com.example.tfg_friendpoint.repository.FriendPointsRepository
 import com.example.tfg_friendpoint.ui.Adapter.ExploreFriendPointRecyclerAdapter
 import com.example.tfg_friendpoint.ui.model.FriendPointModel
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
@@ -33,6 +34,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
+
         val query: Query = fpCollectionReference
         val firestoreRecyclerOptions: FirestoreRecyclerOptions<FriendPointModel> =
             FirestoreRecyclerOptions.Builder<FriendPointModel>()

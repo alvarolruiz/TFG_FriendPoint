@@ -34,10 +34,10 @@ class RegisterActivity : AppCompatActivity() {
     private fun setupBtnContinuar(){
         mBinding.btnContinuar.setOnClickListener {
             val registerActivity2 = Intent(this, RegisterActivity2::class.java).apply {
-                putExtra("email", mBinding.etEmail?.text?.toString() ?: null)
-                putExtra("contraseña", mBinding.etContrasena?.text?.toString() ?:null)
-                putExtra("fechaNacimiento", mBinding.etFechaNacimiento?.text?.toString() ?:null)
-                putExtra("nickname", mBinding.etNickName?.text?.toString() ?:null)
+                putExtra("email", mBinding.etEmail?.text?.toString())
+                putExtra("contraseña", mBinding.etContrasena?.text?.toString())
+                putExtra("fechaNacimiento", mBinding.etFechaNacimiento?.text?.toString())
+                putExtra("nickname", mBinding.etNickName?.text?.toString())
             }
             startActivity(registerActivity2)
         }
