@@ -28,8 +28,8 @@ class DetailsFragment : Fragment() {
     private lateinit var repository: FriendPointsRepository
     private val args: DetailsFragmentArgs by navArgs()
     private var currentFriendPointModel: FriendPointModel? = FriendPointModel()
-    val collectionName: String = "FriendPoints"
-    val dbReference = Firebase.firestore.collection(collectionName)
+    private val collectionName: String = "FriendPoints"
+    private val dbReference = Firebase.firestore.collection(collectionName)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,9 +41,10 @@ class DetailsFragment : Fragment() {
 
         currentFriendPointModel = FriendPointModel()
         repository = FriendPointsRepository()
-        Log.e("deta", args?.uid.toString())
 
-
+        //Preguntar por hacer una clase que devuelva metodos suspend (repo)
+        //Corrutina que llama a firestore y obtiene la información del friendpoint cuyo uid
+        // coincide con el recibido por safeargs
         GlobalScope.launch(Dispatchers.IO) {
             val data = dbReference
                 .document(args?.uid.toString())
@@ -51,10 +52,7 @@ class DetailsFragment : Fragment() {
                 .await()
             currentFriendPointModel = data.toObject(FriendPointModel::class.java)
             withContext(Dispatchers.Main) {
-                Glide.with(mBinding.root).load(currentFriendPointModel!!.photoUrl).into(mBinding.detailsIvPhoto)
-                mBinding.detailsTvPlan.text = currentFriendPointModel!!.plan
-                mBinding.detailsTvDescripcion.text = currentFriendPointModel!!.descripcion
-                mBinding.detailsTvDescripcion.text = currentFriendPointModel!!.getEdadmedia().toString()
+                updateUI()
             }
 
 
@@ -77,6 +75,13 @@ class DetailsFragment : Fragment() {
             }*/
         mBinding.detailsTvAficiones.text = "karaoke, etx"
         return view
+    }
+
+    private fun updateUI() {
+        Glide.with(mBinding.root).load(currentFriendPointModel!!.photoUrl).into(mBinding.detailsIvPhoto)
+        mBinding.detailsTvPlan.text = currentFriendPointModel!!.plan
+        mBinding.detailsTvDescripcion.text = currentFriendPointModel!!.descripcion
+        mBinding.detailsTvDescripcion.text = currentFriendPointModel!!.getEdadmedia().toString()
     }
 
 

@@ -1,59 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/home_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragments.HomeFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.fragments.HomeFragment"
+    android:id="@+id/fp_fragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+   <androidx.constraintlayout.widget.ConstraintLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/linearLayout3"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/top_menu_size"
-            android:background="@color/white"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+      <LinearLayout
+          android:id="@+id/ll_top_bar"
+          android:layout_width="match_parent"
+          android:layout_height="@dimen/top_menu_size"
+          android:background="@color/white"
+          android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/common_margin"
-                android:layout_marginTop="@dimen/common_margin"
-                android:layout_marginEnd="@dimen/common_margin"
-                android:text="@string/explore_title"
-                android:textColor="@color/black_menu"
-                android:textSize="34sp" />
+         <TextView
+             android:id="@+id/textView2"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_marginStart="@dimen/common_margin"
+             android:layout_marginTop="@dimen/common_margin"
+             android:layout_marginEnd="@dimen/common_margin"
+             android:text="@string/home_title"
+             android:textColor="@color/black_menu"
+             android:textSize="34sp" />
 
-            <SearchView
-                style="@android:style/Widget.Material.SearchView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:elevation="8dp"
-                android:goIcon="@drawable/ic_ok"
-                android:queryHint="Que te apetece?" />
+         <SearchView
+             style="@android:style/Widget.Material.SearchView"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_gravity="center_vertical"
+             android:elevation="8dp"
+             android:goIcon="@drawable/ic_ok"
+             android:queryHint="Que te apetece?" />
 
-        </LinearLayout>
+      </LinearLayout>
 
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_friend_points"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+      <androidx.recyclerview.widget.RecyclerView
+          android:id="@+id/rv_home_friend_points"
+          android:layout_width="0dp"
+          android:layout_height="0dp"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/ll_top_bar" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+      <com.google.android.material.floatingactionbutton.FloatingActionButton
+          android:id="@+id/home_fb_add"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="32dp"
+          android:layout_marginBottom="32dp"
+          android:clickable="true"
+          android:src="@drawable/ic_add_fp"
+          app:backgroundTint="@color/blue_fp"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent" />
+
+   </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </FrameLayout>

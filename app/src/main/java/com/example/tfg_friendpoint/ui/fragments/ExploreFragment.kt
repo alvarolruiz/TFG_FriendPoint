@@ -5,54 +5,44 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.tfg_friendpoint.R
-import com.example.tfg_friendpoint.databinding.FragmentHomeBinding
+import com.example.tfg_friendpoint.databinding.FragmentExploreBinding
 import com.example.tfg_friendpoint.ui.Adapter.ExploreFriendPointRecyclerAdapter
-import com.example.tfg_friendpoint.ui.Adapter.HomeFriendPointRecyclerAdapter
 import com.example.tfg_friendpoint.ui.model.FriendPointModel
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
-import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
-class HomeFragment : Fragment() {
-    private lateinit var mBinding: FragmentHomeBinding
-    private val db = Firebase.firestore
-    private val auth = FirebaseAuth.getInstance()
-    private val fpCollectionReference  = db.collection("FriendPoints")
-    private var fpAdapter: HomeFriendPointRecyclerAdapter? = null
+class ExploreFragment : Fragment() {
 
+    private lateinit var mBinding: FragmentExploreBinding
+    private val db = Firebase.firestore
+    private val fpCollectionReference: CollectionReference = db.collection("FriendPoints")
+    private var fpAdapter: ExploreFriendPointRecyclerAdapter? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        mBinding = FragmentHomeBinding.inflate(inflater, container, false)
+        mBinding = FragmentExploreBinding.inflate(inflater, container, false)
         val view = mBinding.root
         setupRecyclerView()
-        mBinding.homeFbAdd.setOnClickListener {
-            Navigation.findNavController(it)
-                .navigate(R.id.action_home_fragment_to_fpCreatorFragment)
-        }
         return view
     }
 
     private fun setupRecyclerView() {
         fpAdapter  = getAdapter()
-        mBinding.rvHomeFriendPoints.layoutManager = LinearLayoutManager(activity)
-        mBinding.rvHomeFriendPoints.adapter = fpAdapter
+        mBinding.rvExploreFriendPoints.layoutManager = LinearLayoutManager(activity)
+        mBinding.rvExploreFriendPoints.adapter = fpAdapter
 
     }
 
-    private fun getAdapter() :  HomeFriendPointRecyclerAdapter{
+    private fun getAdapter() :  ExploreFriendPointRecyclerAdapter{
         val firestoreRecyclerOptions = FirestoreRecyclerOptions.Builder<FriendPointModel>()
-            .setQuery(fpCollectionReference, FriendPointModel::class.java)
-            .build()
-        return HomeFriendPointRecyclerAdapter(firestoreRecyclerOptions)
+                .setQuery(fpCollectionReference, FriendPointModel::class.java)
+                .build()
+        return ExploreFriendPointRecyclerAdapter(firestoreRecyclerOptions)
     }
 
     override fun onStart() {
@@ -64,5 +54,6 @@ class HomeFragment : Fragment() {
         super.onDestroy()
         fpAdapter!!.stopListening()
     }
+
 
 }
