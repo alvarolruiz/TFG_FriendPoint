@@ -10,6 +10,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.tfg_friendpoint.databinding.ActivityRegister2Binding
 import com.example.tfg_friendpoint.ui.model.Photo
+import com.example.tfg_friendpoint.ui.model.UserModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -70,7 +71,7 @@ class RegisterActivity2 : AppCompatActivity() {
             auth.createUserWithEmailAndPassword(email, contraseña).addOnCompleteListener {
                 userUid = it.result.user?.uid.toString()
                 showSuccessfulRegisterToast()
-                saveUserData(it.result.user?.uid)
+                saveUserData(it.result.user!!.uid)
                 uploadImage(it.result.user?.uid)
                 showAuthActivity()
                 Log.d("Main", "uid: ${it.result.user?.uid}")
@@ -81,15 +82,17 @@ class RegisterActivity2 : AppCompatActivity() {
         return userUid;
     }
 
-    private fun saveUserData(uid: String?) {
+    private fun saveUserData(uid: String) {
         val db = Firebase.firestore
         //TODO sustituir map por User Model
-        val user = hashMapOf(
+        val user = UserModel(nickname,email, )
+
+            hashMapOf(
             "email" to email,
             "nickname" to nickname,
             "fechaNacimiento" to fechaNacimiento
         )
-        val userDocument = db.collection("users").document(uid!!).set(user)
+        val userDocument = db.collection("users").document(uid).set(user)
         userDocument
             .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully written!") }
             .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }

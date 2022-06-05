@@ -2,15 +2,12 @@ package com.example.tfg_friendpoint.ui.model
 
 import java.util.*
 
-class UserModel {
-
-
-
-    val nickName : String = ""
-    val email: String = ""
-    val photoUrl: String = ""
-    val fechaNacimiento : String = ""
-
+class UserModel (
+    private val nickName : String = "",
+    val email: String = "",
+    val photoUrl: String = "",
+    val fechaNacimiento : String = "")
+{
     fun getEdad(): Int {
         val dob: Calendar = Calendar.getInstance()
         val today: Calendar = Calendar.getInstance()

@@ -46,6 +46,9 @@
         <action
             android:id="@+id/action_detailsFragment_to_explore_fragment"
             app:destination="@id/explore_fragment" />
+        <action
+            android:id="@+id/action_detailsFragment_to_friendshipRequestDialog"
+            app:destination="@id/friendshipRequestDialog" />
 
     </fragment>
     <fragment
@@ -75,4 +78,17 @@
             android:id="@+id/action_fragmentEditProfile_to_profile_fragment"
             app:destination="@id/profile_fragment" />
     </fragment>
+    <dialog
+        android:id="@+id/friendshipRequestDialog"
+        android:name="com.example.tfg_friendpoint.ui.dialog.FriendshipRequestDialog"
+        android:label="FriendshipRequestDialog" >
+        <action
+            android:id="@+id/action_friendshipRequestDialog_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+        <argument
+            android:name="friendPointUid"
+            app:argType="string" />
+        <argument android:name="userUid"
+            app:argType="string" />
+    </dialog>
 </navigation>
