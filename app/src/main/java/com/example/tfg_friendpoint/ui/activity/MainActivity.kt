@@ -30,8 +30,6 @@ class MainActivity : AppCompatActivity() {
         bottomNavigationView = mBinding.bottomNav
         navController = this.findNavController(R.id.fragmentContainerView)
         bottomNavigationView.setupWithNavController(navController)
-        mAuth = FirebaseAuth.getInstance()
-        loggedUser = mAuth.currentUser!!
         /*setSupportActionBar(mBinding.topAppBar)
         setupActionBarWithNavController(navController)*/
 

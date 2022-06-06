@@ -15,12 +15,17 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 
 
 class RegisterActivity2 : AppCompatActivity() {
     private lateinit var mBinding: ActivityRegister2Binding
 
     private var imageUri: Uri? = null
+    private var externalImageUri: String? = null
     private val pickImage = 100
     private var nickname: String = ""
     private var email: String = ""
@@ -72,7 +77,7 @@ class RegisterActivity2 : AppCompatActivity() {
                 userUid = it.result.user?.uid.toString()
                 showSuccessfulRegisterToast()
                 saveUserData(it.result.user!!.uid)
-                uploadImage(it.result.user?.uid)
+                uploadImage(it.result.user!!.uid)
                 showAuthActivity()
                 Log.d("Main", "uid: ${it.result.user?.uid}")
             }
@@ -84,9 +89,8 @@ class RegisterActivity2 : AppCompatActivity() {
 
     private fun saveUserData(uid: String) {
         val db = Firebase.firestore
-        //TODO sustituir map por User Model
-        val user = UserModel(nickname,email, )
-
+        //TODO obtener foto
+        val user =
             hashMapOf(
             "email" to email,
             "nickname" to nickname,
@@ -151,14 +155,16 @@ class RegisterActivity2 : AppCompatActivity() {
     }
 
     // El nombre de la imagen guardada es el que hay en el parentesis de child, darle un identificador unico
-    private fun uploadImage(userUid: String?) {
-        val storageRef = FirebaseStorage.getInstance().reference.child(userUid!!)
+    fun uploadImage(userUid: String?) {
+        val storageRef = FirebaseStorage.getInstance().reference.child("userImages/${userUid!!}")
         imageUri?.let { uri ->
             mBinding?.let {
                 storageRef.putFile(uri)
                     .addOnSuccessListener {
-                        it.storage.downloadUrl.addOnSuccessListener { downloadUrl ->
-                            Log.i("URL", downloadUrl.toString())
+                        GlobalScope.launch (Dispatchers.IO){
+                            externalImageUri  = it.storage.downloadUrl.addOnSuccessListener { downloadUrl ->
+                                Log.i("URL", downloadUrl.toString())
+                            }.await().path
                         }
                     }
             }

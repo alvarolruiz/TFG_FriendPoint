@@ -89,7 +89,7 @@ class DetailsFragment : Fragment() {
         Glide.with(mBinding.root).load(currentFriendPointModel!!.photoUrl).into(mBinding.detailsIvPhoto)
         mBinding.detailsTvPlan.text = currentFriendPointModel!!.plan
         mBinding.detailsTvDescripcion.text = currentFriendPointModel!!.descripcion
-        mBinding.detailsTvDescripcion.text = currentFriendPointModel!!.getEdadmedia().toString()
+        //mBinding.detailsTvDescripcion.text = currentFriendPointModel!!.getEdadmedia().toString()
     }
 
 

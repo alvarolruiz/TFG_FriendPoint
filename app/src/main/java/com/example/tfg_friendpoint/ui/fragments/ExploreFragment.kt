@@ -50,6 +50,16 @@ class ExploreFragment : Fragment() {
         fpAdapter!!.startListening()
     }
 
+    override fun onResume() {
+        super.onResume()
+        fpAdapter!!.startListening()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        fpAdapter!!.stopListening()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         fpAdapter!!.stopListening()

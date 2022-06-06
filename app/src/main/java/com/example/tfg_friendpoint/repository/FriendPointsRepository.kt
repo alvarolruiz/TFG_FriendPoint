@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
 class FriendPointsRepository {
-    val collectionName: String = "FirendPoints"
+    val collectionName: String = "FriendPoints"
     val dbReference = Firebase.firestore.collection(collectionName)
 
 
@@ -42,10 +42,9 @@ class FriendPointsRepository {
         }
     }
 
-    suspend fun getData(docUid: String): Task<DocumentSnapshot> {
+    suspend fun getData(docUid: String): DocumentSnapshot {
 
-
-        return dbReference.document(docUid).get()
+        return dbReference.document(docUid).get().await()
     }
 
 }

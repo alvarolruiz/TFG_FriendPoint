@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tfg_friendpoint.R
 import com.example.tfg_friendpoint.databinding.FragmentChatBinding
 import com.example.tfg_friendpoint.repository.AuthRepository
+import com.example.tfg_friendpoint.repository.UserFpRepository
 import com.example.tfg_friendpoint.ui.Adapter.ExploreFriendPointRecyclerAdapter
 import com.example.tfg_friendpoint.ui.model.FriendPointModel
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
@@ -20,7 +21,7 @@ class ChatFragment : Fragment() {
     private val authRepo = AuthRepository()
     private lateinit var mBinding: FragmentChatBinding
     private val db = Firebase.firestore
-    private val fpCollectionReference = db.collection("Users")
+    private val fpCollectionReference  = UserFpRepository().getFpOfUser()
 
     private var fpAdapter: ExploreFriendPointRecyclerAdapter? = null
     override fun onCreateView(
@@ -29,7 +30,8 @@ class ChatFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         mBinding = FragmentChatBinding.inflate(inflater, container, false)
-        val view = mBinding.root
+        val view = mBinding?.root
+        setupRecyclerView()
         return view
     }
 
@@ -48,8 +50,19 @@ class ChatFragment : Fragment() {
         return ExploreFriendPointRecyclerAdapter(firestoreRecyclerOptions)
     }
 
+    //Implementar que cuando se clicke en un item se vaya a la vista de chat y se muestren los mensajes
+
     private fun displayChatMesages() {
-        mBinding.chatsRv
+    }
+
+    override fun onStart() {
+        super.onStart()
+        fpAdapter!!.startListening()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        fpAdapter!!.stopListening()
     }
 
 }

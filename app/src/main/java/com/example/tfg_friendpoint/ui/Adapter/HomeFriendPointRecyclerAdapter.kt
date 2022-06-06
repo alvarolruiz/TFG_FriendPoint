@@ -20,7 +20,7 @@ class HomeFriendPointRecyclerAdapter (options: FirestoreRecyclerOptions<FriendPo
     FirestoreRecyclerAdapter<FriendPointModel, HomeFriendPointRecyclerAdapter.MyViewHolder>(
         options
     ) {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeFriendPointRecyclerAdapter.MyViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         return MyViewHolder(
             LayoutInflater.from(parent.context)
                 .inflate(R.layout.home_item_friend_point, parent, false)
