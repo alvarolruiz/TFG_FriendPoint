@@ -31,7 +31,7 @@ class ExploreFriendPointRecyclerAdapter(options: FirestoreRecyclerOptions<Friend
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int, model: FriendPointModel) {
         holder.plan.text = model.plan
-        holder.nMiembros.text = model.getNumeroMiembros().toString()
+        //holder.nMiembros.text = model.getNumeroMiembros().toString()
         holder.ubicacion.text = model.ubicacion
         Glide.with(holder.itemView).load(model.photoUrl).into(holder.photoUrl)
         holder.view.setOnClickListener {

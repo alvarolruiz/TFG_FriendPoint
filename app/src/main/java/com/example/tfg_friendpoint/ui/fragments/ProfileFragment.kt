@@ -27,6 +27,7 @@ class ProfileFragment : Fragment() {
 
     lateinit var mAuth: FirebaseAuth
     lateinit var loggedUser : FirebaseUser
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

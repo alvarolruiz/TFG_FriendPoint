@@ -9,6 +9,7 @@ import com.example.tfg_friendpoint.R
 import com.example.tfg_friendpoint.databinding.FragmentEditProfileBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.ktx.Firebase
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,6 +25,7 @@ class FragmentEditProfile : Fragment() {
 
     private lateinit var loggedUser: FirebaseUser
     lateinit var mAuth: FirebaseAuth
+
     private lateinit var mBinding: FragmentEditProfileBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,23 +37,5 @@ class FragmentEditProfile : Fragment() {
         return view
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment FragmentEditProfile.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            FragmentEditProfile().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
+
 }

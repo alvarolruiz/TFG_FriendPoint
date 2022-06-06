@@ -9,7 +9,6 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.tfg_friendpoint.R
-import com.example.tfg_friendpoint.ui.fragments.ExploreFragmentDirections
 import com.example.tfg_friendpoint.ui.model.FriendPointModel
 import com.example.tfg_friendpoint.ui.model.MessageModel
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter

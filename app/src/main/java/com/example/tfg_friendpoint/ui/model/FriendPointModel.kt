@@ -2,6 +2,7 @@ package com.example.tfg_friendpoint.ui.model
 
 import android.net.Uri
 import androidx.core.net.toUri
+import com.google.protobuf.LazyStringArrayList
 
 class FriendPointModel() {
     var nombre: String = ""
@@ -11,14 +12,15 @@ class FriendPointModel() {
     var ubicacion: String = ""
     var maxNumeroMiembros: Int = 0
     var aficiones: ArrayList<String> = ArrayList()
-    var miembros: ArrayList<UserModel> = ArrayList()
+    //TODO Conseguir guardar la lista de usuarios en memoria
+    //var miembros: ArrayList<UserModel> =
 
 
-    fun getNumeroMiembros(): Int {
+    /*fun getNumeroMiembros(): Int {
         return miembros.size
-    }
+    }*/
 
-    fun getEdadmedia(): Int? {
+    /*fun getEdadmedia(): Int? {
         var result = 0
         if(miembros.size>0){
             var sumaEdad = 0
@@ -29,7 +31,7 @@ class FriendPointModel() {
         }
 
         return result
-    }
+    }*/
 
 }
 
