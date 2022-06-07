@@ -7,11 +7,12 @@ import java.util.*
 class RequestModel( from: String = "",
                     to: String = "",
                     msg : String = ""
-) {
+){
     @ServerTimestamp
     val createdAt: Date? = null
     val message: String = msg
     var fromUid: String = from
     var toUid: String = to
     var resolved: Boolean = false
+    var accepted: Boolean = false
 }

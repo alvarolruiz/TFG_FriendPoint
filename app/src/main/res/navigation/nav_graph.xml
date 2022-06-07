@@ -21,7 +21,11 @@
         android:id="@+id/chat_fragment"
         android:name="com.example.tfg_friendpoint.ui.fragments.ChatFragment"
         android:label="fragment_chat"
-        tools:layout="@layout/fragment_chat" />
+        tools:layout="@layout/fragment_chat" >
+        <action
+            android:id="@+id/action_chat_fragment_to_chatRoomFragment"
+            app:destination="@id/chatRoomFragment" />
+    </fragment>
     <fragment
         android:id="@+id/home_fragment"
         android:name="com.example.tfg_friendpoint.ui.fragments.HomeFragment"
@@ -91,4 +95,14 @@
         <argument android:name="userUid"
             app:argType="string" />
     </dialog>
+    <fragment
+        android:id="@+id/chatRoomFragment"
+        android:name="com.example.tfg_friendpoint.ui.fragments.ChatRoomFragment"
+        android:label="fragment_chat_room"
+        tools:layout="@layout/fragment_chat_room" >
+        <action
+            android:id="@+id/action_chatRoomFragment_to_chat_fragment"
+            app:destination="@id/chat_fragment" />
+        <argument android:name="fpUid" />
+    </fragment>
 </navigation>

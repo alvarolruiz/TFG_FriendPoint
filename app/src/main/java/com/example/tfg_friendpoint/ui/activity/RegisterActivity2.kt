@@ -1,5 +1,6 @@
 package com.example.tfg_friendpoint.ui.activity
 
+import android.app.ProgressDialog
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.net.Uri
@@ -77,7 +78,8 @@ class RegisterActivity2 : AppCompatActivity() {
                 userUid = it.result.user?.uid.toString()
                 showSuccessfulRegisterToast()
                 saveUserData(it.result.user!!.uid)
-                uploadImage(it.result.user!!.uid)
+                //TODO Cambiar la forma de subir la imagen. Sustituir repo
+                //uploadImage(it.result.user!!.uid, imageUri)
                 showAuthActivity()
                 Log.d("Main", "uid: ${it.result.user?.uid}")
             }
@@ -155,8 +157,9 @@ class RegisterActivity2 : AppCompatActivity() {
     }
 
     // El nombre de la imagen guardada es el que hay en el parentesis de child, darle un identificador unico
-    fun uploadImage(userUid: String?) {
-        val storageRef = FirebaseStorage.getInstance().reference.child("userImages/${userUid!!}")
+    /*fun uploadImage(userUid: String?, localImageUri :Uri?) {
+
+        storageRef = FirebaseStorage.getInstance().reference.child("userImages/${userUid!!}")
         imageUri?.let { uri ->
             mBinding?.let {
                 storageRef.putFile(uri)
@@ -169,7 +172,7 @@ class RegisterActivity2 : AppCompatActivity() {
                     }
             }
         }
-    }
+    }*/
 
 
     /**

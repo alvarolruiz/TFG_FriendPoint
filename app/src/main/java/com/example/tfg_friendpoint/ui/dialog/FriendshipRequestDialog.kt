@@ -13,8 +13,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.tfg_friendpoint.R
 import com.example.tfg_friendpoint.databinding.FragmentHomeBinding
+import com.example.tfg_friendpoint.repository.FpRequestRepository
+import com.example.tfg_friendpoint.repository.FriendPointsRepository
+import com.example.tfg_friendpoint.repository.UserRequestRepository
 import com.example.tfg_friendpoint.repository.UsersRepository
 import com.example.tfg_friendpoint.ui.fragments.DetailsFragmentArgs
+import com.example.tfg_friendpoint.ui.model.RequestModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.Dispatchers
@@ -22,41 +26,54 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class FriendshipRequestDialog : BottomSheetDialogFragment() {
-
+    //Repositories
     lateinit var userRepository: UsersRepository
+    lateinit var userRequestRepository: UserRequestRepository
+    lateinit var fpRequestRepository: FpRequestRepository
     private val args: FriendshipRequestDialogArgs by navArgs()
-    private lateinit var message: String
+
+    //View elements
+    lateinit var etMessage: EditText
+    lateinit var okButton: FloatingActionButton
+    lateinit var cancelButton: FloatingActionButton
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         var rootview: View = inflater.inflate(R.layout.dialog_friendship_request, container, false)
-        val etMessage = rootview.findViewById<EditText>(R.id.request_et_message)
-        var okButon = rootview.findViewById<FloatingActionButton>(R.id.request_fb_ok)
-        var cancelButton = rootview.findViewById<FloatingActionButton>(R.id.request_fb_cancel)
-        message = etMessage.text.toString()
-        okButon.setOnClickListener {
-            Toast.makeText(rootview.context, etMessage.text, Toast.LENGTH_LONG).show()
-            //Write send request on user and recibed on friendpoint
-            dismiss()
-            sendRequest()
-
-        }
-        cancelButton.setOnClickListener { dismiss() }
-        userRepository = UsersRepository()
-
+        initializeRepositories()
+        findViewElements(rootview)
+        setupButtons(rootview)
         return rootview
 
     }
 
-    private fun sendRequest() {
-        GlobalScope.launch(Dispatchers.IO) {
-            try {
-                userRepository.sendRequest(args.userUid, args.friendPointUid, message)
-            } catch (e: Exception) {
-                Log.e("EXCEPCION", e.message.toString())
+    private fun initializeRepositories() {
+        userRequestRepository = UserRequestRepository(args.userUid)
+        fpRequestRepository = FpRequestRepository(args.friendPointUid)
+    }
+
+    private fun setupButtons(rootview: View) {
+        okButton.setOnClickListener {
+            Toast.makeText(rootview.context, etMessage.text, Toast.LENGTH_LONG).show()
+            //Write send request on user and recibed on friendpoint
+            var request = RequestModel(args.userUid, args.friendPointUid, etMessage.text.toString())
+            dismiss()
+            GlobalScope.launch (Dispatchers.IO){
+                var requestId =  userRequestRepository.sendRequestToFp(request)
+                fpRequestRepository
             }
         }
+        cancelButton.setOnClickListener { dismiss() }
     }
+
+    private fun findViewElements(rootview: View) {
+        etMessage = rootview.findViewById(R.id.request_et_message)
+        okButton = rootview.findViewById(R.id.request_fb_ok)
+        cancelButton = rootview.findViewById(R.id.request_fb_cancel)
+    }
+
+
 }

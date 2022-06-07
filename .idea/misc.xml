@@ -21,11 +21,13 @@
         <entry key="..\:/Users/ALVARO/AndroidStudioProjects/TFG_FriendPoint/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/ALVARO/AndroidStudioProjects/TFG_FriendPoint/app/src/main/res/layout/activity_register.xml" value="0.33" />
         <entry key="..\:/Users/ALVARO/AndroidStudioProjects/TFG_FriendPoint/app/src/main/res/layout/activity_register2.xml" value="0.22" />
+        <entry key="..\:/Users/ALVARO/AndroidStudioProjects/TFG_FriendPoint/app/src/main/res/layout/chat_item.xml" value="0.22" />
         <entry key="..\:/Users/ALVARO/AndroidStudioProjects/TFG_FriendPoint/app/src/main/res/layout/chat_message_item.xml" value="0.5" />
         <entry key="..\:/Users/ALVARO/AndroidStudioProjects/TFG_FriendPoint/app/src/main/res/layout/dialog_friendship_request.xml" value="0.1" />
         <entry key="..\:/Users/ALVARO/AndroidStudioProjects/TFG_FriendPoint/app/src/main/res/layout/explore_item_friend_point.xml" value="0.33" />
         <entry key="..\:/Users/ALVARO/AndroidStudioProjects/TFG_FriendPoint/app/src/main/res/layout/fragment_blank.xml" value="0.1" />
         <entry key="..\:/Users/ALVARO/AndroidStudioProjects/TFG_FriendPoint/app/src/main/res/layout/fragment_chat.xml" value="0.18" />
+        <entry key="..\:/Users/ALVARO/AndroidStudioProjects/TFG_FriendPoint/app/src/main/res/layout/fragment_chat_room.xml" value="0.10727969348659004" />
         <entry key="..\:/Users/ALVARO/AndroidStudioProjects/TFG_FriendPoint/app/src/main/res/layout/fragment_details.xml" value="0.1" />
         <entry key="..\:/Users/ALVARO/AndroidStudioProjects/TFG_FriendPoint/app/src/main/res/layout/fragment_edit_profile.xml" value="0.1634963768115942" />
         <entry key="..\:/Users/ALVARO/AndroidStudioProjects/TFG_FriendPoint/app/src/main/res/layout/fragment_explore.xml" value="0.18489583333333334" />
@@ -44,7 +46,6 @@
         <entry key="..\:/Users/alaurino/AndroidStudioProjects/TFG_FriendPoint/app/src/main/res/layout/activity_register.xml" value="0.2" />
         <entry key="..\:/Users/alaurino/AndroidStudioProjects/TFG_FriendPoint/app/src/main/res/layout/activity_register2.xml" value="0.11271529888551166" />
         <entry key="..\:/Users/alaurino/AndroidStudioProjects/TFG_FriendPoint/app/src/main/res/layout/create_friend_point.xml" value="0.22" />
-        <entry key="..\:/Users/alaurino/AndroidStudioProjects/TFG_FriendPoint/app/src/main/res/layout/fragment_chat.xml" value="0.10520833333333333" />
         <entry key="..\:/Users/alaurino/AndroidStudioProjects/TFG_FriendPoint/app/src/main/res/layout/fragment_details.xml" value="0.33" />
         <entry key="..\:/Users/alaurino/AndroidStudioProjects/TFG_FriendPoint/app/src/main/res/layout/fragment_fp_creator.xml" value="0.33" />
         <entry key="..\:/Users/alaurino/AndroidStudioProjects/TFG_FriendPoint/app/src/main/res/layout/fragment_friend_point.xml" value="0.18802083333333333" />
