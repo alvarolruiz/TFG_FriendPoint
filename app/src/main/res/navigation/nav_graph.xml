@@ -37,6 +37,9 @@
         <action
             android:id="@+id/action_home_fragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
+        <action
+            android:id="@+id/action_home_fragment_to_updateFpInfo"
+            app:destination="@id/updateFpInfo" />
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
@@ -104,5 +107,14 @@
             android:id="@+id/action_chatRoomFragment_to_chat_fragment"
             app:destination="@id/chat_fragment" />
         <argument android:name="fpUid" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateFpInfo"
+        android:name="com.example.tfg_friendpoint.ui.fragments.UpdateFpInfoFragment"
+        android:label="fragment_update_fp_info"
+        tools:layout="@layout/fragment_update_fp_info" >
+        <argument
+            android:name="uid"
+            app:argType="string" />
     </fragment>
 </navigation>

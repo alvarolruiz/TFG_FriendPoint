@@ -3,11 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/ALVARO/AndroidStudioProjects/TFG_FriendPoint/app/src/main/res/drawable-anydpi/ic_add_members.xml" value="0.235" />
         <entry key="..\:/Users/ALVARO/AndroidStudioProjects/TFG_FriendPoint/app/src/main/res/drawable-anydpi/ic_calendar.xml" value="0.2235" />
         <entry key="..\:/Users/ALVARO/AndroidStudioProjects/TFG_FriendPoint/app/src/main/res/drawable-anydpi/ic_edit.xml" value="0.151" />
         <entry key="..\:/Users/ALVARO/AndroidStudioProjects/TFG_FriendPoint/app/src/main/res/drawable-anydpi/ic_email.xml" value="0.2235" />
         <entry key="..\:/Users/ALVARO/AndroidStudioProjects/TFG_FriendPoint/app/src/main/res/drawable-anydpi/ic_lock_password.xml" value="0.2195" />
         <entry key="..\:/Users/ALVARO/AndroidStudioProjects/TFG_FriendPoint/app/src/main/res/drawable-anydpi/ic_nickname.xml" value="0.2195" />
+        <entry key="..\:/Users/ALVARO/AndroidStudioProjects/TFG_FriendPoint/app/src/main/res/drawable-anydpi/ic_request.xml" value="0.235" />
         <entry key="..\:/Users/ALVARO/AndroidStudioProjects/TFG_FriendPoint/app/src/main/res/drawable-anydpi/ic_search.xml" value="0.132" />
         <entry key="..\:/Users/ALVARO/AndroidStudioProjects/TFG_FriendPoint/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2195" />
         <entry key="..\:/Users/ALVARO/AndroidStudioProjects/TFG_FriendPoint/app/src/main/res/drawable/circle.xml" value="0.215" />
@@ -35,9 +37,13 @@
         <entry key="..\:/Users/ALVARO/AndroidStudioProjects/TFG_FriendPoint/app/src/main/res/layout/fragment_friend_point.xml" value="0.1" />
         <entry key="..\:/Users/ALVARO/AndroidStudioProjects/TFG_FriendPoint/app/src/main/res/layout/fragment_home.xml" value="0.33" />
         <entry key="..\:/Users/ALVARO/AndroidStudioProjects/TFG_FriendPoint/app/src/main/res/layout/fragment_profile.xml" value="0.33" />
+        <entry key="..\:/Users/ALVARO/AndroidStudioProjects/TFG_FriendPoint/app/src/main/res/layout/fragment_update_fp_info.xml" value="0.24166666666666667" />
         <entry key="..\:/Users/ALVARO/AndroidStudioProjects/TFG_FriendPoint/app/src/main/res/layout/friend_point_layout.xml" value="0.1" />
         <entry key="..\:/Users/ALVARO/AndroidStudioProjects/TFG_FriendPoint/app/src/main/res/layout/home_item_friend_point.xml" value="0.25" />
         <entry key="..\:/Users/ALVARO/AndroidStudioProjects/TFG_FriendPoint/app/src/main/res/layout/list_item_friend_point.xml" value="0.33" />
+        <entry key="..\:/Users/ALVARO/AndroidStudioProjects/TFG_FriendPoint/app/src/main/res/layout/message_item.xml" value="0.20729166666666668" />
+        <entry key="..\:/Users/ALVARO/AndroidStudioProjects/TFG_FriendPoint/app/src/main/res/layout/user_member_item.xml" value="0.33" />
+        <entry key="..\:/Users/ALVARO/AndroidStudioProjects/TFG_FriendPoint/app/src/main/res/layout/user_request_item.xml" value="0.67" />
         <entry key="..\:/Users/ALVARO/AndroidStudioProjects/TFG_FriendPoint/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1" />
         <entry key="..\:/Users/ALVARO/AndroidStudioProjects/TFG_FriendPoint/app/src/main/res/menu/top_app_bar_menu.xml" value="0.33425925925925926" />
         <entry key="..\:/Users/alaurino/AndroidStudioProjects/TFG_FriendPoint/app/src/main/res/drawable/selected_menu_item.xml" value="0.1995" />
@@ -52,7 +58,6 @@
         <entry key="..\:/Users/alaurino/AndroidStudioProjects/TFG_FriendPoint/app/src/main/res/layout/fragment_home.xml" value="0.17617753623188406" />
         <entry key="..\:/Users/alaurino/AndroidStudioProjects/TFG_FriendPoint/app/src/main/res/layout/fragment_profile_fragment.xml" value="0.2625" />
         <entry key="..\:/Users/alaurino/AndroidStudioProjects/TFG_FriendPoint/app/src/main/res/layout/list_item_friend_point.xml" value="0.48084054388133496" />
-        <entry key="..\:/Users/alaurino/AndroidStudioProjects/TFG_FriendPoint/app/src/main/res/layout/message_item.xml" value="0.5" />
         <entry key="..\:/Users/alaurino/AndroidStudioProjects/TFG_FriendPoint/app/src/main/res/layout/view_details_friend_point.xml" value="0.33" />
         <entry key="..\:/Users/alaurino/AndroidStudioProjects/TFG_FriendPoint/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1" />
         <entry key="..\:/Users/alaurino/AndroidStudioProjects/TFG_FriendPoint/app/src/main/res/menu/top_app_bar_menu.xml" value="0.1" />

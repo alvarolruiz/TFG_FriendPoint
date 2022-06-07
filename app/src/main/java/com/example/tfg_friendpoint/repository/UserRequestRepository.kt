@@ -35,13 +35,23 @@ class UserRequestRepository(val loggedUserUid: String) {
         recibedCollection.document(requestUid).set(request)
     }
     //Actualiza, actualiza y despues hace un get de la request en cuestión para copiarla exactamente igual en el Fp
-    fun acceptRequest(requestUid: String) {
+    fun accepRecibedRequest(requestUid: String) {
         recibedCollection.document(requestUid).update("resolved", true)
         recibedCollection.document(requestUid).update("accepted", true)
     }
-    fun denyRequest(requestUid: String) {
+
+    fun denyRecibedRequest(requestUid: String) {
         recibedCollection.document(requestUid).update("resolved", true)
         recibedCollection.document(requestUid).update("accepted", false)
+    }
+
+    fun sentRequestAccepted(requestUid: String){
+        sentCollection.document(requestUid).update("resolved", true)
+        sentCollection.document(requestUid).update("accepted", true)
+    }
+    fun sentRequestDenied(requestUid: String){
+        sentCollection.document(requestUid).update("resolved", true)
+        sentCollection.document(requestUid).update("accepted", true)
     }
 
 }

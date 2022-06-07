@@ -14,6 +14,7 @@ import com.example.tfg_friendpoint.ui.fragments.HomeFragmentDirections
 import com.example.tfg_friendpoint.ui.model.FriendPointModel
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.hdodenhof.circleimageview.CircleImageView
 
 class HomeFriendPointRecyclerAdapter (options: FirestoreRecyclerOptions<FriendPointModel>) :
@@ -33,10 +34,19 @@ class HomeFriendPointRecyclerAdapter (options: FirestoreRecyclerOptions<FriendPo
         holder.ubicacion.text = model.ubicacion
         Glide.with(holder.itemView).load(model.photoUrl).into(holder.photoUrl)
         holder.view.setOnClickListener {
-            Log.e("clickedItem", snapshots.getSnapshot(holder.layoutPosition).id)
             val uid = snapshots.getSnapshot(holder.layoutPosition).id
+            Log.e("clickedItem", uid)
             nagivateToDetails(it, uid)
         }
+        holder.fbEdit.setOnClickListener {
+            val uid = snapshots.getSnapshot(holder.layoutPosition).id
+            navigateToUpdate(it, uid)
+        }
+    }
+
+    private fun navigateToUpdate(it: View, uid: String) {
+        val action = HomeFragmentDirections.actionHomeFragmentToUpdateFpInfo(uid)
+        Navigation.findNavController(it).navigate(action)
     }
 
     private fun nagivateToDetails(it: View, fpUid: String) {
@@ -49,6 +59,7 @@ class HomeFriendPointRecyclerAdapter (options: FirestoreRecyclerOptions<FriendPo
         val photoUrl: CircleImageView = itemView.findViewById(R.id.home_item_civ_photo)
         val plan: TextView = itemView.findViewById(R.id.home_item_tv_plan)
         val ubicacion: TextView = itemView.findViewById(R.id.home_item_tv_ubi)
+        val fbEdit: FloatingActionButton = itemView.findViewById(R.id.home_item_fb_edit)
 
     }
 }

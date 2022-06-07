@@ -10,4 +10,6 @@
     <color name="blue_fp">#5271ff</color>
     <color name="orange_fp">#ff914d</color>
     <color name="black_menu">#FF111112</color>
+    <color name="green_ok">#00C853</color>
+    <color name ="red_cancel">#D50000</color>
 </resources>

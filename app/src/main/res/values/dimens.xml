@@ -23,6 +23,7 @@
     <dimen name="profile_civ_size">220dp</dimen>
     <dimen name="top_menu_size">60dp</dimen>
     <dimen name="home_item_fb">50dp</dimen>
+    <dimen name="top_menu_icon_size">45dp</dimen>
 
 
 </resources>

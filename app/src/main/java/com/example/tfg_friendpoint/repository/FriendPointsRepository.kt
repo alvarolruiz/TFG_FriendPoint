@@ -7,6 +7,9 @@ import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
 //casi completa
@@ -61,8 +64,12 @@ class FriendPointsRepository {
         }
     }
 
-    suspend fun getFpData (docUid: String): FriendPointModel? {
-        return fpCollection.document(docUid).get().await().toObject<FriendPointModel>(FriendPointModel::class.java)
+    fun getFpData (docUid: String): FriendPointModel? {
+        var fp = FriendPointModel()
+        GlobalScope.launch (Dispatchers.IO){
+            fp = fpCollection.document(docUid).get().await().toObject<FriendPointModel>(FriendPointModel::class.java) ?:FriendPointModel()
+        }
+        return fp
     }
 
     fun getFpOfUserQuery (uid : String) : Query {

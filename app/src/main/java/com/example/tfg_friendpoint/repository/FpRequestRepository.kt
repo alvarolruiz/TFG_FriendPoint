@@ -19,6 +19,13 @@ class FpRequestRepository (private val fpUid : String){
     fun getSentRequestQuery() : Query { return sentCollection }
     fun getRecibedRequestQuery() : Query {return recibedCollection}
 
+    fun getUserPendingRecibedRequest(): Query {
+       return recibedCollection.whereEqualTo("resolved", false)
+    }
+    fun getUserPendingSentRequest(): Query {
+        return sentCollection.whereEqualTo("resolved", false)
+    }
+
     suspend fun sendRequestToUser(request : RequestModel) : String{
         var userRequestUid = sentCollection.add(request)
             .addOnCompleteListener {
@@ -36,13 +43,23 @@ class FpRequestRepository (private val fpUid : String){
             }
     }
 
-    fun acceptRequest(requestUid: String) {
+    fun accepRecibedRequest(requestUid: String) {
         recibedCollection.document(requestUid).update("resolved", true)
         recibedCollection.document(requestUid).update("accepted", true)
     }
-    fun denyRequest(requestUid: String) {
+
+    fun denyRecibedRequest(requestUid: String) {
         recibedCollection.document(requestUid).update("resolved", true)
         recibedCollection.document(requestUid).update("accepted", false)
+    }
+
+    fun sentRequestAccepted(requestUid: String){
+        sentCollection.document(requestUid).update("resolved", true)
+        sentCollection.document(requestUid).update("accepted", true)
+    }
+    fun sentRequestDenied(requestUid: String){
+        sentCollection.document(requestUid).update("resolved", true)
+        sentCollection.document(requestUid).update("accepted", true)
     }
 
 
