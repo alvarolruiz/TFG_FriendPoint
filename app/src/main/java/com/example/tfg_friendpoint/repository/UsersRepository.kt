@@ -32,9 +32,9 @@ class UsersRepository() {
             }
     }
 
-    suspend fun getUserImage(userUid: String) : Uri {
-        val userImagesReference = storageRef.child("userImages/${userUid!!}")
-        return userImagesReference.downloadUrl.await()
+    suspend fun getUserImage(userUid: String) : String {
+        val userImagesReference = storageRef.child(userUid)
+        return userImagesReference.downloadUrl.await().toString()
     }
 
     suspend fun getUser(uid: String): UserModel {

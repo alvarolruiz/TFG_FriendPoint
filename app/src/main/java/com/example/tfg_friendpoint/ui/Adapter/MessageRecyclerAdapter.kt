@@ -18,15 +18,6 @@ class MessageRecyclerAdapter(context: Context, messageList: ArrayList<MessageMod
     val context = context
     val list : ArrayList<MessageModel> = messageList
 
-    class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var view: View = itemView
-        val tvNickname = itemView.findViewById<TextView>(R.id.msg_tv_nickname)
-        val tvTime = itemView.findViewById<TextView>(R.id.msg_tv_time)
-        val civPhoto = itemView.findViewById<CircleImageView>(R.id.msg_civ_photo)
-        val tvMessage: TextView = itemView.findViewById(R.id.mgs_tv_message)
-
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         return MyViewHolder( LayoutInflater.from(parent.context)
                 .inflate(R.layout.message_item, parent, false)
@@ -37,7 +28,7 @@ class MessageRecyclerAdapter(context: Context, messageList: ArrayList<MessageMod
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         var model = list.get(position)
         holder.tvNickname.text = model.nickname
-        holder.tvTime.text = model.sendTime
+        holder.tvTime.text = model.sendTime.toString()
         holder.tvMessage.text = model.message
         Glide.with(holder.itemView).load(model.photoUri).into(holder.civPhoto)
 
@@ -45,5 +36,14 @@ class MessageRecyclerAdapter(context: Context, messageList: ArrayList<MessageMod
 
     override fun getItemCount(): Int {
         return list.size
+    }
+
+    class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        var view: View = itemView
+        val tvNickname = itemView.findViewById<TextView>(R.id.msg_tv_nickname)
+        val tvTime = itemView.findViewById<TextView>(R.id.msg_tv_time)
+        val civPhoto = itemView.findViewById<CircleImageView>(R.id.msg_civ_photo)
+        val tvMessage: TextView = itemView.findViewById(R.id.mgs_tv_message)
+
     }
 }

@@ -28,7 +28,7 @@ class HomeFriendPointRecyclerAdapter (options: FirestoreRecyclerOptions<FriendPo
         )
     }
 
-    override fun onBindViewHolder(holder: HomeFriendPointRecyclerAdapter.MyViewHolder, position: Int, model: FriendPointModel) {
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int, model: FriendPointModel) {
         holder.plan.text = model.plan
         holder.ubicacion.text = model.ubicacion
         Glide.with(holder.itemView).load(model.photoUrl).into(holder.photoUrl)

@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "190262731222",
+    "firebase_url": "https://friendpoint-2be27-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "friendpoint-2be27",
     "storage_bucket": "friendpoint-2be27.appspot.com"
   },
@@ -35,5 +36,5 @@
       }
     }
   ],
-  "configuration_version": "1"
+  "configuration_version": "2"
 }

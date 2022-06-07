@@ -5,7 +5,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.auth.User
 
 class AuthRepository {
-        private val mAuth  = FirebaseAuth.getInstance()
-        val currentUser = mAuth.currentUser
+    private val mAuth = FirebaseAuth.getInstance()
+    val currentUser = mAuth.currentUser
 
 }
