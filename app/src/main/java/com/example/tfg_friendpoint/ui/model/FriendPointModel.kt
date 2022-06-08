@@ -11,7 +11,7 @@ class FriendPointModel() {
     var photoUrl: String = ""
     var ubicacion: String = ""
     var maxNumeroMiembros: Int = 0
-    var aficiones: ArrayList<String> = ArrayList()
+    var aficiones: List<String> = ArrayList()
     //TODO Conseguir guardar la lista de usuarios en memoria
     //var miembros: ArrayList<UserModel> =
 

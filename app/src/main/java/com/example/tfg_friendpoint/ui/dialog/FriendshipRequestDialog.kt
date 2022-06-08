@@ -45,7 +45,7 @@ class FriendshipRequestDialog : BottomSheetDialogFragment() {
         var rootview: View = inflater.inflate(R.layout.dialog_friendship_request, container, false)
         initializeRepositories()
         findViewElements(rootview)
-        setupButtons(rootview)
+        setupButtons()
         return rootview
 
     }
@@ -55,17 +55,29 @@ class FriendshipRequestDialog : BottomSheetDialogFragment() {
         fpRequestRepository = FpRequestRepository(args.friendPointUid)
     }
 
-    private fun setupButtons(rootview: View) {
+    private fun setupButtons() {
+        setupOkButton()
+        setupCancelButton()
+    }
+
+    private fun setupOkButton() {
         okButton.setOnClickListener {
-            Toast.makeText(rootview.context, etMessage.text, Toast.LENGTH_LONG).show()
-            //Write send request on user and recibed on friendpoint
             var request = RequestModel(args.userUid, args.friendPointUid, etMessage.text.toString())
+            sendRequest(request)
             dismiss()
-            GlobalScope.launch (Dispatchers.IO){
-                var requestId =  userRequestRepository.sendRequestToFp(request)
-                fpRequestRepository
-            }
         }
+    }
+
+    private fun sendRequest(request: RequestModel) {
+        GlobalScope.launch (Dispatchers.IO){
+            var requestId = userRequestRepository.sendRequestToFp(request)
+            Log.e ("reqId", requestId)
+            fpRequestRepository.recibeRequestFromUser(requestId, request)
+        }
+
+    }
+
+    private fun setupCancelButton() {
         cancelButton.setOnClickListener { dismiss() }
     }
 

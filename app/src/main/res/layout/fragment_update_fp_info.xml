@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.fragments.UpdateFpInfoFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -33,7 +33,7 @@
                 android:textSize="34sp" />
 
             <ImageButton
-                android:id="@+id/imageButton"
+                android:id="@+id/fp_update_ib_invite"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center_vertical|end"
@@ -42,173 +42,205 @@
                 android:src="@drawable/ic_add_members" />
 
             <ImageButton
-                android:id="@+id/imageButton2"
+                android:id="@+id/fp_update_ib_request"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center_vertical|end"
-                android:layout_marginStart="32dp"
+                android:layout_marginStart="16dp"
                 android:layout_weight="0"
                 android:background="#FFFFFF"
                 android:src="@drawable/ic_request" />
 
         </LinearLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout"
+        <ScrollView
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout8"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ll_top_bar">
 
-            <LinearLayout
-                android:id="@+id/linearLayout6"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/common_margin"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginEnd="8dp"
-                    android:src="@drawable/logo_fp" />
-
-                <EditText
-                    android:id="@+id/fp_update_et_plan"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:fontFamily="sans-serif-medium"
-                    android:hint="¿Que plan teneis?"
-                    android:textColor="#000000"
-                    android:textSize="28sp" />
-            </LinearLayout>
-
-
-            <ImageView
-                android:id="@+id/update_fp_iv_photo"
-                android:layout_width="0dp"
-                android:layout_height="250dp"
-                android:src="@drawable/imagen_ejemplo"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout6" />
-
-            <Button
-                android:id="@+id/button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="Cambiar"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardView2"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:scrollbarSize="2dp"
-            app:cardBackgroundColor="#FFFFFF"
-            app:cardCornerRadius="0dp"
-            app:cardElevation="100dp"
-            app:layout_constraintBottom_toTopOf="@+id/linearLayout8"
-            app:layout_constraintEnd_toEndOf="@+id/constraintLayout"
-            app:layout_constraintStart_toStartOf="@+id/constraintLayout"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
-
-            <ScrollView
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingStart="10dp"
-                android:paddingLeft="10dp"
-                android:paddingTop="5dp"
-                android:paddingEnd="15dp"
-                android:paddingBottom="5dp"
-                android:scrollbarSize="2dp">
+                android:layout_height="wrap_content"
+                android:background="@color/white">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/constraintLayout"
-                    app:layout_constraintStart_toStartOf="@+id/constraintLayout"
-                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+                <LinearLayout
+                    android:id="@+id/ll_plan"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <LinearLayout
-                        android:id="@+id/ll_aficiones"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/create_icon_size"
+                            android:layout_height="@dimen/create_icon_size"
+                            android:src="@drawable/logo_fp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="sans-serif-black"
+                            android:text="Plan:"
+                            android:textSize="@dimen/create_tv_size" />
+                    </LinearLayout>
+
+                    <EditText
+                        android:id="@+id/fp_update_et_plan"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="24dp"
-                        android:orientation="vertical"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/ll_descripcion">
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/actor"
+                        android:hint="¿Que plan teneis?"
+                        android:textAlignment="viewStart"
+                        android:textSize="@dimen/create_et_size" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/linearLayout5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ll_plan">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/create_icon_size"
+                            android:layout_height="@dimen/create_icon_size"
+                            android:src="@drawable/ic_photo" />
 
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:fontFamily="sans-serif-black"
-                            android:text="Aficiones:"
-                            android:textColor="#322F2F"
-                            android:textSize="24sp" />
-
-                        <EditText
-                            android:id="@+id/update_fp_et_aficiones"
-                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:fontFamily="sans-serif-light"
-                            android:hint="Que os gusta hacer?"
-                            android:textAlignment="viewStart"
-                            android:textColor="#000000"
-                            android:textSize="20sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/ll_descripcion"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="8dp"
                             android:fontFamily="sans-serif-black"
-                            android:text="Descripción:"
-                            android:textColor="#322F2F"
-                            android:textSize="24sp" />
+                            android:text="Foto:"
+                            android:textSize="@dimen/create_tv_size" />
 
-                        <EditText
-                            android:id="@+id/update_fp_et_descripcion"
-                            android:layout_width="match_parent"
-                            android:layout_height="120dp"
-                            android:layout_marginTop="8dp"
-                            android:fontFamily="sans-serif-light"
-                            android:hint="Cuenta algo sobre tu grupo.."
-                            android:textAlignment="viewStart"
-                            android:textColor="#000000"
-                            android:textSize="20sp" />
+                        <ImageButton
+                            android:id="@+id/fp_update_ib_foto"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="1"
+                            android:src="@drawable/ic_edit" />
+
                     </LinearLayout>
 
+                    <ImageView
+                        android:id="@+id/fp_update_iv_photo"
+                        android:layout_width="match_parent"
+                        android:layout_height="260dp"
+                        android:layout_weight="1"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/imagen_ejemplo" />
+                </LinearLayout>
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </ScrollView>
-        </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardView2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:scrollbarSize="2dp"
+                    app:cardBackgroundColor="#FFFFFF"
+                    app:cardCornerRadius="0dp"
+                    app:cardElevation="100dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/constraintLayout"
+                        app:layout_constraintStart_toStartOf="@+id/constraintLayout"
+                        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">>
+
+                        <LinearLayout
+                            android:id="@+id/ll_aficiones"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/ll_descripcion">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:fontFamily="sans-serif-black"
+                                android:text="Aficiones:"
+                                android:textColor="#322F2F"
+                                android:textSize="24sp" />
+
+                            <EditText
+                                android:id="@+id/fp_update_et_aficiones"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:fontFamily="sans-serif-light"
+                                android:hint="Que os gusta hacer?"
+                                android:textAlignment="viewStart"
+                                android:textColor="#000000"
+                                android:textSize="20sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/ll_descripcion"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:fontFamily="sans-serif-black"
+                                android:text="Descripción:"
+                                android:textColor="#322F2F"
+                                android:textSize="24sp" />
+
+                            <EditText
+                                android:id="@+id/fp_update_et_descripcion"
+                                android:layout_width="match_parent"
+                                android:layout_height="120dp"
+                                android:layout_marginTop="8dp"
+                                android:fontFamily="sans-serif-light"
+                                android:hint="Cuenta algo sobre tu grupo.."
+                                android:textAlignment="viewStart"
+                                android:textColor="#000000"
+                                android:textSize="20sp" />
+                        </LinearLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
 
         <LinearLayout
             android:id="@+id/linearLayout8"
@@ -221,7 +253,7 @@
             app:layout_constraintStart_toStartOf="parent">
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/floatingActionButton"
+                android:id="@+id/fp_update_fb_update"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="true"

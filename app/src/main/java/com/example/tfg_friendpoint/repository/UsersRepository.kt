@@ -34,7 +34,9 @@ class UsersRepository() {
 
     suspend fun getUserImage(userUid: String) : String {
         val userImagesReference = storageRef.child(userUid)
-        return userImagesReference.downloadUrl.await().toString()
+        return userImagesReference.downloadUrl.addOnCompleteListener {
+            Log.e("Storage", it.result.path.toString())
+        }.await().path.toString()
     }
 
     suspend fun getUser(uid: String): UserModel {

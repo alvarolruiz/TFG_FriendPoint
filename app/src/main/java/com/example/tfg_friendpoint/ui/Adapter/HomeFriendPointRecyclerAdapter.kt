@@ -40,6 +40,7 @@ class HomeFriendPointRecyclerAdapter (options: FirestoreRecyclerOptions<FriendPo
         }
         holder.fbEdit.setOnClickListener {
             val uid = snapshots.getSnapshot(holder.layoutPosition).id
+            Log.e("clickedItem", uid)
             navigateToUpdate(it, uid)
         }
     }

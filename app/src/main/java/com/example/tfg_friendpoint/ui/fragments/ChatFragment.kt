@@ -63,8 +63,8 @@ class ChatFragment : Fragment() {
         fpAdapter!!.startListening()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onPause() {
+        super.onPause()
         fpAdapter!!.stopListening()
     }
 

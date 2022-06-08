@@ -16,67 +16,69 @@ import kotlinx.coroutines.tasks.await
 class FriendPointsRepository {
 
     private val db = Firebase.firestore
-    private val rootElement =  "FriendPoints"
-    private val fpCollection = db.collection("FriendPoints")
+    private val rootElement = "FriendPoints"
+    private val fpCollection = db.collection(rootElement)
     private val storageRef = FirebaseStorage.getInstance().reference
 
 
-    suspend fun getFpImage(fpUid : String) : String{
-        val fpImagesReference = storageRef.child("${rootElement}/${fpUid!!}")
-        return fpImagesReference.downloadUrl.await().toString()
-
+    suspend fun getFpImage(fpUid: String): String {
+        val fpImageReference = storageRef.child("${rootElement}/${fpUid!!}")
+        return fpImageReference.downloadUrl.addOnCompleteListener {
+            Log.i("Storage", it.result.path.toString())
+        }.await().toString()
     }
 
-    fun uploadUserImage(fpUid: String, localPhotoUri: Uri) {
+    fun uploadFpImage(fpUid: String, localPhotoUri: Uri): String? {
         val fpImageReference = storageRef.child("${rootElement}/${fpUid!!}")
+        var externalUri: String? = null
         fpImageReference.putFile(localPhotoUri)
             .addOnSuccessListener {
                 Log.e("Storage", "Foto subida correctamente")
+                GlobalScope.launch(Dispatchers.IO) {
+                    externalUri = it.storage.downloadUrl
+                        .addOnSuccessListener { downloadUrl ->
+                            Log.i("URL", downloadUrl.toString())
+                        }.await().path
+                }
             }
+        return externalUri
     }
 
-    suspend fun getUserImage(userUid: String) : String {
-        val userImagesReference = storageRef.child(userUid)
-        return userImagesReference.downloadUrl.await().toString()
-    }
-
-    suspend fun addFp (childName: String, friendPointModel: FriendPointModel): String? {
-        return try {
-            val fpUid = fpCollection
-                .add(friendPointModel).addOnCompleteListener{
-                    Log.i("FpRepository", "New Friendpoint added with id ${it.result.id}")
-                }.await().id
-            return fpUid
-        } catch (e: Exception) {
-            return null
+        suspend fun addFp(friendPointModel: FriendPointModel): String? {
+            return try {
+                val fpUid = fpCollection.add(friendPointModel)
+                    .addOnCompleteListener {
+                        Log.i("FpRepository", "New Friendpoint added with id ${it.result.id}")
+                    }.await().id
+                return fpUid
+            } catch (e: Exception) {
+                return null
+            }
         }
-    }
 
-    suspend fun updateFp(docUid: String, friendPointModel: FriendPointModel
-    ): Boolean {
-        return try {
-            val data = fpCollection
-                .document(docUid)
-                .set(friendPointModel).await()
-            return true
-        } catch (e: Exception) {
-            return false
+        suspend fun updateFp(fpUid: String, friendPointModel: FriendPointModel): Boolean {
+            return try {
+                val data = fpCollection
+                    .document(fpUid)
+                    .set(friendPointModel).await()
+                return true
+            } catch (e: Exception) {
+                return false
+            }
         }
-    }
 
-    fun getFpData (docUid: String): FriendPointModel? {
-        var fp = FriendPointModel()
-        GlobalScope.launch (Dispatchers.IO){
-            fp = fpCollection.document(docUid).get().await().toObject<FriendPointModel>(FriendPointModel::class.java) ?:FriendPointModel()
+        suspend fun getFpData(fpUid: String): FriendPointModel? {
+            var currentFp: FriendPointModel? = null
+            currentFp = fpCollection.document(fpUid).get()
+                .await().toObject(FriendPointModel::class.java)
+            return currentFp
         }
-        return fp
-    }
 
-    fun getFpOfUserQuery (uid : String) : Query {
-        return fpCollection.whereArrayContains("miembros", uid)
-    }
+        fun getFpOfUserQuery(uid: String): Query {
+            return fpCollection.whereArrayContains("miembros", uid)
+        }
 
-}
+    }
 
 
 
