@@ -7,22 +7,22 @@ import com.example.tfg_friendpoint.ui.model.RequestModel
 import com.example.tfg_friendpoint.ui.model.UserModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import java.io.IOException
 
 class UsersRepository() {
     var db = Firebase.firestore
-    var usersReference = db.collection("users")
+    var rootCollection = "users"
+    var usersReference = db.collection(rootCollection)
     val storageRef = FirebaseStorage.getInstance().reference
-    var fpReference = db.collection("FriendPoints")
-
-
-    val mAuth = FirebaseAuth.getInstance()
-    var currentUserUid = mAuth.currentUser!!.uid
 
     fun uploadUserImage(userUid: String, localPhotoUri: Uri) {
         val userImagesReference = storageRef.child("userImages/${userUid!!}")
@@ -39,10 +39,14 @@ class UsersRepository() {
         }.await().path.toString()
     }
 
-    suspend fun getUser(uid: String): UserModel {
-        var snapshot = usersReference.document(uid).get().await()
-        var data = snapshot.toObject(UserModel::class.java)
-        return data!!
+    fun getUser(uid: String): UserModel? {
+        var data : UserModel? = null
+        GlobalScope.launch (Dispatchers.IO){
+            var snapshot = usersReference.document(uid).get().await()
+            data = snapshot.toObject(UserModel::class.java)
+        }
+
+        return data
     }
 
     suspend fun getUserNickName(userUid: String):String{
@@ -51,6 +55,15 @@ class UsersRepository() {
         }.await().get("nickname").toString()
         return nickname
     }
+
+    fun getAllUsersQuery(): Query {
+        return usersReference
+    }
+
+   /* fun getMembersOfFp(fpUid: String): Query {
+// O obtener todos los usuarios miembros en un array y conseguir hacer una consulta con ellos o
+        // O obtener todos los usuarios que contengan al fp en concreto
+    }*/
 
     /*@Throws(NullPointerException::class)
     suspend fun sendRequest(fpUid: String, userUid: String, message: String) {

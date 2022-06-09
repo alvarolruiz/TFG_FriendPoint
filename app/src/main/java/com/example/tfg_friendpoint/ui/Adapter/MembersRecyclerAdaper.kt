@@ -39,8 +39,8 @@ class MembersRecyclerAdapter (options: FirestoreRecyclerOptions<UserModel>) :
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var view: View = itemView
-        val nickname: TextView = itemView.findViewById(R.id.usr_request_tv_nickname)
-        val edad: TextView = itemView.findViewById(R.id.usr_request_tv_edad)
-        val photoUrl: CircleImageView = itemView.findViewById(R.id.usr_request_civ_photo)
+        val nickname: TextView = itemView.findViewById(R.id.usr_member_tv_nickname)
+        val edad: TextView = itemView.findViewById(R.id.usr_member_tv_edad)
+        val photoUrl: CircleImageView = itemView.findViewById(R.id.usr_member_civ_photo)
     }
 }

@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.tfg_friendpoint.R
@@ -24,6 +25,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class FriendshipRequestDialog : BottomSheetDialogFragment() {
     //Repositories
@@ -68,14 +70,13 @@ class FriendshipRequestDialog : BottomSheetDialogFragment() {
         }
     }
 
-    private fun sendRequest(request: RequestModel) {
-        GlobalScope.launch (Dispatchers.IO){
-            var requestId = userRequestRepository.sendRequestToFp(request)
-            Log.e ("reqId", requestId)
-            fpRequestRepository.recibeRequestFromUser(requestId, request)
+    fun sendRequest(request: RequestModel) {
+        GlobalScope.launch(Dispatchers.IO) {
+            var result = userRequestRepository.sendRequestToFp(request)
+            fpRequestRepository.recibeRequestFromUser(result, request)
         }
-
     }
+
 
     private fun setupCancelButton() {
         cancelButton.setOnClickListener { dismiss() }

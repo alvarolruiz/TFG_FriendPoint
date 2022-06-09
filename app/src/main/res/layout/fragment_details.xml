@@ -72,6 +72,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/details_iv_photo">
                 <!--Boton ver miembros-->
                 <LinearLayout
+                    android:id="@+id/details_ll_members"
                     android:layout_width="@dimen/details_btn_width"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="25dp"
@@ -101,7 +102,7 @@
                             android:layout_width="@dimen/details_btn_civ_size"
                             android:layout_height="@dimen/details_btn_civ_size"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/pers1"
+                            android:src="@drawable/profile_default"
                             app:civ_border_color="#323232"
                             app:civ_border_overlay="false"
                             app:civ_border_width="1dp" />
@@ -112,7 +113,7 @@
                             android:layout_height="@dimen/details_btn_civ_size"
                             android:layout_weight="1"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/pers1"
+                            android:src="@drawable/profile_default"
                             app:civ_border_color="#323232"
                             app:civ_border_overlay="false"
                             app:civ_border_width="1dp" />
@@ -123,7 +124,7 @@
                             android:layout_height="@dimen/details_btn_civ_size"
                             android:layout_weight="1"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/pers1"
+                            android:src="@drawable/profile_default"
                             app:civ_border_color="#323232"
                             app:civ_border_overlay="false"
                             app:civ_border_width="1dp" />

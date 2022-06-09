@@ -8,11 +8,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.tfg_friendpoint.databinding.FragmentUpdateFpInfoBinding
 import com.example.tfg_friendpoint.repository.FriendPointsRepository
+import com.example.tfg_friendpoint.ui.activity.mAuth
 import com.example.tfg_friendpoint.ui.model.FriendPointModel
 import com.example.tfg_friendpoint.ui.model.Photo
 import kotlinx.coroutines.Dispatchers
@@ -69,7 +72,11 @@ class UpdateFpInfoFragment : Fragment() {
         val fpRepo = FriendPointsRepository()
         GlobalScope.launch(Dispatchers.IO) {
             fpRepo.updateFp(fpUid, currentFp)
+            withContext(Dispatchers.Main){
+            }
         }
+       Toast.makeText(mBinding.root.context,"sdds",Toast.LENGTH_SHORT)
+
     }
 
     private fun navigateToHome() {
@@ -91,6 +98,8 @@ class UpdateFpInfoFragment : Fragment() {
     }
 
     private fun navigateToRequest(uid: String) {
+        val action = UpdateFpInfoFragmentDirections.actionUpdateFpInfoToFpRequestFragment(args.uid)
+        findNavController().navigate(action)
     }
 
     /**

@@ -9,6 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 
 //Casi completa
 class UserRequestRepository(val loggedUserUid: String) {
@@ -19,7 +20,6 @@ class UserRequestRepository(val loggedUserUid: String) {
     private val recibedCollection =
         db.collection(rootCollection).document(loggedUserUid).collection("recibedRequest")
 
-    //Todo
     fun isValidRecibedRequest() {}
 
     fun getSentRequestQuery(): Query {
@@ -30,14 +30,9 @@ class UserRequestRepository(val loggedUserUid: String) {
         return recibedCollection
     }
 
-    suspend fun sendRequestToFp(request : RequestModel) : String{
-        var userRequestUid = sentCollection.add(request)
-            .addOnCompleteListener {
-                if (it.result.id != null) {
-                    Log.e("userRequestUid", it.result.id)
-                }
-            }.await().id
-        return userRequestUid
+    suspend fun sendRequestToFp(request: RequestModel): String {
+        Log.e("UsrReq", sentCollection.toString())
+        return sentCollection.add(request).await().id
     }
 
 

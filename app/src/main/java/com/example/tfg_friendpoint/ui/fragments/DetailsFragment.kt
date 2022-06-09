@@ -50,6 +50,11 @@ class DetailsFragment : Fragment() {
             findNavController().navigate(action)
         }
 
+        mBinding.detailsLlMembers.setOnClickListener {
+            val action = DetailsFragmentDirections.actionDetailsFragmentToFpMembersFrament(args.uid!!)
+            findNavController().navigate(action)
+        }
+
         //Preguntar por hacer una clase que devuelva metodos suspend (repo)
         //Corrutina que llama a firestore y obtiene la información del friendpoint cuyo uid
         // coincide con el recibido por safeargs

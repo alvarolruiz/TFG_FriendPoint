@@ -14,5 +14,6 @@
     <string name="home_title">Home</string>
     <string name="chats_title">Chats</string>
     <string name="update_title">Editar</string>
+    <string name="members_title">Miembros del FriendPoint</string>
 
 </resources>

@@ -30,18 +30,17 @@ class RecibedFpRequestRecyclerAdapter  (options: FirestoreRecyclerOptions<Reques
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int, model: RequestModel) {
         var user = model.getFromUser()
-        holder.nickname.text = user.nickName
-        holder.edad.text = user.getEdad().toString()
-        Glide.with(holder.itemView).load(user.photoUrl).into(holder.photoUrl)
+        holder.nickname.text = user?.nickName ?:""
+        holder.edad.text = user?.getEdad().toString() ?:""
+        Glide.with(holder.itemView).load(user?.photoUrl ?:"").into(holder.photoUrl)
         holder.fbAccept.setOnClickListener {
             val requestUid = snapshots.getSnapshot(holder.layoutPosition).id
             acceptUserRequest(model.fromUid, model.toUid,requestUid)
-            Log.i("fpRequestAdapter", "Request ${requestUid} accepted")
+            Log.i("fpRequestAdapter", "Request $requestUid accepted")
         }
         holder.fbDeny.setOnClickListener {
             val requestUid = snapshots.getSnapshot(holder.layoutPosition).id
-            Log.i("fpRequestAdapter", "Request ${requestUid} denied")
-
+            Log.i("fpRequestAdapter", "Request $requestUid denied")
         }
 
     }

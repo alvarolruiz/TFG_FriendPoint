@@ -21,7 +21,6 @@ import com.google.firebase.ktx.Firebase
 class ChatFragment : Fragment() {
     private val authRepository = AuthRepository()
     private lateinit var mBinding: FragmentChatBinding
-    private val db = Firebase.firestore
     private val fpRepository  = FriendPointsRepository()
     private lateinit var fpAdapter :  ChatRecyclerAdapter
 
@@ -30,10 +29,9 @@ class ChatFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+
         mBinding = FragmentChatBinding.inflate(inflater, container, false)
         val view = mBinding?.root
-
 
         fpAdapter = getAdapter(fpRepository.getFpOfUserQuery(authRepository.currentUser!!.uid))
         setupRecyclerView(fpAdapter)
@@ -53,7 +51,6 @@ class ChatFragment : Fragment() {
         return ChatRecyclerAdapter(firestoreRecyclerOptions)
     }
 
-    //Implementar que cuando se clicke en un item se vaya a la vista de chat y se muestren los mensajes
 
     private fun displayChatMesages() {
     }

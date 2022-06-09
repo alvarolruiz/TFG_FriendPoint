@@ -22,11 +22,10 @@ class RequestModel(
     var resolved: Boolean = false
     var accepted: Boolean = false
 
-    fun getFromUser(): UserModel {
-        lateinit var user: UserModel
-        GlobalScope.launch(Dispatchers.IO) {
+    fun getFromUser(): UserModel? {
+        var user: UserModel? = null
             user = UsersRepository().getUser(fromUid)
-        }
+
         return user
     }
 }

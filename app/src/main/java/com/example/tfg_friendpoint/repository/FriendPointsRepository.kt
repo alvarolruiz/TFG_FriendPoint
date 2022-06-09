@@ -44,41 +44,46 @@ class FriendPointsRepository {
         return externalUri
     }
 
-        suspend fun addFp(friendPointModel: FriendPointModel): String? {
-            return try {
-                val fpUid = fpCollection.add(friendPointModel)
-                    .addOnCompleteListener {
-                        Log.i("FpRepository", "New Friendpoint added with id ${it.result.id}")
-                    }.await().id
-                return fpUid
-            } catch (e: Exception) {
-                return null
-            }
+    suspend fun addFp(friendPointModel: FriendPointModel): String? {
+        return try {
+            val fpUid = fpCollection.add(friendPointModel)
+                .addOnCompleteListener {
+                    Log.i("FpRepository", "New Friendpoint added with id ${it.result.id}")
+                }.await().id
+            return fpUid
+        } catch (e: Exception) {
+            return null
         }
-
-        suspend fun updateFp(fpUid: String, friendPointModel: FriendPointModel): Boolean {
-            return try {
-                val data = fpCollection
-                    .document(fpUid)
-                    .set(friendPointModel).await()
-                return true
-            } catch (e: Exception) {
-                return false
-            }
-        }
-
-        suspend fun getFpData(fpUid: String): FriendPointModel? {
-            var currentFp: FriendPointModel? = null
-            currentFp = fpCollection.document(fpUid).get()
-                .await().toObject(FriendPointModel::class.java)
-            return currentFp
-        }
-
-        fun getFpOfUserQuery(uid: String): Query {
-            return fpCollection.whereArrayContains("miembros", uid)
-        }
-
     }
+
+    suspend fun updateFp(fpUid: String, friendPointModel: FriendPointModel): Boolean {
+        return try {
+            val data = fpCollection
+                .document(fpUid)
+                .set(friendPointModel).await()
+            return true
+        } catch (e: Exception) {
+            return false
+        }
+    }
+
+    suspend fun getFpData(fpUid: String): FriendPointModel? {
+        var currentFp: FriendPointModel? = null
+        currentFp = fpCollection.document(fpUid).get()
+            .await().toObject(FriendPointModel::class.java)
+        return currentFp
+    }
+
+    fun getFpOfUserQuery(uid: String): Query {
+        return fpCollection.whereArrayContains("miembros", uid)
+    }
+
+    fun updateFpImage(fpUid: String, externalUri: String) {
+        fpCollection.document(fpUid).update("photoUrl", externalUri)
+    }
+}
+
+
 
 
 

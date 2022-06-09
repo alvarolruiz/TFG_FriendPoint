@@ -3,10 +3,10 @@ package com.example.tfg_friendpoint.ui.model
 import java.util.*
 
 class UserModel(
-    nickName: String,
-    email: String,
-    photoUrl: String,
-    fechaNacimiento: String
+    nickName: String = "",
+    email: String = "",
+    photoUrl: String = "",
+    fechaNacimiento: String = ""
 ) {
    var nickName: String = nickName
     var email: String = email
