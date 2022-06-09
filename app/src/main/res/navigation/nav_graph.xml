@@ -98,8 +98,6 @@
         <argument
             android:name="friendPointUid"
             app:argType="string" />
-        <argument android:name="userUid"
-            app:argType="string" />
     </dialog>
     <fragment
         android:id="@+id/chatRoomFragment"

@@ -33,7 +33,6 @@ class MembersRecyclerAdapter (options: FirestoreRecyclerOptions<UserModel>) :
         Glide.with(holder.itemView).load(model.photoUrl).into(holder.photoUrl)
         holder.edad.text = model.getEdad().toString()
         holder.nickname.text = model.nickName
-        // Si da tiempo llevar al perfil del usuario
 
     }
 

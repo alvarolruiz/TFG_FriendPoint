@@ -3,17 +3,19 @@ package com.example.tfg_friendpoint.ui.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
-import com.example.tfg_friendpoint.R
 import com.example.tfg_friendpoint.databinding.ActivityAuthBinding
-import com.example.tfg_friendpoint.databinding.ActivityMainBinding
-import com.google.firebase.auth.FirebaseAuth
-lateinit var mAuth : FirebaseAuth
-lateinit var mBinding: ActivityAuthBinding
+import com.example.tfg_friendpoint.repository.AuthRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class AuthActivity : AppCompatActivity() {
+
+    var authRepo = AuthRepository()
+    lateinit var mBinding: ActivityAuthBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = ActivityAuthBinding.inflate(layoutInflater)
@@ -23,7 +25,6 @@ class AuthActivity : AppCompatActivity() {
     }
 
     private fun configAuth() {
-        mAuth = FirebaseAuth.getInstance()
         setupBotonLogin()
         setupBotonRegistro()
 
@@ -31,19 +32,23 @@ class AuthActivity : AppCompatActivity() {
 
     private fun setupBotonLogin(){
         mBinding.btnLogin.setOnClickListener {
+
+            signIn()
             if (mBinding.etEmail.text.isNotEmpty() && mBinding.etContrasena.text.isNotEmpty()) {
-                mAuth.signInWithEmailAndPassword(
-                    mBinding.etEmail.text.toString(),
-                    mBinding.etContrasena.text.toString()
-                ).addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        showMainActivity(it.result.user!!.uid)
-                    } else {
-                        showLoginFailAlert()
-                    }
-                }
+
             }else{
                 showUnfilledFieldsAlert()
+            }
+        }
+    }
+
+    private fun signIn() {
+        val email = mBinding.etEmail.text.toString()
+        val contraseña = mBinding.etContrasena.text.toString()
+        GlobalScope.launch (Dispatchers.IO){
+            val userUid = authRepo.signInWithEmailAndPassword(email, contraseña)
+            withContext(Dispatchers.Main){
+                if(userUid!=null) showMainActivity(userUid)
             }
         }
     }
@@ -84,4 +89,15 @@ class AuthActivity : AppCompatActivity() {
         val registerIntent = Intent(this, RegisterActivity::class.java).apply {  }
         startActivity(registerIntent)
     }
+
+
+    public override fun onStart() {
+        super.onStart()
+        // Check if user is signed in (non-null) and update UI accordingly.
+        if(authRepo.currentUser!=null){
+            showMainActivity(authRepo.currentUser!!.uid)
+        }
+
+    }
+
 }

@@ -35,7 +35,7 @@ class RegisterActivity : AppCompatActivity() {
         mBinding.btnContinuar.setOnClickListener {
             val registerActivity2 = Intent(this, RegisterActivity2::class.java).apply {
                 putExtra("email", mBinding.etEmail?.text?.toString())
-                putExtra("contraseña", mBinding.etContrasena?.text?.toString())
+                putExtra("password", mBinding.etContrasena?.text?.toString())
                 putExtra("fechaNacimiento", mBinding.etFechaNacimiento?.text?.toString())
                 putExtra("nickname", mBinding.etNickName?.text?.toString())
             }

@@ -15,7 +15,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.tfg_friendpoint.databinding.FragmentUpdateFpInfoBinding
 import com.example.tfg_friendpoint.repository.FriendPointsRepository
-import com.example.tfg_friendpoint.ui.activity.mAuth
 import com.example.tfg_friendpoint.ui.model.FriendPointModel
 import com.example.tfg_friendpoint.ui.model.Photo
 import kotlinx.coroutines.Dispatchers

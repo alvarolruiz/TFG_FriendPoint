@@ -85,13 +85,15 @@ class FpCreatorFragment : Fragment() {
 
     private fun uploadImageViewPhoto(fpUid: String) {
         var fpRepo = FriendPointsRepository()
-        try{
-            var externalPhotoUri = fpRepo.uploadFpImage(fpUid, imageUri!!)
-            updateFpPhoto(fpUid, externalPhotoUri!!)
-        }catch (e: Exception){
-            Log.e("FpCreatorFragment", "error imagen")
+        GlobalScope.launch (Dispatchers.IO){
+            try{
+                fpRepo.uploadFpImage(fpUid, imageUri!!)
+                var externalPhotoUri = fpRepo.getFpImage(fpUid)
+                updateFpPhoto(fpUid, externalPhotoUri!!)
+            }catch (e: Exception){
+                Log.e("FpCreatorFragment", "error imagen")
+            }
         }
-
     }
 
     private fun updateFpPhoto(fpUid: String, externalUri: String) {

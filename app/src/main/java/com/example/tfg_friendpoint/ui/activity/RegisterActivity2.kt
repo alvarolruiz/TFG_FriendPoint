@@ -9,7 +9,10 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.net.toUri
 import com.example.tfg_friendpoint.databinding.ActivityRegister2Binding
+import com.example.tfg_friendpoint.repository.AuthRepository
+import com.example.tfg_friendpoint.repository.UsersRepository
 import com.example.tfg_friendpoint.ui.model.Photo
 import com.example.tfg_friendpoint.ui.model.UserModel
 import com.google.firebase.auth.FirebaseAuth
@@ -28,10 +31,7 @@ class RegisterActivity2 : AppCompatActivity() {
     private var imageUri: Uri? = null
     private var externalImageUri: String? = null
     private val pickImage = 100
-    private var nickname: String = ""
-    private var email: String = ""
-    private var contraseña: String = ""
-    private var fechaNacimiento: String = ""
+    private var userData = UserModel()
     private lateinit var auth: FirebaseAuth
 
 
@@ -42,66 +42,77 @@ class RegisterActivity2 : AppCompatActivity() {
         mBinding = ActivityRegister2Binding.inflate(layoutInflater)
         val view = mBinding.root
         setContentView(view)
-        auth = FirebaseAuth.getInstance()
         getIntentData()
+        setupButtons()
 
+
+    }
+
+    private fun setupButtons() {
+        setupButtonSelectPhoto()
+        setupRegisterButton()
+
+    }
+
+    private fun setupRegisterButton() {
+        mBinding.btnCompletarRegistro.setOnClickListener {
+            if (!userData.email.isNullOrBlank() && !getPassword().isNullOrBlank()) {
+                registerAndSaveUserData()
+                showSuccessfulRegisterToast()
+                showAuthActivity()
+            }else{
+                showMissingCredentialsAlert()
+            }
+        }
+    }
+
+    private fun setupButtonSelectPhoto() {
         mBinding.btnSeleccion.setOnClickListener {
             pickImageGalery()
         }
+    }
 
-        mBinding.btnCompletarRegistro.setOnClickListener {
-            val userUid: String? = registerUserCredentials(email, contraseña)
-            Log.d("Btn", "uid: ${userUid}")
+    private fun registerAndSaveUserData() {
+        var authRepo = AuthRepository()
+        GlobalScope.launch(Dispatchers.IO) {
+            val userUid: String? = authRepo.registerWithEmailAndPassword(userData.email, getPassword())
             if (!userUid.isNullOrEmpty()) {
-
+                saveUserData(userUid)
+            }else{
+                showRegisterAlert()
             }
         }
+    }
+
+    fun getPassword(): String {
+        var bundle = intent.extras
+        var password = ""
+        if (bundle != null) {
+           password = bundle.get("password").toString()
+        }
+        Log.e("pswd", password)
+        return password
     }
 
     private fun getIntentData() {
-        val bundle = intent.extras
+        var bundle = intent.extras
         if (bundle != null) {
-            email = bundle.get("email").toString()
-            contraseña = bundle.get("contraseña").toString()
-            fechaNacimiento = bundle.get("fechaNacimiento").toString()
-            nickname = bundle.get("nickname").toString()
+            var email = bundle.get("email").toString()
+            var fechaNacimiento = bundle.get("fechaNacimiento").toString()
+            var nickname = bundle.get("nickname").toString()
+            userData = UserModel(nickname, email, imageUri.toString(), fechaNacimiento)
         }
     }
 
-
-    private fun registerUserCredentials(email: String?, contraseña: String?): String? {
-        //TODO: Crear repo para auth e implementar corrutinas
-
-        var userUid = ""
-        if (!email.isNullOrBlank() && !contraseña.isNullOrBlank()) {
-            auth.createUserWithEmailAndPassword(email, contraseña).addOnCompleteListener {
-                userUid = it.result.user?.uid.toString()
-                showSuccessfulRegisterToast()
-                saveUserData(it.result.user!!.uid)
-                //TODO Cambiar la forma de subir la imagen. Sustituir repo
-                //uploadImage(it.result.user!!.uid, imageUri)
-                showAuthActivity()
-                Log.d("Main", "uid: ${it.result.user?.uid}")
-            }
-        } else {
-            showMissingCredentialsAlert()
-        }
-        return userUid;
-    }
 
     private fun saveUserData(uid: String) {
-        val db = Firebase.firestore
-        //TODO obtener foto
-        val user =
-            hashMapOf(
-            "email" to email,
-            "nickname" to nickname,
-            "fechaNacimiento" to fechaNacimiento
-        )
-        val userDocument = db.collection("users").document(uid).set(user)
-        userDocument
-            .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully written!") }
-            .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
+        //Guarda toda la informacion del usuario
+        var userRepo = UsersRepository()
+        GlobalScope.launch(Dispatchers.IO) {
+            userRepo.uploadUserImage(uid, userData.photoUrl.toUri())
+            userRepo.saveUserData(uid, userData)
+            userRepo.updateUserImage(uid)
+        }
     }
 
     private fun showSuccessfulRegisterToast() {

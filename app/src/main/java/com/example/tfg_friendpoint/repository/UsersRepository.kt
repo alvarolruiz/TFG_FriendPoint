@@ -22,26 +22,43 @@ class UsersRepository() {
     var db = Firebase.firestore
     var rootCollection = "users"
     var usersReference = db.collection(rootCollection)
-    val storageRef = FirebaseStorage.getInstance().reference
+    val storageRef = FirebaseStorage.getInstance().reference.child("${rootCollection}Images")
 
-    fun uploadUserImage(userUid: String, localPhotoUri: Uri) {
-        val userImagesReference = storageRef.child("userImages/${userUid!!}")
-        userImagesReference.putFile(localPhotoUri)
+    suspend fun saveUserData(userUid: String, userModel: UserModel) {
+        usersReference.document(userUid).set(userModel)
             .addOnSuccessListener {
-                Log.e("Storage", "Foto subida correctamente")
+                Log.i("UsersRepository", "User data succesfuly saved")
             }
+            .addOnFailureListener {
+                Log.i("UsersRepository", "User data couldn't be saved")
+            }.await()
     }
 
-    suspend fun getUserImage(userUid: String) : String {
+    suspend fun uploadUserImage(userUid: String, localPhotoUri: Uri) {
+        val userImagesReference = storageRef.child(userUid)
+        try{
+            userImagesReference.putFile(localPhotoUri).addOnSuccessListener {
+                GlobalScope.launch (Dispatchers.IO) {
+                    it.storage.downloadUrl.addOnSuccessListener { downloadUrl ->
+                        Log.i("PhotoUrl", downloadUrl.toString())
+                    }.await()
+                }
+            }.await()
+        }catch (e :Exception){
+            null
+        }
+    }
+
+    suspend fun getUserImage(userUid: String): String {
         val userImagesReference = storageRef.child(userUid)
         return userImagesReference.downloadUrl.addOnCompleteListener {
-            Log.e("Storage", it.result.path.toString())
-        }.await().path.toString()
+            Log.e("UsersStorage", it.result.path.toString())
+        }.await().toString()
     }
 
     fun getUser(uid: String): UserModel? {
-        var data : UserModel? = null
-        GlobalScope.launch (Dispatchers.IO){
+        var data: UserModel? = null
+        GlobalScope.launch(Dispatchers.IO) {
             var snapshot = usersReference.document(uid).get().await()
             data = snapshot.toObject(UserModel::class.java)
         }
@@ -49,7 +66,7 @@ class UsersRepository() {
         return data
     }
 
-    suspend fun getUserNickName(userUid: String):String{
+    suspend fun getUserNickName(userUid: String): String {
         var nickname = usersReference.document(userUid).get().addOnCompleteListener {
             Log.e("UsersRepository", it.result.id)
         }.await().get("nickname").toString()
@@ -60,10 +77,18 @@ class UsersRepository() {
         return usersReference
     }
 
-   /* fun getMembersOfFp(fpUid: String): Query {
-// O obtener todos los usuarios miembros en un array y conseguir hacer una consulta con ellos o
-        // O obtener todos los usuarios que contengan al fp en concreto
-    }*/
+    suspend fun updateUserImage(userUid: String){
+        GlobalScope.launch {
+            var externalUri = getUserImage(userUid)
+            usersReference.document(userUid).update("photoUrl", externalUri)
+        }
+    }
+
+
+    /* fun getMembersOfFp(fpUid: String): Query {
+ // O obtener todos los usuarios miembros en un array y conseguir hacer una consulta con ellos o
+         // O obtener todos los usuarios que contengan al fp en concreto
+     }*/
 
     /*@Throws(NullPointerException::class)
     suspend fun sendRequest(fpUid: String, userUid: String, message: String) {

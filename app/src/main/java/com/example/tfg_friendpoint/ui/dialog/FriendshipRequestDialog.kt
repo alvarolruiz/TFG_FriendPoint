@@ -1,37 +1,26 @@
 package com.example.tfg_friendpoint.ui.dialog
 
 import android.os.Bundle
-import android.os.Message
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.Toast
-import androidx.fragment.app.DialogFragment
-import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.tfg_friendpoint.R
-import com.example.tfg_friendpoint.databinding.FragmentHomeBinding
-import com.example.tfg_friendpoint.repository.FpRequestRepository
-import com.example.tfg_friendpoint.repository.FriendPointsRepository
-import com.example.tfg_friendpoint.repository.UserRequestRepository
-import com.example.tfg_friendpoint.repository.UsersRepository
-import com.example.tfg_friendpoint.ui.fragments.DetailsFragmentArgs
+import com.example.tfg_friendpoint.repository.*
 import com.example.tfg_friendpoint.ui.model.RequestModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class FriendshipRequestDialog : BottomSheetDialogFragment() {
     //Repositories
-    lateinit var userRepository: UsersRepository
-    lateinit var userRequestRepository: UserRequestRepository
-    lateinit var fpRequestRepository: FpRequestRepository
+    private lateinit var userRepo: UsersRepository
+    private lateinit var userRequestRepo: UserRequestRepository
+    private lateinit var fpRequestRepo: FpRequestRepository
+    private lateinit var authRepo: AuthRepository
     private val args: FriendshipRequestDialogArgs by navArgs()
 
     //View elements
@@ -53,8 +42,10 @@ class FriendshipRequestDialog : BottomSheetDialogFragment() {
     }
 
     private fun initializeRepositories() {
-        userRequestRepository = UserRequestRepository(args.userUid)
-        fpRequestRepository = FpRequestRepository(args.friendPointUid)
+        authRepo = AuthRepository()
+        userRepo = UsersRepository()
+        userRequestRepo = UserRequestRepository(authRepo.currentUser!!.uid)
+        fpRequestRepo = FpRequestRepository(args.friendPointUid)
     }
 
     private fun setupButtons() {
@@ -64,7 +55,7 @@ class FriendshipRequestDialog : BottomSheetDialogFragment() {
 
     private fun setupOkButton() {
         okButton.setOnClickListener {
-            var request = RequestModel(args.userUid, args.friendPointUid, etMessage.text.toString())
+            var request = RequestModel(authRepo.currentUser!!.uid, args.friendPointUid, etMessage.text.toString())
             sendRequest(request)
             dismiss()
         }
@@ -72,8 +63,8 @@ class FriendshipRequestDialog : BottomSheetDialogFragment() {
 
     fun sendRequest(request: RequestModel) {
         GlobalScope.launch(Dispatchers.IO) {
-            var result = userRequestRepository.sendRequestToFp(request)
-            fpRequestRepository.recibeRequestFromUser(result, request)
+            var result = userRequestRepo.sendRequestToFp(request)
+            fpRequestRepo.recibeRequestFromUser(result, request)
         }
     }
 

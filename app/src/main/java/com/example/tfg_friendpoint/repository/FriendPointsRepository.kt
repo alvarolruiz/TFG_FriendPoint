@@ -24,24 +24,21 @@ class FriendPointsRepository {
     suspend fun getFpImage(fpUid: String): String {
         val fpImageReference = storageRef.child("${rootElement}/${fpUid!!}")
         return fpImageReference.downloadUrl.addOnCompleteListener {
-            Log.i("Storage", it.result.path.toString())
+            Log.i("FpStorage", it.result.toString())
         }.await().toString()
     }
 
-    fun uploadFpImage(fpUid: String, localPhotoUri: Uri): String? {
+    suspend fun uploadFpImage(fpUid: String, localPhotoUri: Uri) {
         val fpImageReference = storageRef.child("${rootElement}/${fpUid!!}")
-        var externalUri: String? = null
-        fpImageReference.putFile(localPhotoUri)
-            .addOnSuccessListener {
-                Log.e("Storage", "Foto subida correctamente")
-                GlobalScope.launch(Dispatchers.IO) {
-                    externalUri = it.storage.downloadUrl
-                        .addOnSuccessListener { downloadUrl ->
-                            Log.i("URL", downloadUrl.toString())
-                        }.await().path
+        try{
+            fpImageReference.putFile(localPhotoUri).addOnSuccessListener {
+                it.storage.downloadUrl.addOnSuccessListener { downloadUrl ->
+                    Log.i("PhotoUrl", downloadUrl.toString())
                 }
-            }
-        return externalUri
+            }.await()
+        }catch (e :Exception){
+            null
+        }
     }
 
     suspend fun addFp(friendPointModel: FriendPointModel): String? {
