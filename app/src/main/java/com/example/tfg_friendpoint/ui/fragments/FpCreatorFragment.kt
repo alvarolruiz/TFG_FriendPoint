@@ -10,9 +10,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.example.tfg_friendpoint.R
 import com.example.tfg_friendpoint.databinding.FragmentFpCreatorBinding
+import com.example.tfg_friendpoint.repository.AuthRepository
 import com.example.tfg_friendpoint.repository.FriendPointsRepository
+import com.example.tfg_friendpoint.repository.UsersRepository
 import com.example.tfg_friendpoint.ui.model.FriendPointModel
 import com.example.tfg_friendpoint.ui.model.Photo
 import com.google.firebase.firestore.ktx.firestore
@@ -56,21 +60,56 @@ class FpCreatorFragment : Fragment() {
 
     private fun setupRegisterButton() {
         mBinding.btnRegister.setOnClickListener {
-            saveFriendPoint(getFriendPointData())
+            if (validateFields()) {
+                saveFriendPoint(getFriendPointData())
+                Toast.makeText(
+                    mBinding.root.context,
+                    "Friend point guardado correctamente!",
+                    Toast.LENGTH_SHORT
+                ).show()
+                navigateToHome(mBinding.root)
+            }
 
         }
     }
 
+    private fun navigateToHome(it: View) {
+            val action = FpCreatorFragmentDirections.actionFpCreatorFragmentToHomeFragment()
+            Navigation.findNavController(it).navigate(action)
+    }
+
+
+    private fun validateFields(): Boolean {
+        var correct = true
+        if (mBinding.createEtPlan.text.isNullOrEmpty()
+            || mBinding.createEtAficiones.text.isNullOrEmpty()
+            || mBinding.createEtDescripcion.text.isNullOrEmpty()
+            || mBinding.createEtMaxIntegrantes.text.isNullOrEmpty())
+        {
+            Toast.makeText(
+                mBinding.root.context,
+                "Faltan campos por rellenar",
+                Toast.LENGTH_SHORT
+            ).show()
+            correct = false
+        }
+        return correct
+    }
+    
+
     private fun saveFriendPoint(friendPointModel: FriendPointModel): String {
         var fpRepo = FriendPointsRepository()
+        var userRepository = UsersRepository()
+        var authRepo = AuthRepository()
         var fpUid = ""
         GlobalScope.launch(Dispatchers.IO) {
             fpUid = fpRepo.addFp(friendPointModel) ?: ""
             uploadImageViewPhoto(fpUid)
+            fpRepo.addAdmin(fpUid, authRepo.currentUser!!.uid)
+            userRepository.userAdminAddedToFp(authRepo.currentUser!!.uid, fpUid)
         }
         return fpUid
     }
-
 
 
     fun getFriendPointData(): FriendPointModel {
@@ -78,19 +117,20 @@ class FpCreatorFragment : Fragment() {
         friendPoint.plan = mBinding.createEtPlan.text.toString()
         friendPoint.descripcion = mBinding.createEtDescripcion.text.toString()
         friendPoint.aficiones = setAficiones()
-        friendPoint.maxNumeroMiembros = Integer.parseInt(mBinding.createEtMaxIntegrantes.text.toString()).or(0)
+        friendPoint.maxNumeroMiembros =
+            Integer.parseInt(mBinding.createEtMaxIntegrantes.text.toString()).or(0)
         friendPoint.photoUrl = imageUri.toString()
         return friendPoint
     }
 
     private fun uploadImageViewPhoto(fpUid: String) {
         var fpRepo = FriendPointsRepository()
-        GlobalScope.launch (Dispatchers.IO){
-            try{
+        GlobalScope.launch(Dispatchers.IO) {
+            try {
                 fpRepo.uploadFpImage(fpUid, imageUri!!)
                 var externalPhotoUri = fpRepo.getFpImage(fpUid)
                 updateFpPhoto(fpUid, externalPhotoUri!!)
-            }catch (e: Exception){
+            } catch (e: Exception) {
                 Log.e("FpCreatorFragment", "error imagen")
             }
         }

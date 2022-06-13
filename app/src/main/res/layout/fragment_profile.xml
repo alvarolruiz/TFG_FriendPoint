@@ -10,11 +10,42 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/top_menu_size"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/profile_tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/common_margin"
+                android:layout_marginTop="@dimen/common_margin"
+                android:layout_marginEnd="@dimen/common_margin"
+                android:text="@string/profile_title"
+                android:textColor="@color/black_menu"
+                android:textSize="34sp" />
+
+            <ImageButton
+                android:id="@+id/profile_ib_log_out"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:background="@color/blue_fp"
+                android:src="@drawable/ic_log_out" />
+
+        </LinearLayout>
+
         <TextView
             android:id="@+id/profile_tv_nickname"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/common_margin"
+            android:layout_marginTop="8dp"
             android:fontFamily="@font/actor"
             android:text="Alvarolruiz"
             android:textAlignment="center"
@@ -22,7 +53,7 @@
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
 
         <TextView
             android:id="@+id/profile_tv_edad"
@@ -53,7 +84,7 @@
             android:layout_margin="16dp"
             android:layout_marginTop="16dp"
             android:contentDescription="editButon"
-            app:backgroundTint="@color/blue_fp"
+            app:backgroundTint="@color/orange_fp"
             app:layout_constraintEnd_toEndOf="@+id/profile_civ_photo"
             app:layout_constraintStart_toStartOf="@+id/profile_civ_photo"
             app:layout_constraintTop_toBottomOf="@+id/profile_civ_photo"
@@ -97,9 +128,11 @@
                     app:layout_constraintStart_toStartOf="@+id/profile_tv_rrss"
                     app:layout_constraintTop_toBottomOf="@+id/profile_tv_rrss">
 
-                    <ImageView
+                    <ImageButton
+                        android:id="@+id/profile_ib_instagram"
                         android:layout_width="@dimen/rss_icon_size"
                         android:layout_height="@dimen/rss_icon_size"
+                        android:scaleType="centerCrop"
                         android:src="@drawable/instagram_logo" />
 
                     <TextView
@@ -125,9 +158,11 @@
                     app:layout_constraintStart_toStartOf="@+id/layout_insta"
                     app:layout_constraintTop_toBottomOf="@+id/layout_insta">
 
-                    <ImageView
+                    <ImageButton
+                        android:id="@+id/profile_ib_facebook"
                         android:layout_width="@dimen/rss_icon_size"
                         android:layout_height="@dimen/rss_icon_size"
+                        android:scaleType="centerCrop"
                         android:src="@drawable/facebook_logo" />
 
                     <TextView
@@ -153,9 +188,12 @@
                     app:layout_constraintStart_toStartOf="@+id/layout_facebook"
                     app:layout_constraintTop_toBottomOf="@+id/layout_facebook">
 
-                    <ImageView
+                    <ImageButton
+                        android:id="@+id/profile_ib_twitter"
+                        style="@android:style/Widget.Material.ImageButton"
                         android:layout_width="@dimen/rss_icon_size"
                         android:layout_height="@dimen/rss_icon_size"
+                        android:scaleType="centerCrop"
                         android:src="@drawable/twitter_logo" />
 
                     <TextView

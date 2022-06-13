@@ -1,5 +1,6 @@
 package com.example.tfg_friendpoint.ui.fragments
 
+import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -13,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
 import com.example.tfg_friendpoint.databinding.FragmentUpdateFpInfoBinding
 import com.example.tfg_friendpoint.repository.FriendPointsRepository
 import com.example.tfg_friendpoint.ui.model.FriendPointModel
@@ -28,6 +30,7 @@ class UpdateFpInfoFragment : Fragment() {
     private lateinit var mBinding: FragmentUpdateFpInfoBinding
     private val args: UpdateFpInfoFragmentArgs by navArgs()
     private lateinit var currentFp: FriendPointModel
+    private var imageUri: Uri? = null
     private var fpRepo = FriendPointsRepository()
     private val pickImage = 100
 
@@ -70,11 +73,19 @@ class UpdateFpInfoFragment : Fragment() {
     private fun updateFp(fpUid: String) {
         val fpRepo = FriendPointsRepository()
         GlobalScope.launch(Dispatchers.IO) {
+            if (imageUri != null) {
+                fpRepo.uploadFpImage(fpUid, imageUri!!)
+                currentFp.photoUrl = fpRepo.getFpImage(fpUid)
+            }
             fpRepo.updateFp(fpUid, currentFp)
-            withContext(Dispatchers.Main){
+            withContext(Dispatchers.Main) {
+                Toast.makeText(
+                    mBinding.root.context,
+                    "Friend point actualizado correctamente",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
-       Toast.makeText(mBinding.root.context,"sdds",Toast.LENGTH_SHORT)
 
     }
 
@@ -120,22 +131,23 @@ class UpdateFpInfoFragment : Fragment() {
         mBinding.fpUpdateEtDescripcion.setText(currentFp.descripcion)
         var aficionesString = currentFp.aficiones.joinToString(",") { it }
         mBinding.fpUpdateEtAficiones.setText(aficionesString)
-        mBinding.fpUpdateIvPhoto.setImageURI(currentFp.photoUrl.toUri())
+        Glide.with(mBinding.root).load(currentFp!!.photoUrl).into(mBinding.fpUpdateIvPhoto)
     }
 
     private fun pickImageGalery() {
         val gallery = Intent()
-        gallery.action = Intent.ACTION_GET_CONTENT
+        gallery.action = Intent.ACTION_OPEN_DOCUMENT
         gallery.type = "image/*"
+        gallery.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
+        gallery.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         startActivityForResult(Intent.createChooser(gallery, "Select Picture"), pickImage);
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        var imageUri: Uri?
-        if (resultCode == AppCompatActivity.RESULT_OK && requestCode == pickImage) {
+        if (resultCode == RESULT_OK && requestCode == pickImage) {
             imageUri = data?.data
-            mBinding.fpUpdateIvPhoto.setImageURI(imageUri)
+            Glide.with(mBinding.root).load(imageUri.toString()).into(mBinding.fpUpdateIvPhoto)
         }
     }
 

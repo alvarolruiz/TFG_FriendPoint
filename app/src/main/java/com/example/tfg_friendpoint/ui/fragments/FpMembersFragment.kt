@@ -40,7 +40,7 @@ class FpMembersFragment : Fragment() {
 
     private fun getAdapter(): MembersRecyclerAdapter {
         var usersRepo = UsersRepository()
-        var users = usersRepo.getAllUsersQuery()
+        var users = usersRepo.getUserMembersOfFp(args.fpUid)
         val firestoreRecyclerOptions = FirestoreRecyclerOptions.Builder<UserModel>()
             .setQuery(users, UserModel::class.java)
             .build()

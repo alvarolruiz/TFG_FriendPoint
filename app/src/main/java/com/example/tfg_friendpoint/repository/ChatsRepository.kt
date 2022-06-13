@@ -31,20 +31,10 @@ class ChatsRepository(userUid: String, fpUid: String) {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
             }
 
         })
         return messageList
-    }
-
-
-
-
-    suspend fun delay(time: Long, unit: TimeUnit = TimeUnit.MILLISECONDS) {
-        runBlocking {
-            delay(time, unit)
-        }
     }
 
     fun getChatRoomReference(): DatabaseReference {

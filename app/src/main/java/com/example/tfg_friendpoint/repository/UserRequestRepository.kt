@@ -20,7 +20,11 @@ class UserRequestRepository(val loggedUserUid: String) {
     private val recibedCollection =
         db.collection(rootCollection).document(loggedUserUid).collection("recibedRequest")
 
-    fun isValidRecibedRequest() {}
+    suspend fun isValidSentRequest(userUid: String): Boolean {
+        return sentCollection.whereEqualTo("fromUid", userUid)
+            .whereEqualTo("resolved", false)
+            .get().await().isEmpty
+    }
 
     fun getSentRequestQuery(): Query {
         return sentCollection

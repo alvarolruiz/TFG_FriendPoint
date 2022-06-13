@@ -33,7 +33,9 @@ class ExploreFriendPointRecyclerAdapter(options: FirestoreRecyclerOptions<Friend
         holder.plan.text = model.plan
         //holder.nMiembros.text = model.getNumeroMiembros().toString()
         holder.ubicacion.text = model.ubicacion
-        Glide.with(holder.itemView).load(model.photoUrl).into(holder.photoUrl)
+        if(model.photoUrl!= ""){
+            Glide.with(holder.itemView).load(model.photoUrl).into(holder.photoUrl)
+        }
         holder.view.setOnClickListener {
             Log.e("clickedItem", snapshots.getSnapshot(holder.layoutPosition).id)
             val uid = snapshots.getSnapshot(holder.layoutPosition).id

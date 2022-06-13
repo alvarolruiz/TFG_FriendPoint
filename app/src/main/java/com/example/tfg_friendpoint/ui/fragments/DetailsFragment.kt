@@ -40,7 +40,7 @@ class DetailsFragment : Fragment() {
 
         mBinding = FragmentDetailsBinding.inflate(inflater, container, false)
         val view = mBinding.root
-        updateFpData()
+        updateFpData(args?.uid.toString())
         setupButtons()
         return view
     }
@@ -50,16 +50,17 @@ class DetailsFragment : Fragment() {
         setupSeeMembersButton()
     }
 
-    private fun updateFpData() {
+    private fun updateFpData(fpUid: String) {
         GlobalScope.launch(Dispatchers.IO) {
             var fpRepo = FriendPointsRepository()
-            currentFriendPointModel = fpRepo.getFpData(args?.uid.toString())
-            withContext(Dispatchers.Main) {
-                if (currentFriendPointModel != null) updateUI()
+            currentFriendPointModel = fpRepo.getFpData(fpUid)
+
+                withContext(Dispatchers.Main) {
+                    if (currentFriendPointModel != null)
+                    updateUI()
+                }
             }
         }
-
-    }
 
     private fun setupSeeMembersButton() {
         mBinding.detailsLlMembers.setOnClickListener {
@@ -81,7 +82,8 @@ class DetailsFragment : Fragment() {
     }
 
     private fun navigateToRequestDialog() {
-        val action = DetailsFragmentDirections.actionDetailsFragmentToFriendshipRequestDialog(args.uid!!)
+        val action =
+            DetailsFragmentDirections.actionDetailsFragmentToFriendshipRequestDialog(args.uid!!)
         findNavController().navigate(action)
     }
 
@@ -90,6 +92,8 @@ class DetailsFragment : Fragment() {
             .into(mBinding.detailsIvPhoto)
         mBinding.detailsTvPlan.text = currentFriendPointModel!!.plan
         mBinding.detailsTvDescripcion.text = currentFriendPointModel!!.descripcion
+        mBinding.detailsTvEdadMedia.text = "22"
+        mBinding.detailsTvAficiones.text = currentFriendPointModel!!.aficiones.joinToString(",") { it }
         //mBinding.detailsTvDescripcion.text = currentFriendPointModel!!.getEdadmedia().toString()
     }
 }

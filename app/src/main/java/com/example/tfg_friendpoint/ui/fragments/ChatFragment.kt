@@ -51,10 +51,6 @@ class ChatFragment : Fragment() {
         return ChatRecyclerAdapter(firestoreRecyclerOptions)
     }
 
-
-    private fun displayChatMesages() {
-    }
-
     override fun onStart() {
         super.onStart()
         fpAdapter!!.startListening()

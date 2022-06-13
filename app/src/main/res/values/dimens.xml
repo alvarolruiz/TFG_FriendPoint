@@ -6,7 +6,7 @@
     <dimen name="item_text_size">16dp</dimen>
     <dimen name="item_members_text_size">14dp</dimen>
     <!--RegisterActivity2-->
-    <dimen name="rss_icon_size">40dp</dimen>
+    <dimen name="rss_icon_size">50dp</dimen>
     <!--View Details Friend Point-->
     <dimen name="details_btn_width">180dp</dimen>
     <dimen name="details_btn_icon_size">30dp</dimen>

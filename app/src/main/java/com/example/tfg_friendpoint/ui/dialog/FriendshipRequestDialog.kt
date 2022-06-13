@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.Toast
 import androidx.navigation.fragment.navArgs
 import com.example.tfg_friendpoint.R
 import com.example.tfg_friendpoint.repository.*
@@ -14,6 +15,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class FriendshipRequestDialog : BottomSheetDialogFragment() {
     //Repositories
@@ -63,8 +65,15 @@ class FriendshipRequestDialog : BottomSheetDialogFragment() {
 
     fun sendRequest(request: RequestModel) {
         GlobalScope.launch(Dispatchers.IO) {
-            var result = userRequestRepo.sendRequestToFp(request)
-            fpRequestRepo.recibeRequestFromUser(result, request)
+            if (userRequestRepo.isValidSentRequest(authRepo.currentUser!!.uid)){
+                var result = userRequestRepo.sendRequestToFp(request)
+                fpRequestRepo.recibeRequestFromUser(result, request)
+            }else{
+                withContext(Dispatchers.Main){
+                    Toast.makeText(context, "Ya has enviado una petición de amistad a este friendpoint." +
+                            "Espera a que sea respondida", Toast.LENGTH_LONG).show()
+                }
+            }
         }
     }
 

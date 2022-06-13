@@ -1,6 +1,7 @@
 package com.example.tfg_friendpoint.ui.model
 
 import java.util.*
+import kotlin.collections.ArrayList
 
 class UserModel(
     nickName: String = "",
@@ -12,6 +13,7 @@ class UserModel(
     var email: String = email
     var  photoUrl: String = photoUrl
     var fechaNacimiento: String =fechaNacimiento
+    //Get array list de los fp que seran admin
     fun getEdad(): Int {
         val dob: Calendar = Calendar.getInstance()
         val today: Calendar = Calendar.getInstance()

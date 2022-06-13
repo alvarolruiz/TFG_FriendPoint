@@ -5,7 +5,7 @@ import androidx.core.net.toUri
 import com.google.protobuf.LazyStringArrayList
 
 class FriendPointModel() {
-    var nombre: String = ""
+    var public : Boolean = false
     var plan: String = ""
     var descripcion: String = ""
     var photoUrl: String = ""

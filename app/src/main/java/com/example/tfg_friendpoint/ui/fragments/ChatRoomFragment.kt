@@ -96,7 +96,7 @@ class ChatRoomFragment : Fragment() {
         var nickname = ""
 
         lateinit var messageModel: MessageModel
-        GlobalScope.launch(Dispatchers.IO) {
+        GlobalScope.launch(Dispatchers.Main) {
             var photo = usersRepository.getUserImage(authRepository.currentUser!!.uid)
             nickname = usersRepository.getUserNickName(authRepository.currentUser!!.uid)
             messageModel = MessageModel(message, nickname, photo)

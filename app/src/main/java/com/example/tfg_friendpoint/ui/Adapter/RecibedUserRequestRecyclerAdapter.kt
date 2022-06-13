@@ -10,11 +10,17 @@ import com.bumptech.glide.Glide
 import com.example.tfg_friendpoint.R
 import com.example.tfg_friendpoint.repository.FpRequestRepository
 import com.example.tfg_friendpoint.repository.UserRequestRepository
+import com.example.tfg_friendpoint.repository.UsersRepository
 import com.example.tfg_friendpoint.ui.model.RequestModel
+import com.example.tfg_friendpoint.ui.model.UserModel
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.hdodenhof.circleimageview.CircleImageView
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class RecibedUserRequestRecyclerAdapter(options: FirestoreRecyclerOptions<RequestModel>) :
@@ -30,24 +36,31 @@ class RecibedUserRequestRecyclerAdapter(options: FirestoreRecyclerOptions<Reques
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int, model: RequestModel) {
-        var user = model.getFromUser()
-        holder.nickname.text = user?.nickName ?:""
-        holder.edad.text = user?.getEdad().toString() ?:""
-        Glide.with(holder.itemView).load(user?.photoUrl ?:"").into(holder.photoUrl)
-        holder.fbAccept.setOnClickListener {
-            val requestUid = snapshots.getSnapshot(holder.layoutPosition).id
-            acceptUserRequest(model.fromUid, model.toUid,requestUid)
-            Log.i("fpRequestAdapter", "Request ${requestUid} accepted")
-        }
-        holder.fbDeny.setOnClickListener {
-            val requestUid = snapshots.getSnapshot(holder.layoutPosition).id
-            Log.i("fpRequestAdapter", "Request ${requestUid} denied")
+        var userRepo = UsersRepository()
+        var user: UserModel? = UserModel()
+        GlobalScope.launch(Dispatchers.IO) {
+            user = userRepo.getUser(model.fromUid)
+            withContext(Dispatchers.Main) {
+                holder.nickname.text = user?.nickName ?: ""
+                holder.edad.text = user?.getEdad().toString() ?: ""
+                Glide.with(holder.itemView).load(user?.photoUrl ?: "").into(holder.photoUrl)
+                holder.fbAccept.setOnClickListener {
+                    val requestUid = snapshots.getSnapshot(holder.layoutPosition).id
+                    acceptUserRequest(model.fromUid, model.toUid, requestUid)
+                    Log.i("fpRequestAdapter", "Request ${requestUid} accepted")
+                }
+                holder.fbDeny.setOnClickListener {
+                    val requestUid = snapshots.getSnapshot(holder.layoutPosition).id
+                    Log.i("fpRequestAdapter", "Request ${requestUid} denied")
 
+                }
+            }
         }
+
 
     }
 
-    private fun acceptUserRequest(requestUid : String, userUid: String, fpUid: String) {
+    private fun acceptUserRequest(requestUid: String, userUid: String, fpUid: String) {
         var fpRequestRepository = FpRequestRepository(fpUid)
         var usrRequestRepository = UserRequestRepository(userUid)
         fpRequestRepository.accepRecibedRequest(requestUid)

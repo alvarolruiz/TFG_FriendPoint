@@ -21,11 +21,4 @@ class RequestModel(
     var toUid: String = to
     var resolved: Boolean = false
     var accepted: Boolean = false
-
-    fun getFromUser(): UserModel? {
-        var user: UserModel? = null
-            user = UsersRepository().getUser(fromUid)
-
-        return user
-    }
 }

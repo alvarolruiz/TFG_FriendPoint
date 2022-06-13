@@ -31,9 +31,8 @@ class MembersRecyclerAdapter (options: FirestoreRecyclerOptions<UserModel>) :
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int, model: UserModel) {
         Glide.with(holder.itemView).load(model.photoUrl).into(holder.photoUrl)
-        holder.edad.text = model.getEdad().toString()
+        holder.edad.text = model.getEdad().toString() + " Años"
         holder.nickname.text = model.nickName
-
     }
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

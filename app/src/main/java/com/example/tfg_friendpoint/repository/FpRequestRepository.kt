@@ -9,23 +9,26 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
+import java.util.*
 
 class FpRequestRepository(private val fpUid: String) {
     private val db = Firebase.firestore
     private val rootCollection = "FriendPoints"
     private val sentCollection =
         db.collection(rootCollection).document(fpUid).collection("sentRequest")
-    private val recibedCollection =db.collection(rootCollection).document(fpUid).collection("recibedRequest")
+    private val recibedCollection =
+        db.collection(rootCollection).document(fpUid).collection("recibedRequest")
 
-    //Todo
-    fun isValidRecibedRequest() {}
+    suspend fun isValidSentRequest(requestUid: String, userUid: String): Boolean {
+           return sentCollection.whereEqualTo("fromUid", userUid).get().await().isEmpty
+    }
 
     fun getSentRequestQuery(): Query {
         return sentCollection
     }
 
     fun getRecibedRequestQuery(): Query {
-        return recibedCollection
+        return recibedCollection.whereEqualTo("resolved", false)
     }
 
     fun getUserPendingRecibedRequest(): Query {
@@ -37,7 +40,7 @@ class FpRequestRepository(private val fpUid: String) {
     }
 
     fun sendRequestToUser(request: RequestModel): String {
-        var userRequestUid : String =""
+        var userRequestUid: String = ""
 
         GlobalScope.launch(Dispatchers.IO) {
             userRequestUid = sentCollection.add(request)
@@ -52,10 +55,11 @@ class FpRequestRepository(private val fpUid: String) {
 
     fun recibeRequestFromUser(requestUid: String, request: RequestModel): Unit {
         recibedCollection.document(requestUid).set(request)
-            .addOnCompleteListener {Log.e("fpRequestRecibed", requestUid)}
+            .addOnCompleteListener { Log.e("fpRequestRecibed", requestUid) }
     }
 
     fun accepRecibedRequest(requestUid: String) {
+        Log.e("requestRepo", requestUid)
         recibedCollection.document(requestUid).update("resolved", true)
         recibedCollection.document(requestUid).update("accepted", true)
     }

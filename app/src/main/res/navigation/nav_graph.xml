@@ -67,8 +67,8 @@
         android:label="fragment_fp_creator"
         tools:layout="@layout/fragment_fp_creator" >
         <action
-            android:id="@+id/action_fpCreatorFragment_to_fp_fragment"
-            app:destination="@id/fp_fragment" />
+            android:id="@+id/action_fpCreatorFragment_to_home_fragment"
+            app:destination="@id/home_fragment" />
     </fragment>
     <fragment
         android:id="@+id/profile_fragment"

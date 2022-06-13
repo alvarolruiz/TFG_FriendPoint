@@ -9,6 +9,8 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tfg_friendpoint.R
 import com.example.tfg_friendpoint.databinding.FragmentHomeBinding
+import com.example.tfg_friendpoint.repository.AuthRepository
+import com.example.tfg_friendpoint.repository.FriendPointsRepository
 import com.example.tfg_friendpoint.ui.Adapter.ExploreFriendPointRecyclerAdapter
 import com.example.tfg_friendpoint.ui.Adapter.HomeFriendPointRecyclerAdapter
 import com.example.tfg_friendpoint.ui.model.FriendPointModel
@@ -21,9 +23,6 @@ import com.google.firebase.ktx.Firebase
 
 class HomeFragment : Fragment() {
     private lateinit var mBinding: FragmentHomeBinding
-    private val db = Firebase.firestore
-    private val auth = FirebaseAuth.getInstance()
-    private val fpCollectionReference  = db.collection("FriendPoints")
     private var fpAdapter: HomeFriendPointRecyclerAdapter? = null
 
     override fun onCreateView(
@@ -49,8 +48,11 @@ class HomeFragment : Fragment() {
     }
 
     private fun getAdapter() :  HomeFriendPointRecyclerAdapter{
+        var fpRepo = FriendPointsRepository()
+        var authRepo = AuthRepository()
+        var query = fpRepo.getManagedFpOfUser(authRepo.currentUser!!.uid)
         val firestoreRecyclerOptions = FirestoreRecyclerOptions.Builder<FriendPointModel>()
-            .setQuery(fpCollectionReference, FriendPointModel::class.java)
+            .setQuery(query, FriendPointModel::class.java)
             .build()
         return HomeFriendPointRecyclerAdapter(firestoreRecyclerOptions)
     }

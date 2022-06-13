@@ -3,6 +3,8 @@ package com.example.tfg_friendpoint.ui.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.example.tfg_friendpoint.databinding.ActivityAuthBinding
 import com.example.tfg_friendpoint.repository.AuthRepository
@@ -27,15 +29,38 @@ class AuthActivity : AppCompatActivity() {
     private fun configAuth() {
         setupBotonLogin()
         setupBotonRegistro()
+        setupForgetPasswordText()
 
+    }
+
+    private fun setupForgetPasswordText() {
+        mBinding.loginTvPasswordReset.setOnClickListener {
+            var email = mBinding.etEmail.text.toString()
+            if(email.isNotEmpty()){
+                sendEmail(email)
+            }else { Toast.makeText(
+                        mBinding.root.context,
+                        "Por favor, introduce tu email",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+
+    private fun sendEmail(email: String) {
+        authRepo.sendEmailToRestorePassword(email)
+        Toast.makeText(
+            mBinding.root.context,
+            "Correo enviado",
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
     private fun setupBotonLogin(){
         mBinding.btnLogin.setOnClickListener {
 
-            signIn()
             if (mBinding.etEmail.text.isNotEmpty() && mBinding.etContrasena.text.isNotEmpty()) {
-
+                signIn()
             }else{
                 showUnfilledFieldsAlert()
             }
@@ -48,7 +73,11 @@ class AuthActivity : AppCompatActivity() {
         GlobalScope.launch (Dispatchers.IO){
             val userUid = authRepo.signInWithEmailAndPassword(email, contraseña)
             withContext(Dispatchers.Main){
-                if(userUid!=null) showMainActivity(userUid)
+                if(userUid!=null){
+                    showMainActivity()
+                }else{
+                    showLoginFailAlert()
+                }
             }
         }
     }
@@ -78,10 +107,8 @@ class AuthActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    private fun showMainActivity(uid: String) {
-        val mainActivityIntent = Intent(this, MainActivity::class.java).apply {
-            putExtra("userUid", uid)
-        }
+    private fun showMainActivity() {
+        val mainActivityIntent = Intent(this, MainActivity::class.java).apply {  }
         startActivity(mainActivityIntent)
     }
 
@@ -90,14 +117,17 @@ class AuthActivity : AppCompatActivity() {
         startActivity(registerIntent)
     }
 
-
     public override fun onStart() {
         super.onStart()
+        var authRepo = AuthRepository()
         // Check if user is signed in (non-null) and update UI accordingly.
-        if(authRepo.currentUser!=null){
-            showMainActivity(authRepo.currentUser!!.uid)
+        if(authRepo.mAuth.currentUser!=null){
+            showMainActivity()
+            Log.i("MainActivity", "Logged user with uid ${authRepo.mAuth.currentUser!!.uid}")
         }
-
     }
+
+
+
 
 }

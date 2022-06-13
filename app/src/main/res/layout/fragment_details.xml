@@ -11,6 +11,29 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#000000">
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/top_menu_size"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/common_margin"
+                android:layout_marginTop="@dimen/common_margin"
+                android:layout_marginEnd="@dimen/common_margin"
+                android:text="@string/details_title"
+                android:textColor="@color/black_menu"
+                android:textSize="34sp" />
+
+        </LinearLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
@@ -19,7 +42,7 @@
             android:background="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
 
             <LinearLayout
                 android:id="@+id/linearLayout6"
@@ -89,49 +112,6 @@
                         android:layout_marginEnd="8sp"
                         android:src="@drawable/ic_see_members" />
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginEnd="8dp"
-                        android:background="#FFFFFF"
-                        android:gravity="center_vertical">
-
-                        <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/iv_circle"
-                            android:layout_width="@dimen/details_btn_civ_size"
-                            android:layout_height="@dimen/details_btn_civ_size"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/profile_default"
-                            app:civ_border_color="#323232"
-                            app:civ_border_overlay="false"
-                            app:civ_border_width="1dp" />
-
-                        <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/iv_circle2"
-                            android:layout_width="@dimen/details_btn_civ_size"
-                            android:layout_height="@dimen/details_btn_civ_size"
-                            android:layout_weight="1"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/profile_default"
-                            app:civ_border_color="#323232"
-                            app:civ_border_overlay="false"
-                            app:civ_border_width="1dp" />
-
-                        <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/iv_circle3"
-                            android:layout_width="@dimen/details_btn_civ_size"
-                            android:layout_height="@dimen/details_btn_civ_size"
-                            android:layout_weight="1"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/profile_default"
-                            app:civ_border_color="#323232"
-                            app:civ_border_overlay="false"
-                            app:civ_border_width="1dp" />
-
-
-                    </LinearLayout>
-
                     <TextView
                         android:id="@+id/details_tv_num_miembros"
                         android:layout_width="wrap_content"
@@ -139,9 +119,9 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginEnd="8dp"
                         android:layout_weight="1"
-                        android:text="+"
+                        android:text="Ver Miembros"
                         android:textColor="#000000"
-                        android:textSize="14sp" />
+                        android:textSize="16sp" />
                 </LinearLayout>
                 <!--Boton solicitud-->
                 <LinearLayout
@@ -205,10 +185,11 @@
 
                     <LinearLayout
                         android:id="@+id/ll_aficiones"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:orientation="vertical"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/ll_genero"
                         app:layout_constraintTop_toBottomOf="@+id/ll_genero">
 
@@ -332,7 +313,7 @@
                         <TextView
                             android:id="@+id/details_tv_descripcion"
                             android:layout_width="match_parent"
-                            android:layout_height="120dp"
+                            android:layout_height="100dp"
                             android:layout_marginTop="8dp"
                             android:layout_marginEnd="16dp"
                             android:fontFamily="sans-serif-light"

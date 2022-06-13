@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TFG_FriendPoint</string>
+    <string name="app_name">FriendPoint</string>
     <string name="home_tittle">Home</string>
     <string name="fp_center_tittle">FP center</string>
     <string name="chats_tittle">chats</string>
@@ -10,10 +10,13 @@
     <string name="search">search</string>
     <string name="page_title">Home</string>
     <string name="explore_title">Explorar</string>
-    <string name="profile_title">Perfil</string>
+    <string name="profile_title">Perfil de usuario</string>
     <string name="home_title">Home</string>
+    <string name="home_subtitle">Aquí aparecerán los Friend points que crees</string>
     <string name="chats_title">Chats</string>
     <string name="update_title">Editar</string>
-    <string name="members_title">Miembros del FriendPoint</string>
+    <string name="members_title">Miembros</string>
+    <string name="fp_request_title">Solicitudes</string>
+    <string name="details_title">Detalles</string>
 
 </resources>

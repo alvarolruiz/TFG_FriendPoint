@@ -32,7 +32,7 @@ class ChatRecyclerAdapter(options: FirestoreRecyclerOptions<ChatModel>) :
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int, model: ChatModel) {
-        holder.nombre.text =  model.nombreFp
+        holder.nombre.text =  model.plan
         Glide.with(holder.view).load(model.photoUrl).into(holder.photo)
 
         holder.view.setOnClickListener {

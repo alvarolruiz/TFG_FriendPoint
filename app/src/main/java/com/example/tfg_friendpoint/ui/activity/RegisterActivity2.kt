@@ -1,7 +1,5 @@
 package com.example.tfg_friendpoint.ui.activity
 
-import android.app.ProgressDialog
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -9,26 +7,20 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.net.toUri
 import com.example.tfg_friendpoint.databinding.ActivityRegister2Binding
 import com.example.tfg_friendpoint.repository.AuthRepository
 import com.example.tfg_friendpoint.repository.UsersRepository
-import com.example.tfg_friendpoint.ui.model.Photo
 import com.example.tfg_friendpoint.ui.model.UserModel
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.FirebaseStorage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
 
 
 class RegisterActivity2 : AppCompatActivity() {
     private lateinit var mBinding: ActivityRegister2Binding
 
-    private var imageUri: Uri? = null
+    private var localImageUri: Uri? = null
     private var externalImageUri: String? = null
     private val pickImage = 100
     private var userData = UserModel()
@@ -43,9 +35,14 @@ class RegisterActivity2 : AppCompatActivity() {
         val view = mBinding.root
         setContentView(view)
         getIntentData()
+        setMessage()
         setupButtons()
 
 
+    }
+
+    private fun setMessage() {
+        mBinding.tvSaludo.text = "Bienvenido ${userData.nickName}!!"
     }
 
     private fun setupButtons() {
@@ -60,7 +57,7 @@ class RegisterActivity2 : AppCompatActivity() {
                 registerAndSaveUserData()
                 showSuccessfulRegisterToast()
                 showAuthActivity()
-            }else{
+            } else {
                 showMissingCredentialsAlert()
             }
         }
@@ -75,10 +72,11 @@ class RegisterActivity2 : AppCompatActivity() {
     private fun registerAndSaveUserData() {
         var authRepo = AuthRepository()
         GlobalScope.launch(Dispatchers.IO) {
-            val userUid: String? = authRepo.registerWithEmailAndPassword(userData.email, getPassword())
+            val userUid: String? =
+                authRepo.registerWithEmailAndPassword(userData.email, getPassword())
             if (!userUid.isNullOrEmpty()) {
                 saveUserData(userUid)
-            }else{
+            } else {
                 showRegisterAlert()
             }
         }
@@ -88,7 +86,7 @@ class RegisterActivity2 : AppCompatActivity() {
         var bundle = intent.extras
         var password = ""
         if (bundle != null) {
-           password = bundle.get("password").toString()
+            password = bundle.get("password").toString()
         }
         Log.e("pswd", password)
         return password
@@ -100,7 +98,7 @@ class RegisterActivity2 : AppCompatActivity() {
             var email = bundle.get("email").toString()
             var fechaNacimiento = bundle.get("fechaNacimiento").toString()
             var nickname = bundle.get("nickname").toString()
-            userData = UserModel(nickname, email, imageUri.toString(), fechaNacimiento)
+            userData = UserModel(nickname, email, localImageUri.toString(), fechaNacimiento)
         }
     }
 
@@ -108,17 +106,20 @@ class RegisterActivity2 : AppCompatActivity() {
     private fun saveUserData(uid: String) {
         //Guarda toda la informacion del usuario
         var userRepo = UsersRepository()
+        var newUri = ""
         GlobalScope.launch(Dispatchers.IO) {
-            userRepo.uploadUserImage(uid, userData.photoUrl.toUri())
+            userRepo.uploadUserImage(uid, localImageUri!!)
+            newUri = userRepo.getUserImage(uid)
             userRepo.saveUserData(uid, userData)
-            userRepo.updateUserImage(uid)
+            userRepo.updateUserImage(uid, newUri)
         }
     }
 
     private fun showSuccessfulRegisterToast() {
         Toast.makeText(
             this,
-            "El registro se ha realizado correctamente. Introduce tus credenciales en el login",
+            "El registro se ha realizado correctamente. " +
+                    "Introduce tus credenciales en el login",
             Toast.LENGTH_SHORT
         ).show()
     }
@@ -147,43 +148,46 @@ class RegisterActivity2 : AppCompatActivity() {
     }
 
     private fun showAuthActivity() {
-        val authActivityIntent = Intent(this, AuthActivity::class.java).apply { }
+        val authActivityIntent = Intent(this, AuthActivity::class.java).apply {
+        }
         startActivity(authActivityIntent)
     }
 
     private fun pickImageGalery() {
         val gallery = Intent()
-        gallery.action = Intent.ACTION_GET_CONTENT
+        gallery.action = Intent.ACTION_OPEN_DOCUMENT
         gallery.type = "image/*"
+        gallery.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
+        gallery.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         startActivityForResult(Intent.createChooser(gallery, "Select Picture"), pickImage);
     }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK && requestCode == pickImage) {
-            imageUri = data?.data
-            val photo = Photo(localUri = imageUri.toString())
-            mBinding.ivCircle.setImageURI(imageUri)
+            localImageUri = data?.data
+            mBinding.ivCircle.setImageURI(localImageUri)
         }
     }
 
-    // El nombre de la imagen guardada es el que hay en el parentesis de child, darle un identificador unico
-    /*fun uploadImage(userUid: String?, localImageUri :Uri?) {
+// El nombre de la imagen guardada es el que hay en el parentesis de child, darle un identificador unico
+/*fun uploadImage(userUid: String?, localImageUri :Uri?) {
 
-        storageRef = FirebaseStorage.getInstance().reference.child("userImages/${userUid!!}")
-        imageUri?.let { uri ->
-            mBinding?.let {
-                storageRef.putFile(uri)
-                    .addOnSuccessListener {
-                        GlobalScope.launch (Dispatchers.IO){
-                            externalImageUri  = it.storage.downloadUrl.addOnSuccessListener { downloadUrl ->
-                                Log.i("URL", downloadUrl.toString())
-                            }.await().path
-                        }
+    storageRef = FirebaseStorage.getInstance().reference.child("userImages/${userUid!!}")
+    imageUri?.let { uri ->
+        mBinding?.let {
+            storageRef.putFile(uri)
+                .addOnSuccessListener {
+                    GlobalScope.launch (Dispatchers.IO){
+                        externalImageUri  = it.storage.downloadUrl.addOnSuccessListener { downloadUrl ->
+                            Log.i("URL", downloadUrl.toString())
+                        }.await().path
                     }
-            }
+                }
         }
-    }*/
+    }
+}*/
 
 
     /**
