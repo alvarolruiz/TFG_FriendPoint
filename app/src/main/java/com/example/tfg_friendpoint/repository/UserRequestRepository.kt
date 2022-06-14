@@ -22,7 +22,6 @@ class UserRequestRepository(val loggedUserUid: String) {
 
     suspend fun isValidSentRequest(userUid: String): Boolean {
         return sentCollection.whereEqualTo("fromUid", userUid)
-            .whereEqualTo("resolved", false)
             .get().await().isEmpty
     }
 

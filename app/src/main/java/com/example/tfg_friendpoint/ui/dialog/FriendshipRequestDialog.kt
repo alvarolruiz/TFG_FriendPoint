@@ -25,6 +25,7 @@ class FriendshipRequestDialog : BottomSheetDialogFragment() {
     private lateinit var authRepo: AuthRepository
     private val args: FriendshipRequestDialogArgs by navArgs()
 
+
     //View elements
     lateinit var etMessage: EditText
     lateinit var okButton: FloatingActionButton
@@ -38,7 +39,7 @@ class FriendshipRequestDialog : BottomSheetDialogFragment() {
         var rootview: View = inflater.inflate(R.layout.dialog_friendship_request, container, false)
         initializeRepositories()
         findViewElements(rootview)
-        setupButtons()
+        setupButtons(rootview)
         return rootview
 
     }
@@ -50,30 +51,41 @@ class FriendshipRequestDialog : BottomSheetDialogFragment() {
         fpRequestRepo = FpRequestRepository(args.friendPointUid)
     }
 
-    private fun setupButtons() {
-        setupOkButton()
+    private fun setupButtons(rootview: View) {
+        setupOkButton(rootview)
         setupCancelButton()
     }
 
-    private fun setupOkButton() {
+    private fun setupOkButton(rootview: View) {
         okButton.setOnClickListener {
-            var request = RequestModel(authRepo.currentUser!!.uid, args.friendPointUid, etMessage.text.toString())
-            sendRequest(request)
+            var request = RequestModel(
+                authRepo.currentUser!!.uid,
+                args.friendPointUid,
+                etMessage.text.toString()
+            )
+            sendRequest(rootview, request)
             dismiss()
         }
     }
 
-    fun sendRequest(request: RequestModel) {
+    fun sendRequest(rootview: View, request: RequestModel) {
         GlobalScope.launch(Dispatchers.IO) {
-            if (userRequestRepo.isValidSentRequest(authRepo.currentUser!!.uid)){
-                var result = userRequestRepo.sendRequestToFp(request)
-                fpRequestRepo.recibeRequestFromUser(result, request)
-            }else{
-                withContext(Dispatchers.Main){
-                    Toast.makeText(context, "Ya has enviado una petición de amistad a este friendpoint." +
-                            "Espera a que sea respondida", Toast.LENGTH_LONG).show()
-                }
+            //if (userRequestRepo.isValidSentRequest(authRepo.currentUser!!.uid)) {
+            var result = userRequestRepo.sendRequestToFp(request)
+            fpRequestRepo.recibeRequestFromUser(result, request)
+            withContext(Dispatchers.Main) {
+                Toast.makeText(
+                    rootview.context, "Petición enviada." +
+                            "Espera a que sea respondida", Toast.LENGTH_LONG
+                ).show()
             }
+            //} else {
+            // withContext(Dispatchers.Main) {
+            //Toast.makeText(rootview.context, "Ya has enviado una petición de amistad a este friendpoint." +
+            // "Espera a que sea respondida", Toast.LENGTH_LONG
+            //).show()
+            //}
+            //}
         }
     }
 

@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
@@ -59,7 +60,7 @@ class UpdateFpInfoFragment : Fragment() {
         mBinding.fpUpdateFbUpdate.setOnClickListener {
             setCurrentFpWithUpdateFields()
             updateFp(args.uid)
-            navigateToHome()
+            navigateToHome(mBinding.root)
         }
     }
 
@@ -89,9 +90,12 @@ class UpdateFpInfoFragment : Fragment() {
 
     }
 
-    private fun navigateToHome() {
+    private fun navigateToHome(it : View) {
+        val action = UpdateFpInfoFragmentDirections.actionUpdateFpInfoToHomeFragment()
+        Navigation.findNavController(it).navigate(action)
     }
 
+    //Not implemented
     private fun setupInviteMembersButton() {
     }
 
